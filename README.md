@@ -8,4 +8,4 @@ After cloning this repo clone the database files:
 cd prompt-generator
 git clone https://github.com/andresfb/promptgendata.git src/storage/app/public/promptgendata
 ```
-**Note:** The above listed git repository is private as the data contained is copyrighted.
+**Note:** The above-listed Git repository is private as it contains copyrighted data..
