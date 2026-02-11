@@ -15,16 +15,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $tone
  * @property string $narrative
  * @property string $period
+ * @property string $content
  * @property bool $active
  * @property int $usages
  * @property string $provider
+ * @property string $prompt
  * @property ?CarbonInterface $deleted_at
  * @property ?CarbonInterface $created_at
  * @property ?CarbonInterface $updated_at
  */
-class GenratedPrompt extends Model
+class GeneratedPrompt extends Model
 {
     use SoftDeletes;
+
+    protected $guarded = [];
 
     protected function casts(): array
     {

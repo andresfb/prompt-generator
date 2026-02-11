@@ -2,7 +2,7 @@
 
 namespace App\Repositories\AI\Services;
 
-use App\Models\GenratedPrompt;
+use App\Models\GeneratedPrompt;
 use App\Models\PromptSetting;
 use App\Repositories\AI\Dtos\PromptSettingItem;
 use App\Repositories\AI\Factories\AiClientFactory;
@@ -11,7 +11,7 @@ use Random\RandomException;
 
 class CreatePromptService
 {
-    public function execute(): GenratedPrompt
+    public function execute(): GeneratedPrompt
     {
         $client = AiClientFactory::getClient();
 
@@ -24,10 +24,11 @@ class CreatePromptService
             ->ask();
 
         $data = $promptItem->toArray();
-        $data['prompt'] = $response->content;
-        $data['provider'] = "";
+        $data['content'] = $response->content;
+        $data['provider'] = $client->getName();
+        $data['prompt'] = $client->getUserPrompt();
 
-        return GenratedPrompt::create($data);
+        return GeneratedPrompt::create($data);
     }
 
     private function buildPrompt(PromptSettingItem $item): string
@@ -38,7 +39,7 @@ class CreatePromptService
             $count = 1;
         }
 
-        $sparks = Config::collection('prompt-generator.prompt_sparks')
+        $sparks = collect(Config::array('prompt-generator.prompt_sparks'))
             ->random($count)
             ->implode(',');
 

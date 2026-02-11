@@ -18,7 +18,8 @@ class AiClientFactory
             throw new RuntimeException('No AI Clients available');
         }
 
-        $client = $clients->random();
+        $clientClass = $clients->random();
+        $client = app($clientClass);
         if (! $client instanceof AiClientInterface) {
             throw new RuntimeException('No AI Client found');
         }

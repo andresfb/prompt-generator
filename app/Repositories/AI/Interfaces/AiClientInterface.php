@@ -14,6 +14,8 @@ interface AiClientInterface
 
     public function setUserPrompt(string $userPrompt): self;
 
+    public function getUserPrompt(): string;
+
     public function setMaxTokens(int $maxTokens): self;
 
     public function setProviderConfig(array $providerConfig): self;
@@ -23,6 +25,8 @@ interface AiClientInterface
     public function setModel(string $model): self;
 
     public function getModel(): string;
+
+    public function getName(): string;
 
     public function ask(): AiChatResponse;
 }

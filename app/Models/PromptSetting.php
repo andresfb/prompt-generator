@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\Cache;
 
 /**
  * @property int $id
+ * @property string $hash
  * @property string $type
  * @property string $value
  */
 class PromptSetting extends Model
 {
     public $timestamps = false;
+
+    protected $guarded = [];
 
     /**
      * typeList Method.

@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('genrated_prompts', static function (Blueprint $table) {
+        Schema::create('generated_prompts', static function (Blueprint $table) {
             $table->id();
             $table->string('genre');
             $table->string('setting');
@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('tone');
             $table->string('narrative');
             $table->string('period');
-            $table->text('prompt');
-            $table->boolean('active');
+            $table->text('content');
+            $table->boolean('active')->default(true);
             $table->unsignedInteger('usages')->default(0);
             $table->text('provider');
+            $table->text('prompt');
             $table->softDeletes();
             $table->timestamps();
 
@@ -30,6 +31,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('genrated_prompts');
+        Schema::dropIfExists('generated_prompts');
     }
 };

@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::create('prompt_settings', static function (Blueprint $table) {
             $table->id();
+            $table->string('hash')->index();
             $table->string('type');
             $table->string('value');
-            $table->boolean('active')
-                ->default(true);
+            $table->boolean('active')->default(true);
 
             $table->index(['type', 'active'], 'type_active_index');
         });

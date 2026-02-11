@@ -35,6 +35,11 @@ class OpenRouterClient implements AiClientInterface
 
     private array $clientOptions = [];
 
+    public function getName(): string
+    {
+        return "OpenRouter";
+    }
+
     public function setCaller(string $caller): AiClientInterface
     {
         $this->caller = $caller;
@@ -69,9 +74,12 @@ class OpenRouterClient implements AiClientInterface
     {
         $this->userPrompt = $userPrompt;
 
-        dd($this->userPrompt);;
-
         return $this;
+    }
+
+    public function getUserPrompt(): string
+    {
+        return $this->userPrompt;
     }
 
     public function setMaxTokens(int $maxTokens): self
