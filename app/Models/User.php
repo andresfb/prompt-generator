@@ -11,12 +11,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
     use Notifiable;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass-assignable.
@@ -51,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         try {
-            self::where('email', Config::string('constants.admin_user'))
+            self::where('email', Config::string('constants.admin_email'))
                 ->firstOrFail()
                 ->notify($notification);
         } catch (Exception $e) {
