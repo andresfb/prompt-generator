@@ -10,4 +10,6 @@ return [
 
     'source_image_based_path' => env('SOURCE_IMAGE_BASED_PATH', ''),
 
+    'prompts_max_usages' => (int) env('PROMPTS_MAX_USAGES', 20)
+
 ];

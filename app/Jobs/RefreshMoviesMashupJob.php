@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Repositories\Search\RandomMoviesService;
+use App\Repositories\Search\RefreshMovieMashupService;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +12,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class RandomMoviesJob implements ShouldQueue
+class RefreshMoviesMashupJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -28,7 +28,7 @@ class RandomMoviesJob implements ShouldQueue
     /**
      * @throws Exception
      */
-    public function handle(RandomMoviesService $service): void
+    public function handle(RefreshMovieMashupService $service): void
     {
         try {
             $service->execute();

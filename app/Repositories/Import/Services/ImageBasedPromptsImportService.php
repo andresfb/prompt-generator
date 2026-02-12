@@ -5,15 +5,16 @@ namespace App\Repositories\Import\Services;
 use App\Libraries\MediaNamesLibrary;
 use App\Models\ImageBasedPrompt;
 use App\Repositories\Import\Interfaces\ImportServiceInterface;
+use App\Traits\Screenable;
 use Exception;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 
-use function Laravel\Prompts\info;
-
 class ImageBasedPromptsImportService implements ImportServiceInterface
 {
+    use Screenable;
+
     private const S3_LOCAL_DISK = 's3-local';
     private const S3_DISK = 's3';
 
@@ -22,12 +23,12 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
      */
     public function import(): void
     {
-        info("Reading files from S3");
+        $this->info("Reading files from S3");
 
         $banded = Config::array('constants.banded_words');
         $this->listS3FilesLazy()
             ->each(function (string $file) use ($banded) {
-                echo '-';
+                $this->character('-');
                 $fileName = pathinfo($file, PATHINFO_FILENAME);
                 $hash = md5($fileName);
                 $content = str($fileName)
@@ -39,7 +40,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
                     ->toString();
 
                 if (ImageBasedPrompt::where('hash', $hash)->exists()) {
-                    echo 'x';
+                    $this->character('x');
                     return;
                 }
 
@@ -52,10 +53,10 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
                     ->preservingOriginal()
                     ->toMediaCollection(MediaNamesLibrary::image(), self::S3_DISK);
 
-                echo '|';
+                $this->character('|');
             });
 
-        echo PHP_EOL;
+        $this->line();
     }
 
     public function getName(): string

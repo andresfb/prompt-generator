@@ -4,12 +4,13 @@ namespace App\Repositories\Import\Services;
 
 use App\Models\PromptSetting;
 use App\Repositories\Import\Interfaces\ImportServiceInterface;
+use App\Traits\Screenable;
 use RuntimeException;
-
-use function Laravel\Prompts\info;
 
 class PromptSettingsImportService implements ImportServiceInterface
 {
+    use Screenable;
+
     public function import(): void
     {
         $dataFile = storage_path("app/public/promptgendata/prompt-settings/settings.csv");
@@ -17,22 +18,22 @@ class PromptSettingsImportService implements ImportServiceInterface
             throw new RuntimeException("{$this->getName()} data not found in $dataFile");
         }
 
-        info("Reading from $dataFile");
+        $this->info("Reading from $dataFile");
 
         $file = fopen($dataFile, 'rb');
         $data = collect();
         while (($row = fgetcsv($file)) !== FALSE) {
             $data->push($row);
-            echo '.';
+            $this->character('.');
         }
         fclose($file);
 
-        echo "\n";
+        $this->line();
         if ($data->isEmpty()) {
             throw new RuntimeException("No records found in $dataFile");
         }
 
-        info("Importing {$data->count()} Prompt Settings");
+        $this->info("Importing {$data->count()} Prompt Settings");
 
         $data->shift();
         $data->each(function (array $row) {
@@ -43,9 +44,10 @@ class PromptSettingsImportService implements ImportServiceInterface
                 'value' => $row[1],
             ]);
 
-            echo '.';
+            $this->character('.');
         });
-        echo "\n\n";
+
+        $this->line(2);
     }
 
     public function getName(): string

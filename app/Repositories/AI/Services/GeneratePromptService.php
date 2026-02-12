@@ -6,29 +6,40 @@ use App\Models\GeneratedPrompt;
 use App\Models\PromptSetting;
 use App\Repositories\AI\Dtos\PromptSettingItem;
 use App\Repositories\AI\Factories\AiClientFactory;
+use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 use Random\RandomException;
 
 class GeneratePromptService
 {
+    use Screenable;
+
     public function execute(): GeneratedPrompt
     {
-        $client = AiClientFactory::getClient();
+        try {
+            $this->info('Starting prompt generation');
 
-        $promptItem = PromptSetting::getRandom();
-        $response = $client->setOrigin('Prompts')
-            ->setCaller('From Random DB Values')
-            ->setUserPrompt(
-                $this->buildPrompt($promptItem)
-            )
-            ->ask();
+            $client = AiClientFactory::getClient();
 
-        $data = $promptItem->toArray();
-        $data['content'] = $response->content;
-        $data['provider'] = $client->getName();
-        $data['prompt'] = $client->getUserPrompt();
+            $this->info("Using {$client->getName()} AI client");
 
-        return GeneratedPrompt::create($data);
+            $promptItem = PromptSetting::getRandom();
+            $response = $client->setOrigin('Prompts')
+                ->setCaller('From Random DB Values')
+                ->setUserPrompt(
+                    $this->buildPrompt($promptItem)
+                )
+                ->ask();
+
+            $data = $promptItem->toArray();
+            $data['content'] = $response->content;
+            $data['provider'] = $client->getName();
+            $data['prompt'] = $client->getUserPrompt();
+
+            return GeneratedPrompt::create($data);
+        } finally {
+            $this->info('Finished prompt generation');
+        }
     }
 
     private function buildPrompt(PromptSettingItem $item): string

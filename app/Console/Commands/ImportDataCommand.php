@@ -15,6 +15,9 @@ use function Laravel\Prompts\warning;
 
 class ImportDataCommand extends Command
 {
+    // TODO: implement Amazing Story Generator importer
+    // TODO: add Pint, LaraStan, Rector, and ran them
+
     protected $signature = 'import:data
                             {--a|al : Import All data sets}
                             {--b|ts : Import data from Prompt Settings}
@@ -78,11 +81,11 @@ class ImportDataCommand extends Command
     private function import(string $code): void
     {
         $this->newLine();
-
         $importer = ImportServiceFactory::getService($code);
-        warning("Importing {$importer->getName()}");
-        $importer->import();
 
+        warning("Importing {$importer->getName()}");
+
+        $importer->setToScreen(true)->import();
         $this->newLine();
     }
 }

@@ -19,7 +19,7 @@ class GenerateMovieMashupPromptJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private readonly int $mashupId)
+    public function __construct()
     {
         $this->queue = 'ai-generator';
         $this->delay = now()->addSeconds(5);
@@ -31,7 +31,7 @@ class GenerateMovieMashupPromptJob implements ShouldQueue
     public function handle(GenerateMovieMashupPromptService $service): void
     {
         try {
-            $service->execute($this->mashupId);
+            $service->execute();
         } catch (MaxAttemptsExceededException $e) {
             Log::error($e->getMessage());
         } catch (Exception $e) {

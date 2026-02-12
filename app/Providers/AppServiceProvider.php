@@ -6,7 +6,9 @@ use App\DataStructures\HashTable;
 use App\Repositories\AI\Clients\AnthropicClient;
 use App\Repositories\AI\Clients\OpenAiClient;
 use App\Repositories\AI\Clients\OpenRouterClient;
+use App\Repositories\Import\Services\BookOfMatchesImportService;
 use App\Repositories\Import\Services\ImageBasedPromptsImportService;
+use App\Repositories\Import\Services\PlotMachineImportService;
 use App\Repositories\Import\Services\PromptSettingsImportService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
@@ -29,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->resolving('importers', function (HashTable $services): void {
             $services->insert('ts', PromptSettingsImportService::class);
             $services->insert('ib', ImageBasedPromptsImportService::class);
+            $services->insert('bm', BookOfMatchesImportService::class);
+            $services->insert('pm', PlotMachineImportService::class);
         });
     }
 

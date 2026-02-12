@@ -3,11 +3,11 @@
 namespace App\Repositories\Search;
 
 use App\Jobs\AddMovieMashupImageJob;
-use App\Jobs\GenerateMovieMashupPromptJob;
-use App\Jobs\RandomMoviesJob;
+use App\Jobs\RefreshMoviesMashupJob;
 use App\Models\MovieInfo;
 use App\Models\MovieMashupItem;
 use App\Models\MovieMashupPrompt;
+use App\Traits\Screenable;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
@@ -18,13 +18,10 @@ use Meilisearch\Contracts\DocumentsQuery;
 use RuntimeException;
 use Throwable;
 
-use function Laravel\Prompts\error;
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\warning;
-
-// TODO: add a Screenable trait to display the messages when the service is run in the CLI. Otherwise send it to the Log.
-class RandomMoviesService
+class RefreshMovieMashupService
 {
+    use Screenable;
+
     private int $maxMovies;
 
     private int $maxChunks = 500;
@@ -40,18 +37,15 @@ class RandomMoviesService
     {
         $items = $this->getMovies();
 
-        info('Creating Prompt records');
+        $this->info('Creating Prompt records');
 
-        [$saved, $promptId] = $this->savePrompt($items);
-
-        if (! $saved) {
-            warning('No Movie Mashup Prompts Saved');
-            RandomMoviesJob::dispatch();
-
+        $saved = $this->savePrompt($items);
+        if ($saved) {
             return;
         }
 
-        GenerateMovieMashupPromptJob::dispatch($promptId);
+        $this->warning('No Movie Mashup Prompts Saved. Re-queuing the job');
+        RefreshMoviesMashupJob::dispatch();
     }
 
     private function getMovies(): array
@@ -60,7 +54,7 @@ class RandomMoviesService
 
         $maxUsages = Config::integer('movie-mashups.max_mashup_movie_usages');
         $data = MovieInfo::query()
-            ->where('usages', '<', $maxUsages)
+            ->where('usages', '<=', $maxUsages)
             ->inRandomOrder()
             ->limit($this->maxMovies * $maxUsages)
             ->get();
@@ -91,7 +85,7 @@ class RandomMoviesService
             return;
         }
 
-        info('Saving movies');
+        $this->info('Saving movies');
 
         $movies->chunk($this->maxChunks)
             ->each(function (Collection $chunk) {
@@ -102,11 +96,11 @@ class RandomMoviesService
                         'content' => $movie,
                     ]);
 
-                    echo '.';
+                    $this->character('.');
                 });
             });
 
-        echo PHP_EOL . PHP_EOL;
+        $this->line(2);
     }
 
     private function loadMovies(): Collection
@@ -127,7 +121,7 @@ class RandomMoviesService
             $total = $stats['numberOfDocuments'];
 
             if ($total === MovieInfo::count()) {
-                warning(sprintf("%sNo movie refresh needed.%s", PHP_EOL, PHP_EOL));
+                $this->warning(sprintf("%sNo movie refresh needed.%s", PHP_EOL, PHP_EOL));
 
                 return collect();
             }
@@ -147,10 +141,10 @@ class RandomMoviesService
                 $allDocuments = $allDocuments->merge($documents);
                 $offset += $limit;
 
-                echo '.';
+                $this->character('.');
             } while (count($documents) === $limit);
 
-            echo PHP_EOL . PHP_EOL;
+            $this->line(2);
 
             return $allDocuments;
         } catch (Exception $e) {
@@ -160,7 +154,7 @@ class RandomMoviesService
         }
     }
 
-    private function savePrompt(array $items): array
+    private function savePrompt(array $items): bool
     {
         $promptId = 0;
         $saved = false;
@@ -218,7 +212,7 @@ class RandomMoviesService
 
                 $saved = true;
             } catch (Throwable $e) {
-                error($e->getMessage());
+                $this->error($e->getMessage());
             }
 
             if ($saved) {
@@ -226,6 +220,6 @@ class RandomMoviesService
             }
         }
 
-        return [$saved, $promptId];
+        return $saved;
     }
 }

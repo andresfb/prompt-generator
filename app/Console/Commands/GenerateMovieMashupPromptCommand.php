@@ -24,34 +24,16 @@ class GenerateMovieMashupPromptCommand extends Command
             clear();
             intro('Generating a Movie Mashup Prompt');
 
-            $mashup = MovieMashupPrompt::query()
-                ->where('generated', false)
-                ->firstOrFail();
+            $promptId = $service->setToScreen(true)->execute();
 
-            $prompt = $service->execute($mashup->id);
-            $response = $prompt->toArray();
-
-            $skipFields = [
-                'id',
-                'hash',
-                'active',
-                'generated',
-                'prompt',
-                'updated_at',
-                'created_at',
-            ];
-
-            foreach ($response as $key => $item) {
-                if (in_array($key, $skipFields, true)) {
-                    continue;
-                }
-
-                $this->line(sprintf(
-                    "%s:  %s",
-                    ucwords($key),
-                    $item
-                ));
+            if ($promptId === 0) {
+                return;
             }
+
+            $prompt = MovieMashupPrompt::findOrFail($promptId);
+
+            /** @noinspection ForgottenDebugOutputInspection */
+            dump($prompt);
 
             $this->newLine();
         } catch (Exception $e) {

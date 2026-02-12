@@ -7,4 +7,6 @@ interface ImportServiceInterface
     public function import(): void;
 
     public function getName(): string;
+
+    public function setToScreen(bool $toScreen): self;
 }

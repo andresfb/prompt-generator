@@ -4,35 +4,51 @@ namespace App\Repositories\AI\Services;
 
 use App\Models\MovieMashupPrompt;
 use App\Repositories\AI\Factories\AiClientFactory;
+use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
 class GenerateMovieMashupPromptService
 {
-    public function execute(int $mashupId): MovieMashupPrompt
+    use Screenable;
+
+    public function execute(): int
     {
-        $mashup = MovieMashupPrompt::query()
-            ->with('items')
-            ->where('id', $mashupId)
-            ->firstOrFail();
+        try {
+            $this->info('Starting movie mashup prompt generation');
 
-        $client = AiClientFactory::getClient();
+            $mashup = MovieMashupPrompt::query()
+                ->with('items')
+                ->where('generated', false)
+                ->oldest()
+                ->first();
 
-        \Laravel\Prompts\info("Using {$client->getName()} AI client");
+            if ($mashup === null) {
+                $this->error('No pending Movie Mashups found');
 
-        $response = $client->setOrigin('Movie Mashups Prompts')
-            ->setCaller('From Random Emby Movies')
-            ->setUserPrompt(
-                $this->buildPrompt($mashup)
-            )
-            ->ask();
+                return 0;
+            }
 
-        $mashup->generated = true;
-        $mashup->content = $response->content;
-        $mashup->provider = $client->getName();
-        $mashup->prompt = $client->getUserPrompt();
-        $mashup->save();
+            $client = AiClientFactory::getClient();
 
-        return $mashup->fresh();
+            $this->info("Using {$client->getName()} AI client");
+
+            $response = $client->setOrigin('Movie Mashups Prompts')
+                ->setCaller('From Random Emby Movies')
+                ->setUserPrompt(
+                    $this->buildPrompt($mashup)
+                )
+                ->ask();
+
+            $mashup->generated = true;
+            $mashup->content = $response->content;
+            $mashup->provider = $client->getName();
+            $mashup->prompt = $client->getUserPrompt();
+            $mashup->save();
+
+            return $mashup->fresh()->id;
+        } finally {
+            $this->info('Finished movie mashup prompt generation');
+        }
     }
 
     private function buildPrompt(MovieMashupPrompt $mashup): string

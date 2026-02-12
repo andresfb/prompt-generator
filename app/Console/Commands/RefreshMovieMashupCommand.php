@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\Search\RefreshMovieMashupService;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -10,18 +11,20 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class TestAppCommand extends Command
+class RefreshMovieMashupCommand extends Command
 {
-    protected $signature = 'test:app';
+    protected $signature = 'refresh:mashup';
 
-    protected $description = 'Command to run random tests';
+    protected $description = 'Refresh the Movie Mashup database';
 
-    public function handle(): void
+    public function handle(RefreshMovieMashupService $service): void
     {
         try {
             clear();
-            intro('Running tests');
+            intro('Refreshing Movie Mashup database');
 
+            $service->setToScreen(true)
+                ->execute();
         } catch (Exception $e) {
             error($e->getMessage());
         } finally {
