@@ -8,8 +8,6 @@ return [
 
     'banded_words' => explode(',', (string) env('BANDED_WORDS')),
 
-    'max_mashup_movies' => (int) env('MAX_MASHUP_MOVIES', 4),
-
-    'max_mashup_movie_usages' => (int) env('MAX_MASHUP_MOVIE_USAGES', 15),
+    'source_image_based_path' => env('SOURCE_IMAGE_BASED_PATH', ''),
 
 ];

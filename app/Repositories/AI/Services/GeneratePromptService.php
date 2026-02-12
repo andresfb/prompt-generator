@@ -9,14 +9,14 @@ use App\Repositories\AI\Factories\AiClientFactory;
 use Illuminate\Support\Facades\Config;
 use Random\RandomException;
 
-class CreatePromptService
+class GeneratePromptService
 {
     public function execute(): GeneratedPrompt
     {
         $client = AiClientFactory::getClient();
 
         $promptItem = PromptSetting::getRandom();
-        $response = $client->setOrigin('Create Prompts')
+        $response = $client->setOrigin('Prompts')
             ->setCaller('From Random DB Values')
             ->setUserPrompt(
                 $this->buildPrompt($promptItem)

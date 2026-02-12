@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Repositories\AI\Services\CreatePromptService;
+use App\Repositories\AI\Services\GeneratePromptService;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -11,13 +11,13 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class CreatePromptCommand extends Command
+class GeneratePromptCommand extends Command
 {
-    protected $signature = 'create:prompt';
+    protected $signature = 'generate:prompt';
 
-    protected $description = 'Creates and saves a Creative Writing Prompt using AI';
+    protected $description = 'Generates Creative Writing Prompt using AI';
 
-    public function handle(CreatePromptService $service): void
+    public function handle(GeneratePromptService $service): void
     {
         try {
             clear();

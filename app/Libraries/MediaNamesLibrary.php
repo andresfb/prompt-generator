@@ -6,29 +6,9 @@ namespace App\Libraries;
 
 final readonly class MediaNamesLibrary
 {
-    public static function videos(): string
+    public static function thumbnail(): string
     {
-        return 'videos';
-    }
-
-    public static function transcoded(): string
-    {
-        return 'transcoded';
-    }
-
-    public static function downscaled(): string
-    {
-        return 'downscaled';
-    }
-
-    public static function previews(): string
-    {
-        return 'previews';
-    }
-
-    public static function thumbnails(): string
-    {
-        return 'thumbnails';
+        return 'thumbnail';
     }
 
     public static function image(): string
@@ -39,11 +19,7 @@ final readonly class MediaNamesLibrary
     public static function all(): array
     {
         return [
-            self::videos(),
-            self::transcoded(),
-            self::downscaled(),
-            self::previews(),
-            self::thumbnails(),
+            self::thumbnail(),
             self::image(),
         ];
     }

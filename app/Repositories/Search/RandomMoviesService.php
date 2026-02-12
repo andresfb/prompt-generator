@@ -2,6 +2,9 @@
 
 namespace App\Repositories\Search;
 
+use App\Jobs\AddMovieMashupImageJob;
+use App\Jobs\GenerateMovieMashupPromptJob;
+use App\Jobs\RandomMoviesJob;
 use App\Models\MovieInfo;
 use App\Models\MovieMashupItem;
 use App\Models\MovieMashupPrompt;
@@ -28,7 +31,9 @@ class RandomMoviesService
 
     public function __construct()
     {
-        $this->maxMovies = Config::integer('constants.max_mashup_movies');
+        $this->maxMovies = count(
+            Config::array('movie-mashups.mashup_settings')
+        );
     }
 
     public function execute(): void
@@ -40,24 +45,24 @@ class RandomMoviesService
         [$saved, $promptId] = $this->savePrompt($items);
 
         if (! $saved) {
-            // todo: redispatch the job that calls this service
-
             warning('No Movie Mashup Prompts Saved');
+            RandomMoviesJob::dispatch();
 
             return;
         }
 
-        // todo: dispatch the job to generate the AI summary for this new prompt
+        GenerateMovieMashupPromptJob::dispatch($promptId);
     }
 
     private function getMovies(): array
     {
         $this->refreshMovies();
 
+        $maxUsages = Config::integer('movie-mashups.max_mashup_movie_usages');
         $data = MovieInfo::query()
-            ->where('usages', '<', Config::integer('constants.max_mashup_movie_usages'))
+            ->where('usages', '<', $maxUsages)
             ->inRandomOrder()
-            ->limit(40)
+            ->limit($this->maxMovies * $maxUsages)
             ->get();
 
         if ($data->isEmpty()) {
@@ -173,8 +178,20 @@ class RandomMoviesService
 
                     $promptId = $prompt->id;
                     foreach ($movies as $movie) {
-                        $imageTags = $movie['content']['ImageTags'] ?? [];
-                        $image = array_shift($imageTags);
+                        $image = '';
+                        $imageType = '';
+
+                        $imageTags = $movie['content']['ImageTags'] ?? ['' => ''];
+                        foreach ($imageTags as $type => $imageTag) {
+                            if ($type !== 'Primary') {
+                                continue;
+                            }
+
+                            $imageType = $type;
+                            $image = $imageTag;
+
+                            break;
+                        }
 
                         $item = MovieMashupItem::create([
                             'movie_mashup_prompt_id' => $promptId,
@@ -184,6 +201,7 @@ class RandomMoviesService
                             'year' => $movie['content']['ProductionYear'] ?? null,
                             'overview' => $movie['content']['Overview'] ?? null,
                             'genres' => $movie['content']['Genres'] ?? null,
+                            'image_type' => $imageType,
                             'image_tag' => $image ?: null,
                         ]);
 
@@ -191,7 +209,10 @@ class RandomMoviesService
                             continue;
                         }
 
-                        // todo: dispatch a job to add the image to the Medial Library
+                        MovieInfo::where('movie_id', $movie['id'])
+                            ->increment('usages');
+
+                        AddMovieMashupImageJob::dispatch($item->id);
                     }
                 });
 

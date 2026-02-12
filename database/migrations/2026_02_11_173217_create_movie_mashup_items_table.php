@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('movie_id');
             $table->string('title');
             $table->string('year')->nullable();
+            $table->string('image_type')->nullable();
             $table->string('image_tag')->nullable();
             $table->text('overview')->nullable();
             $table->json('genres')->nullable();

@@ -34,6 +34,8 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
                     ->replace($banded, '', false)
                     ->replace('  ', ' ')
                     ->trim()
+                    ->ltrim('-')
+                    ->trim()
                     ->toString();
 
                 if (ImageBasedPrompt::where('hash', $hash)->exists()) {
@@ -47,6 +49,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
                 ]);
 
                 $record->addMediaFromDisk($file, self::S3_LOCAL_DISK)
+                    ->preservingOriginal()
                     ->toMediaCollection(MediaNamesLibrary::image(), self::S3_DISK);
 
                 echo '|';
@@ -70,7 +73,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
         ));
 
         return LazyCollection::make(static function () use ($s3, $bucket) {
-            $path = 'image-based';
+            $path = Config::string('constants.source_image_based_path');
             $paginator = $s3->getPaginator('ListObjectsV2', [
                 'Bucket' => $bucket,
                 'Prefix' => $path,

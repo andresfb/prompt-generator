@@ -15,6 +15,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property string $movie_id
  * @property string $title
  * @property ?string $year
+ * @property ?string $image_type
  * @property ?string $image_tag
  * @property ?string $overview
  * @property ?array $genres
@@ -38,7 +39,7 @@ class MovieMashupItem extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection(MediaNamesLibrary::thumbnails())
+        $this->addMediaCollection(MediaNamesLibrary::thumbnail())
             ->withResponsiveImages()
             ->acceptsMimeTypes([
                 'image/jpeg',

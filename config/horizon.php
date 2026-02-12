@@ -232,6 +232,28 @@ return [
                 'tries' => 1,
             ],
 
+            'media-supervisor' => [
+                'connection' => 'redis',
+                'queue' => ['media'],
+                'autoScalingStrategy' => 'size',
+                'balance' => 'auto',
+                'minProcesses' => 1,
+                'maxProcesses' => 4,
+                'timeout' => 300, // 5 Minutes
+                'tries' => 1,
+            ],
+
+            'worker-supervisor' => [
+                'connection' => 'redis',
+                'queue' => ['worker'],
+                'autoScalingStrategy' => 'size',
+                'balance' => 'auto',
+                'minProcesses' => 1,
+                'maxProcesses' => 5,
+                'timeout' => 600, // 10 Minutes
+                'tries' => 1,
+            ],
+
         ],
 
         'local' => [
@@ -256,6 +278,14 @@ return [
             'ai-generator-supervisor' => [
                 'connection' => 'redis',
                 'queue' => ['ai-generator'],
+                'autoScalingStrategy' => 'size',
+                'balance' => 'auto',
+                'tries' => 1,
+            ],
+
+            'media-supervisor' => [
+                'connection' => 'redis',
+                'queue' => ['media'],
                 'autoScalingStrategy' => 'size',
                 'balance' => 'auto',
                 'tries' => 1,

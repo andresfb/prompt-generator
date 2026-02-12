@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Repositories\AI\Services\CreatePromptService;
+use App\Repositories\AI\Services\GenerateMovieMashupPromptService;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,14 +12,14 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class CreatePromptJob implements ShouldQueue
+class GenerateMovieMashupPromptJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
 
-    public function __construct()
+    public function __construct(private readonly int $mashupId)
     {
         $this->queue = 'ai-generator';
         $this->delay = now()->addSeconds(5);
@@ -28,13 +28,13 @@ class CreatePromptJob implements ShouldQueue
     /**
      * @throws Exception
      */
-    public function handle(CreatePromptService $service): void
+    public function handle(GenerateMovieMashupPromptService $service): void
     {
         try {
-            $service->execute();
+            $service->execute($this->mashupId);
         } catch (MaxAttemptsExceededException $e) {
             Log::error($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
 
             throw $e;

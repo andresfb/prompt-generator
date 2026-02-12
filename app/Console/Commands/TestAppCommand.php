@@ -15,7 +15,7 @@ class TestAppCommand extends Command
 {
     protected $signature = 'test:app';
 
-    protected $description = 'Command to do random tests';
+    protected $description = 'Command to run random tests';
 
     public function handle(): void
     {
@@ -25,7 +25,6 @@ class TestAppCommand extends Command
 
             $srv = app(RandomMoviesService::class);
             $srv->execute();
-
         } catch (Exception $e) {
             error($e->getMessage());
         } finally {
