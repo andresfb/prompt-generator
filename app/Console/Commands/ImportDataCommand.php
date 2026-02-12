@@ -17,15 +17,16 @@ class ImportDataCommand extends Command
 {
     protected $signature = 'import:data
                             {--a|al : Import All data sets}
-                            {--t|ts : Import data from Prompt Settings}
-                            {--b|bm : Import data from Book of Matches}
-                            {--p|pm : Import data from Plot Machine}
-                            {--s|sm : Import data from Story Machine}
-                            {--m|mp : Import data from 20 Master Plots}
+                            {--b|ts : Import data from Prompt Settings}
+                            {--c|bm : Import data from Book of Matches}
+                            {--d|pm : Import data from Plot Machine}
+                            {--e|sm : Import data from Story Machine}
+                            {--f|mp : Import data from 20 Master Plots}
                             {--g|ag : Import data from Amazing Story Generator}
-                            {--u|ua : Import data from Pulp Adventure Generator}
-                            {--f|hf : Import data from Huggingface prompts}
-                            {--l|ls : Import data from Novel Starter}';
+                            {--i|ua : Import data from Pulp Adventure Generator}
+                            {--j|hf : Import data from Huggingface prompts}
+                            {--k|ls : Import data from Novel Starter}
+                            {--l|ib : Import data from Image Based prompts}';
 
     protected $description = 'Imports all Prompt data from the repo';
 

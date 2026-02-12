@@ -3,23 +3,24 @@
 namespace App\Repositories\AI\Clients;
 
 use Illuminate\Support\Facades\Config;
+use Prism\Prism\Enums\Provider;
 use Prism\Prism\Enums\Provider as ProviderEnum;
 
-class OpenRouterClient extends BaseAiClient
+class AnthropicClient extends BaseAiClient
 {
     public function __construct()
     {
-        $this->model = Config::string('openrouter.model');
-        $this->maxTokens = Config::integer('openrouter.max_tokens');
+        $this->model = Config::string('anthropic.model');
+        $this->maxTokens = Config::integer('anthropic.max_tokens');
     }
 
     public function getName(): string
     {
-        return "OpenRouter";
+        return 'Anthropic';
     }
 
     public function getProvider(): string|ProviderEnum
     {
-        return ProviderEnum::OpenRouter;
+        return Provider::Anthropic;
     }
 }

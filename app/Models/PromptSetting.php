@@ -17,7 +17,7 @@ class PromptSetting extends Model
 {
     public $timestamps = false;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     /**
      * typeList Method.

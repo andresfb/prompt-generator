@@ -18,7 +18,7 @@ return [
             'api_key' => env('ANTHROPIC_API_KEY', ''),
             'version' => env('ANTHROPIC_API_VERSION', '2023-06-01'),
             'url' => env('ANTHROPIC_URL', 'https://api.anthropic.com/v1'),
-            'default_thinking_budget' => env('ANTHROPIC_DEFAULT_THINKING_BUDGET', 1024),
+            'default_thinking_budget' => env('ANTHROPIC_MAX_TOKENS', 1024),
             // Include beta strings as a comma separated list.
             'anthropic_beta' => env('ANTHROPIC_BETA', null),
         ],
