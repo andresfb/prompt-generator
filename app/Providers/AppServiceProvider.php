@@ -24,14 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('ai-clients', fn ($app) => collect());
+        $this->app->bind('ai-clients', fn ($app): Collection => collect());
         $this->app->resolving('ai-clients', function (Collection $clients): void {
             $clients->push(OpenRouterClient::class);
             $clients->push(OpenAiClient::class);
             $clients->push(AnthropicClient::class);
         });
 
-        $this->app->bind('importers', fn ($app) => new HashTable);
+        $this->app->bind('importers', fn ($app): HashTable => new HashTable);
         $this->app->resolving('importers', function (HashTable $services): void {
             $services->insert('ps', PromptSettingsImportService::class);
             $services->insert('bm', BookOfMatchesImportService::class);

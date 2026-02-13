@@ -7,15 +7,12 @@ use Traversable;
 
 class HashTable implements IteratorAggregate
 {
-    protected int $size;
-
     protected array $buckets;
 
-    public function __construct(int $size = 20)
+    public function __construct(protected int $size = 20)
     {
-        $this->size = $size;
         // Initialize buckets to hold arrays for separate chaining
-        $this->buckets = array_fill(0, $size, []);
+        $this->buckets = array_fill(0, $this->size, []);
     }
 
     public function insert(string $key, $value): void

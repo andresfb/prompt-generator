@@ -15,11 +15,13 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/horizon (HORIZON) - v5
 - laravel/prompts (PROMPTS) - v0
 - laravel/sanctum (SANCTUM) - v4
+- larastan/larastan (LARASTAN) - v3
 - laravel/mcp (MCP) - v0
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1
 - pestphp/pest (PEST) - v4
 - phpunit/phpunit (PHPUNIT) - v12
+- rector/rector (RECTOR) - v2
 - tailwindcss (TAILWINDCSS) - v4
 
 ## Skills Activation

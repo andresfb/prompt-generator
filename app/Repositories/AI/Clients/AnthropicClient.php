@@ -3,7 +3,6 @@
 namespace App\Repositories\AI\Clients;
 
 use Illuminate\Support\Facades\Config;
-use Prism\Prism\Enums\Provider;
 use Prism\Prism\Enums\Provider as ProviderEnum;
 
 class AnthropicClient extends BaseAiClient
@@ -21,6 +20,6 @@ class AnthropicClient extends BaseAiClient
 
     public function getProvider(): string|ProviderEnum
     {
-        return Provider::Anthropic;
+        return ProviderEnum::Anthropic;
     }
 }

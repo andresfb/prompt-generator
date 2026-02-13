@@ -50,10 +50,13 @@ class ImportDataCommand extends Command
             }
 
             foreach ($this->options() as $option => $present) {
-                if (! $present || $option === 'al') {
+                if (! $present) {
                     continue;
                 }
 
+                if ($option === 'al') {
+                    continue;
+                }
                 $this->import($option);
             }
         } catch (Exception $e) {
