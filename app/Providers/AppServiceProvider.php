@@ -9,6 +9,7 @@ use App\Repositories\AI\Clients\AnthropicClient;
 use App\Repositories\AI\Clients\OpenAiClient;
 use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
+use App\Repositories\Import\Services\HuggingFaceImportService;
 use App\Repositories\Import\Services\ImageBasedPromptsImportService;
 use App\Repositories\Import\Services\NovelStarterImportService;
 use App\Repositories\Import\Services\PlotMachineImportService;
@@ -41,6 +42,7 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('sm', StoryMachineImportService::class);
             $services->insert('ag', StoryGeneratorImportService::class);
             $services->insert('pa', PulpAdventureImportService::class);
+            $services->insert('hf', HuggingFaceImportService::class);
             $services->insert('ns', NovelStarterImportService::class);
             $services->insert('ib', ImageBasedPromptsImportService::class);
         });
