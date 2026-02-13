@@ -5,18 +5,15 @@ declare(strict_types=1);
 namespace App\Repositories\Import\Services;
 
 use App\Libraries\MediaNamesLibrary;
-use App\Models\ImageBasedPrompt;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\ImageBasedPrompt;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Exception;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 
-final class ImageBasedPromptsImportService implements ImportServiceInterface
+final class ImageBasedPromptsImportService extends BaseImporterService
 {
-    use Screenable;
-
     private const S3_LOCAL_DISK = 's3-local';
 
     private const S3_DISK = 's3';
@@ -24,7 +21,7 @@ final class ImageBasedPromptsImportService implements ImportServiceInterface
     /**
      * @throws Exception
      */
-    public function import(): void
+    public function execute(): void
     {
         $this->info('Reading files from S3');
 
@@ -65,7 +62,7 @@ final class ImageBasedPromptsImportService implements ImportServiceInterface
 
     public function getName(): string
     {
-        return 'Import Image Based Prompts';
+        return 'Image Based Prompts';
     }
 
     private function listS3FilesLazy(): LazyCollection

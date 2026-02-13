@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Jobs;
 
 use App\Libraries\MediaNamesLibrary;
-use App\Models\Prompter\MovieMashupItem;
+use App\Models\Prompter\NewsArticlePrompt;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,21 +11,19 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-use RuntimeException;
 
-final class AddMovieMashupImageJob implements ShouldQueue
+class AddNewsPromptImageJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private readonly int $movieId)
+    public function __construct(private readonly int $newsId)
     {
         $this->queue = 'media';
-        $this->delay = now()->addSeconds(5);
+        $this->delay = now()->addSeconds(10);
     }
 
     /**
@@ -36,22 +32,11 @@ final class AddMovieMashupImageJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $movie = MovieMashupItem::query()
-                ->where('id', $this->movieId)
+            $news = NewsArticlePrompt::query()
+                ->where('id', $this->newsId)
                 ->firstOrFail();
 
-            if (blank($movie->image_tag)) {
-                throw new RuntimeException("Movie Item $movie->id | $movie->title doesn't have image tag");
-            }
-
-            $imgUrl = sprintf(
-                Config::string('emby.image_url'),
-                $movie->movie_id,
-                $movie->image_type,
-                $movie->image_tag
-            );
-
-            $movie->addMediaFromUrl($imgUrl)
+            $news->addMediaFromUrl($news->thumbnail)
                 ->toMediaCollection(MediaNamesLibrary::thumbnail());
         } catch (MaxAttemptsExceededException $e) {
             Log::error($e->getMessage());

@@ -14,6 +14,9 @@ return new class extends Migration
             $table->id();
             $table->string('code', 4)->index();
             $table->string('name');
+            $table->boolean('active')
+                ->default(true)
+                ->index();
             $table->unsignedSmallInteger('order');
         });
     }

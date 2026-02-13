@@ -14,4 +14,8 @@ return [
 
     'prompts_max_usages' => (int) env('PROMPTS_MAX_USAGES', 20),
 
+    'disabled_importers' => explode(',', (string) env('DISABLED_IMPORTERS')),
+
+    'disabled_prompters' => explode(',', (string) env('DISABLED_PROMPTERS')),
+
 ];

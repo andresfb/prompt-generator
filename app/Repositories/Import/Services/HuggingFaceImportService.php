@@ -2,17 +2,14 @@
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\HuggingFacePrompt;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\HuggingFacePrompt;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class HuggingFaceImportService implements ImportServiceInterface
+class HuggingFaceImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
         $dataFile = storage_path('app/public/promptgendata/huggingface/prompts.txt');
         if (! file_exists($dataFile)) {
@@ -116,6 +113,6 @@ class HuggingFaceImportService implements ImportServiceInterface
 
     public function getName(): string
     {
-        return 'Import Hugging Face Prompts';
+        return 'Hugging Face Prompts';
     }
 }

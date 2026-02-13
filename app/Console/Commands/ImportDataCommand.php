@@ -17,8 +17,7 @@ use function Laravel\Prompts\warning;
 
 final class ImportDataCommand extends Command
 {
-    // TODO: add Pint, LaraStan, Rector, and ran them
-    // TODO: implement Huggingface, First/Last Lines, Modifiers imports
+    // TODO: implement Boogie Prompts, and APIs importers
 
     protected $signature = 'import:data
                             {--a|al : Import All data sets}
@@ -30,7 +29,9 @@ final class ImportDataCommand extends Command
                             {--g|pa : Import data from Pulp Adventure Generator}
                             {--i|hf : Import data from Huggingface prompts}
                             {--j|ns : Import data from Novel Starter}
-                            {--k|ib : Import data from Image Based prompts}';
+                            {--k|fl : Import data from First/Last Lines}
+                            {--l|mf : Import data from Modifiers}
+                            {--m|ib : Import data from Image Based prompts}';
 
     protected $description = 'Imports all Prompt data from the repo';
 

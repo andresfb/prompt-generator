@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\StoryMachineItem;
-use App\Models\StoryMachineSection;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\StoryMachineItem;
+use App\Models\Prompter\StoryMachineSection;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-final class StoryMachineImportService implements ImportServiceInterface
+final class StoryMachineImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
-        $this->info('Importing Story Machine Prompts');
-
         $basePath = storage_path('app/public/promptgendata/story-machine');
         $files = [
             'Conflicts' => [
@@ -83,11 +78,11 @@ final class StoryMachineImportService implements ImportServiceInterface
         }
 
         $this->line(2);
-        $this->info('Done');
+        $this->info('--');
     }
 
     public function getName(): string
     {
-        return 'Import Story Machine Prompts';
+        return 'Story Machine Prompts';
     }
 }

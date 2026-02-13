@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Prompter;
 
 use App\Repositories\AI\Dtos\PromptSettingItem;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Cache;
  * @property string $hash
  * @property string $type
  * @property string $value
+ * @property bool $active
  */
 final class PromptSetting extends Model
 {

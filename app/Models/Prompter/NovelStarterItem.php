@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +15,7 @@ use RuntimeException;
  * @property bool $active
  * @property int $usages
  */
-final class PlotMachineItem extends Model
+final class NovelStarterItem extends Model
 {
     public $timestamps = false;
 
@@ -24,7 +24,7 @@ final class PlotMachineItem extends Model
     public static function getRandom(): string
     {
         $prompt = '';
-        $sections = PlotMachineSection::orderBy('order')->get();
+        $sections = NovelStarterSection::orderBy('order')->get();
 
         foreach ($sections as $section) {
             $text = self::getPromptText($section);
@@ -36,7 +36,7 @@ final class PlotMachineItem extends Model
 
     public function section(): BelongsTo
     {
-        return $this->belongsTo(PlotMachineSection::class);
+        return $this->belongsTo(NovelStarterSection::class);
     }
 
     protected function casts(): array
@@ -46,7 +46,7 @@ final class PlotMachineItem extends Model
         ];
     }
 
-    private static function getPromptText(PlotMachineSection $section): string
+    private static function getPromptText(NovelStarterSection $section): string
     {
         $runs = 0;
         $maxRuns = Config::integer('constants.prompts_max_usages');
@@ -57,7 +57,7 @@ final class PlotMachineItem extends Model
                 throw new RuntimeException('Maximum number of runs reached');
             }
 
-            $text = self::where('plot_machine_section_id', $section->id)
+            $text = self::where('novel_starter_section_id', $section->id)
                 ->where('active', true)
                 ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
                 ->inRandomOrder()

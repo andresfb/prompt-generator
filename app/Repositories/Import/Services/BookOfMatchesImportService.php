@@ -4,20 +4,15 @@ declare(strict_types=1);
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\BookOfMatches;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\BookOfMatches;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-final class BookOfMatchesImportService implements ImportServiceInterface
+final class BookOfMatchesImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
-        $this->info('Importing Book of Matches');
-
         $dataFile = storage_path('app/public/promptgendata/matches/prompts.txt');
         if (! file_exists($dataFile)) {
             throw new RuntimeException("{$this->getName()} data not found in $dataFile");
@@ -39,11 +34,11 @@ final class BookOfMatchesImportService implements ImportServiceInterface
         }
 
         $this->line(2);
-        $this->info('Done');
+        $this->info('--');
     }
 
     public function getName(): string
     {
-        return 'Import Book of Matches Prompts';
+        return 'Book of Matches Prompts';
     }
 }

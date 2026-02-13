@@ -1,18 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Models;
+namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $movie_id
- * @property array $content
+ * @property string $title
+ * @property string $text
+ * @property bool $active
  * @property int $usages
  */
-final class MovieInfo extends Model
+class TheLinesPrompt extends Model
 {
     public $timestamps = false;
 
@@ -21,7 +20,7 @@ final class MovieInfo extends Model
     protected function casts(): array
     {
         return [
-            'content' => 'json',
+            'active' => 'boolean',
         ];
     }
 }

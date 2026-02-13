@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\NovelStarterItem;
-use App\Models\NovelStarterSection;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\NovelStarterItem;
+use App\Models\Prompter\NovelStarterSection;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-final class NovelStarterImportService implements ImportServiceInterface
+final class NovelStarterImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
-        $this->info('Importing Novel Starter');
-
         $basePath = storage_path('app/public/promptgendata/novel-starter');
         $files = [
             'Hero' => "$basePath/hero.text",
@@ -56,11 +51,11 @@ final class NovelStarterImportService implements ImportServiceInterface
         }
 
         $this->line(2);
-        $this->info('Done');
+        $this->info('--');
     }
 
     public function getName(): string
     {
-        return 'Import Novel Starter Prompts';
+        return 'Novel Starter Prompts';
     }
 }

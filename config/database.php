@@ -20,6 +20,8 @@ return [
 
     'default' => env('DB_CONNECTION', 'sqlite'),
 
+    'newsfeed_connection' => env('NEWSROOM_DB_CONNECTION', 'newsroom'),
+
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -72,6 +74,36 @@ return [
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 (PHP_VERSION_ID >= 80500 ? Pdo\Mysql::ATTR_SSL_CA : PDO::MYSQL_ATTR_SSL_CA) => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'newsroom' => [
+            'driver' => 'mysql',
+            'url' => env('NEWSROOM_DB_URL'),
+            'read' => [
+                'host' => [
+                    env('NEWSROOM_DB_HOST_READ', '127.0.0.1'),
+                ],
+            ],
+            'write' => [
+                'host' => [
+                    env('NEWSROOM_DB_HOST_WRITE', '127.0.0.1'),
+                ],
+            ],
+            'sticky' => true,
+            'port' => env('NEWSROOM_DB_PORT', '3306'),
+            'database' => env('NEWSROOM_DB_DATABASE', 'laravel'),
+            'username' => env('NEWSROOM_DB_USERNAME', 'root'),
+            'password' => env('NEWSROOM_DB_PASSWORD', ''),
+            'unix_socket' => env('NEWSROOM_DB_SOCKET', ''),
+            'charset' => env('NEWSROOM_DB_CHARSET', 'utf8mb4'),
+            'collation' => env('NEWSROOM_DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('NEWSROOM_MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
 

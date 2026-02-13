@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\StoryGeneratorItem;
-use App\Models\StoryGeneratorSection;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\StoryGeneratorItem;
+use App\Models\Prompter\StoryGeneratorSection;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-final class StoryGeneratorImportService implements ImportServiceInterface
+final class StoryGeneratorImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
-        $this->info('Importing Amazing Story Generator');
-
         $basePath = storage_path('app/public/promptgendata/tasg');
         $files = [
             'Situations' => "$basePath/01-situations.txt",
@@ -57,11 +52,11 @@ final class StoryGeneratorImportService implements ImportServiceInterface
         }
 
         $this->line(2);
-        $this->info('Done');
+        $this->info('--');
     }
 
     public function getName(): string
     {
-        return 'Import Amazing Story Generator Prompts';
+        return 'Amazing Story Generator Prompts';
     }
 }

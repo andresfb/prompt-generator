@@ -11,12 +11,14 @@ use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
 use App\Repositories\Import\Services\HuggingFaceImportService;
 use App\Repositories\Import\Services\ImageBasedPromptsImportService;
+use App\Repositories\Import\Services\ModifiersImportService;
 use App\Repositories\Import\Services\NovelStarterImportService;
 use App\Repositories\Import\Services\PlotMachineImportService;
 use App\Repositories\Import\Services\PromptSettingsImportService;
 use App\Repositories\Import\Services\PulpAdventureImportService;
 use App\Repositories\Import\Services\StoryGeneratorImportService;
 use App\Repositories\Import\Services\StoryMachineImportService;
+use App\Repositories\Import\Services\TheLinesImportService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -44,6 +46,8 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('pa', PulpAdventureImportService::class);
             $services->insert('hf', HuggingFaceImportService::class);
             $services->insert('ns', NovelStarterImportService::class);
+            $services->insert('fl', TheLinesImportService::class);
+            $services->insert('mf', ModifiersImportService::class);
             $services->insert('ib', ImageBasedPromptsImportService::class);
         });
     }

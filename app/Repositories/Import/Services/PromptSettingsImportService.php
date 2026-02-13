@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\PromptSetting;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\PromptSetting;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use RuntimeException;
 
-final class PromptSettingsImportService implements ImportServiceInterface
+final class PromptSettingsImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
         $dataFile = storage_path('app/public/promptgendata/prompt-settings/settings.csv');
         if (! file_exists($dataFile)) {

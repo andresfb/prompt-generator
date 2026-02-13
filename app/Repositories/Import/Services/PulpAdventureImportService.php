@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\PulpAdventureItem;
-use App\Models\PulpAdventureSection;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\PulpAdventureItem;
+use App\Models\Prompter\PulpAdventureSection;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-final class PulpAdventureImportService implements ImportServiceInterface
+final class PulpAdventureImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
-        $this->info('Importing Pulp Adventure');
-
         $basePath = storage_path('app/public/promptgendata/pulp-adventure');
         $items = [
             'VL' => [
@@ -122,11 +117,11 @@ final class PulpAdventureImportService implements ImportServiceInterface
         }
 
         $this->line(2);
-        $this->info('Done');
+        $this->info('--');
     }
 
     public function getName(): string
     {
-        return 'Import Pulp Adventure Prompts';
+        return 'Pulp Adventure Prompts';
     }
 }

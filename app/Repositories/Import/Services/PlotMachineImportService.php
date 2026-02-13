@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repositories\Import\Services;
 
-use App\Models\PlotMachineItem;
-use App\Models\PlotMachineSection;
-use App\Repositories\Import\Interfaces\ImportServiceInterface;
-use App\Traits\Screenable;
+use App\Models\Prompter\PlotMachineItem;
+use App\Models\Prompter\PlotMachineSection;
+use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-final class PlotMachineImportService implements ImportServiceInterface
+final class PlotMachineImportService extends BaseImporterService
 {
-    use Screenable;
-
-    public function import(): void
+    public function execute(): void
     {
-        $this->info('Importing Plot Machine Prompts');
-
         $basePath = storage_path('app/public/promptgendata/plot-machine');
         $files = [
             'Setting' => "$basePath/01-settings.txt",
@@ -59,11 +54,11 @@ final class PlotMachineImportService implements ImportServiceInterface
         }
 
         $this->line(2);
-        $this->info('Done');
+        $this->info('--');
     }
 
     public function getName(): string
     {
-        return 'Import Plot Machine Prompts';
+        return 'Plot Machine Prompts';
     }
 }

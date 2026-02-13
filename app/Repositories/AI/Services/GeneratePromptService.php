@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace App\Repositories\AI\Services;
 
-use App\Models\GeneratedPrompt;
-use App\Models\PromptSetting;
+use App\Models\Prompter\GeneratedPrompt;
+use App\Models\Prompter\PromptSetting;
 use App\Repositories\AI\Dtos\PromptSettingItem;
 use App\Repositories\AI\Factories\AiClientFactory;
-use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 use Random\RandomException;
 
 final class GeneratePromptService
 {
-    use Screenable;
-
     public function execute(): GeneratedPrompt
     {
         try {

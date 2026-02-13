@@ -13,6 +13,9 @@ return new class extends Migration
         Schema::create('plot_machine_sections', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('active')
+                ->default(true)
+                ->index();
             $table->unsignedSmallInteger('order')->default(1);
         });
     }

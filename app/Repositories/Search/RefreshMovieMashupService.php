@@ -6,9 +6,9 @@ namespace App\Repositories\Search;
 
 use App\Jobs\AddMovieMashupImageJob;
 use App\Jobs\RefreshMoviesMashupJob;
-use App\Models\MovieInfo;
-use App\Models\MovieMashupItem;
-use App\Models\MovieMashupPrompt;
+use App\Models\Prompter\MovieInfo;
+use App\Models\Prompter\MovieMashupItem;
+use App\Models\Prompter\MovieMashupPrompt;
 use App\Traits\Screenable;
 use Exception;
 use Illuminate\Support\Collection;

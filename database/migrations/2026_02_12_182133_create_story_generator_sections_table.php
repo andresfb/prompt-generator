@@ -13,6 +13,9 @@ return new class extends Migration
         Schema::create('story_generator_sections', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('active')
+                ->default(true)
+                ->index();
             $table->unsignedSmallInteger('order');
         });
     }

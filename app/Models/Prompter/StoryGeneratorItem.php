@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +15,7 @@ use RuntimeException;
  * @property bool $active
  * @property int $usages
  */
-final class StoryMachineItem extends Model
+final class StoryGeneratorItem extends Model
 {
     public $timestamps = false;
 
@@ -24,29 +24,11 @@ final class StoryMachineItem extends Model
     public static function getRandom(): string
     {
         $prompt = '';
-        $sections = StoryMachineSection::orderBy('order')->get();
+        $sections = StoryGeneratorSection::orderBy('order')->get();
 
         foreach ($sections as $section) {
-            $usedText = [];
-            $count = 0;
-
-            while ($count < $section->to_pick) {
-                $text = self::getPromptText($section);
-
-                if (in_array($text, $usedText, true)) {
-                    continue;
-                }
-
-                $usedText[] = $text;
-                $count++;
-            }
-
-            $prompt .= "**{$section->name}:**\n";
-            foreach ($usedText as $item) {
-                $prompt .= ucwords($item)."\n";
-            }
-
-            $prompt .= "\n";
+            $text = self::getPromptText($section);
+            $prompt .= ucwords($text)."\n\n";
         }
 
         return rtrim($prompt, "\n");
@@ -54,7 +36,7 @@ final class StoryMachineItem extends Model
 
     public function section(): BelongsTo
     {
-        return $this->belongsTo(StoryMachineSection::class);
+        return $this->belongsTo(StoryGeneratorSection::class);
     }
 
     protected function casts(): array
@@ -64,7 +46,7 @@ final class StoryMachineItem extends Model
         ];
     }
 
-    private static function getPromptText(StoryMachineSection $section): string
+    private static function getPromptText(StoryGeneratorSection $section): string
     {
         $runs = 0;
         $maxRuns = Config::integer('constants.prompts_max_usages');
@@ -75,7 +57,7 @@ final class StoryMachineItem extends Model
                 throw new RuntimeException('Maximum number of runs reached');
             }
 
-            $text = self::where('story_machine_section_id', $section->id)
+            $text = self::where('story_generator_section_id', $section->id)
                 ->where('active', true)
                 ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
                 ->inRandomOrder()

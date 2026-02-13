@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-use App\Models\Prompter\NovelStarterSection;
+use App\Models\Prompter\ModifierSection;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +9,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('novel_starter_items', static function (Blueprint $table) {
+        Schema::create('modifier_items', static function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(NovelStarterSection::class)
-                ->constrained('novel_starter_sections')
+            $table->foreignIdFor(ModifierSection::class)
+                ->constrained('modifier_sections')
                 ->onDelete('cascade');
-            $table->string('text');
+            $table->text('text');
             $table->boolean('active')->default(true);
-            $table->unsignedSmallInteger('usages')->default(0);
+            $table->unsignedMediumInteger('usages')->default(0);
 
             $table->index(['active', 'usages']);
         });
@@ -26,6 +24,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('novel_starter_items');
+        Schema::dropIfExists('modifier_items');
     }
 };
