@@ -15,21 +15,20 @@ use function Laravel\Prompts\warning;
 
 class ImportDataCommand extends Command
 {
-    // TODO: implement Amazing Story Generator importer
     // TODO: add Pint, LaraStan, Rector, and ran them
+    // TODO: implement Huggingface, First/Last Lines, Modifiers imports
 
     protected $signature = 'import:data
                             {--a|al : Import All data sets}
-                            {--b|ts : Import data from Prompt Settings}
+                            {--b|ps : Import data from Prompt Settings}
                             {--c|bm : Import data from Book of Matches}
                             {--d|pm : Import data from Plot Machine}
                             {--e|sm : Import data from Story Machine}
-                            {--f|mp : Import data from 20 Master Plots}
-                            {--g|ag : Import data from Amazing Story Generator}
-                            {--i|ua : Import data from Pulp Adventure Generator}
-                            {--j|hf : Import data from Huggingface prompts}
-                            {--k|ls : Import data from Novel Starter}
-                            {--l|ib : Import data from Image Based prompts}';
+                            {--f|ag : Import data from Amazing Story Generator}
+                            {--g|pa : Import data from Pulp Adventure Generator}
+                            {--i|hf : Import data from Huggingface prompts}
+                            {--j|ns : Import data from Novel Starter}
+                            {--k|ib : Import data from Image Based prompts}';
 
     protected $description = 'Imports all Prompt data from the repo';
 

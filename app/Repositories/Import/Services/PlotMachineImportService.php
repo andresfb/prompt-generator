@@ -27,9 +27,11 @@ class PlotMachineImportService implements ImportServiceInterface
         ];
 
         foreach ($files as $key => $file) {
-            if (! file_exists($file)) {
-                throw new RuntimeException("Plot Machine data file for {$key}={$file} missing");
+            if (file_exists($file)) {
+                continue;
             }
+
+            throw new RuntimeException("Plot Machine data file for {$key}={$file} missing");
         }
 
         DB::table('plot_machine_items')->delete();
