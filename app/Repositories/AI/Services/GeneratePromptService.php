@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Services;
 
 use App\Models\GeneratedPrompt;
@@ -10,7 +12,7 @@ use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 use Random\RandomException;
 
-class GeneratePromptService
+final class GeneratePromptService
 {
     use Screenable;
 

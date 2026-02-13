@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\NovelStarterItem;
@@ -9,18 +11,18 @@ use App\Traits\Screenable;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class NovelStarterImportService implements ImportServiceInterface
+final class NovelStarterImportService implements ImportServiceInterface
 {
     use Screenable;
 
     public function import(): void
     {
-        $this->info("Importing Novel Starter");
+        $this->info('Importing Novel Starter');
 
-        $basePath = storage_path("app/public/promptgendata/novel-starter");
+        $basePath = storage_path('app/public/promptgendata/novel-starter');
         $files = [
-            "Hero"  => "$basePath/hero.text",
-            "Flaws" => "$basePath/flaws.text",
+            'Hero' => "$basePath/hero.text",
+            'Flaws' => "$basePath/flaws.text",
         ];
 
         foreach ($files as $key => $file) {
@@ -37,16 +39,16 @@ class NovelStarterImportService implements ImportServiceInterface
         $i = 1;
         foreach ($files as $key => $file) {
             $part = NovelStarterSection::create([
-                "name" => str_replace("_", " ", $key),
-                "order" => $i
+                'name' => str_replace('_', ' ', $key),
+                'order' => $i,
             ]);
             $i++;
 
             $data = file($file);
             foreach ($data as $datum) {
                 NovelStarterItem::create([
-                    "novel_starter_section_id" => $part->id,
-                    "text" => rtrim(str_replace(PHP_EOL, '', strtolower($datum)), ".")
+                    'novel_starter_section_id' => $part->id,
+                    'text' => rtrim(str_replace(PHP_EOL, '', mb_strtolower($datum)), '.'),
                 ]);
             }
 

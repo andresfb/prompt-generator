@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataStructures;
 
 use IteratorAggregate;
 use Traversable;
 
-class HashTable implements IteratorAggregate
+final class HashTable implements IteratorAggregate
 {
     protected array $buckets;
 
@@ -28,6 +30,7 @@ class HashTable implements IteratorAggregate
     public function get(string $key)
     {
         $index = $this->hash($key);
+
         // Check if bucket and key exist before returning
         return $this->buckets[$index][$key] ?? null;
     }
@@ -42,7 +45,7 @@ class HashTable implements IteratorAggregate
     public function delete(string $key): void
     {
         $index = $this->hash($key);
-        if (!isset($this->buckets[$index][$key])) {
+        if (! isset($this->buckets[$index][$key])) {
             return;
         }
 
@@ -61,7 +64,7 @@ class HashTable implements IteratorAggregate
     protected function hash(string $key): int
     {
         $hash = 0;
-        for ($i = 0, $iMax = strlen($key); $i < $iMax; $i++) {
+        for ($i = 0, $iMax = mb_strlen($key); $i < $iMax; $i++) {
             $hash = ($hash + ord($key[$i])) % $this->size;
         }
 

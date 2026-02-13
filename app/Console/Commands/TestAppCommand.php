@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use Exception;
@@ -10,7 +12,7 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class TestAppCommand extends Command
+final class TestAppCommand extends Command
 {
     protected $signature = 'test:app';
 

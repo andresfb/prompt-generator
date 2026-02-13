@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $content
  * @property int $usages
  */
-class MovieInfo extends Model
+final class MovieInfo extends Model
 {
     public $timestamps = false;
 

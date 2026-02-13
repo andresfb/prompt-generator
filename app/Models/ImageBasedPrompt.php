@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Libraries\MediaNamesLibrary;
@@ -15,10 +17,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property bool $active
  * @property int $usages
  */
-class ImageBasedPrompt extends Model implements HasMedia
+final class ImageBasedPrompt extends Model implements HasMedia
 {
-    use SoftDeletes;
     use InteractsWithMedia;
+    use SoftDeletes;
 
     protected $guarded = ['id'];
 

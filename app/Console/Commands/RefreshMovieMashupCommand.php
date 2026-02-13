@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Repositories\Search\RefreshMovieMashupService;
@@ -11,7 +13,7 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class RefreshMovieMashupCommand extends Command
+final class RefreshMovieMashupCommand extends Command
 {
     protected $signature = 'refresh:mashup';
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Repositories\AI\Services\GenerateMovieMashupPromptService;
@@ -12,7 +14,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class GenerateMovieMashupPromptJob implements ShouldQueue
+final class GenerateMovieMashupPromptJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

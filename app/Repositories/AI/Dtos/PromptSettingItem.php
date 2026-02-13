@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Dtos;
 
 use Spatie\LaravelData\Data;
 
-class PromptSettingItem extends Data
+final class PromptSettingItem extends Data
 {
     public function __construct(
         public string $genre = '',
@@ -14,5 +16,5 @@ class PromptSettingItem extends Data
         public string $tone = '',
         public string $narrative = '',
         public string $period = '',
-    ) { }
+    ) {}
 }

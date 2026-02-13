@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +13,7 @@ use Illuminate\Support\Facades\Config;
  * @property bool $active
  * @property int $usages
  */
-class BookOfMatches extends Model
+final class BookOfMatches extends Model
 {
     public $timestamps = false;
 

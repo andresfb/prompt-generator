@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Services;
 
 use App\Models\MovieMashupPrompt;
@@ -7,7 +9,7 @@ use App\Repositories\AI\Factories\AiClientFactory;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class GenerateMovieMashupPromptService
+final class GenerateMovieMashupPromptService
 {
     use Screenable;
 

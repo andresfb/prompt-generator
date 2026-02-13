@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Jobs\GenerateMovieMashupPromptJob;
 use App\Jobs\GeneratePromptJob;
 use App\Repositories\Search\RefreshMovieMashupService;

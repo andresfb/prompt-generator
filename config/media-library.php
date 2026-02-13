@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Libraries\MediaFileNamer;
 use App\Libraries\MediaPathGenerator;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Repositories\AI\Services\GeneratePromptService;
@@ -11,7 +13,7 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class GeneratePromptCommand extends Command
+final class GeneratePromptCommand extends Command
 {
     protected $signature = 'generate:prompt';
 
@@ -39,7 +41,7 @@ class GeneratePromptCommand extends Command
                 }
 
                 $this->line(sprintf(
-                    "%s:  %s",
+                    '%s:  %s',
                     ucwords($key),
                     $item
                 ));

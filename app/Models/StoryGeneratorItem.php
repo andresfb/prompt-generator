@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -13,16 +15,11 @@ use RuntimeException;
  * @property bool $active
  * @property int $usages
  */
-class StoryGeneratorItem extends Model
+final class StoryGeneratorItem extends Model
 {
     public $timestamps = false;
 
     protected $guarded = ['id'];
-
-    public function section(): BelongsTo
-    {
-        return $this->belongsTo(StoryGeneratorSection::class);
-    }
 
     public static function getRandom(): string
     {
@@ -31,10 +28,15 @@ class StoryGeneratorItem extends Model
 
         foreach ($sections as $section) {
             $text = self::getPromptText($section);
-            $prompt .= ucwords($text) . "\n\n";
+            $prompt .= ucwords($text)."\n\n";
         }
 
         return rtrim($prompt, "\n");
+    }
+
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(StoryGeneratorSection::class);
     }
 
     protected function casts(): array

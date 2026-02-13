@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\User;
@@ -16,7 +18,7 @@ use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 use function Laravel\Prompts\warning;
 
-class CreateTokenCommand extends Command
+final class CreateTokenCommand extends Command
 {
     protected $signature = 'create:token';
 

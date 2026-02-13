@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Libraries\MediaNamesLibrary;
@@ -20,10 +22,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property ?string $overview
  * @property ?array $genres
  */
-class MovieMashupItem extends Model implements HasMedia
+final class MovieMashupItem extends Model implements HasMedia
 {
-    use SoftDeletes;
     use InteractsWithMedia;
+    use SoftDeletes;
 
     protected $guarded = [];
 

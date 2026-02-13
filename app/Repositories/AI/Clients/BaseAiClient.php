@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Clients;
 
 use App\Repositories\AI\Dtos\AiChatResponse;
@@ -32,28 +34,28 @@ abstract class BaseAiClient implements AiClientInterface
 
     abstract public function getProvider(): string|ProviderEnum;
 
-    public function setCaller(string $caller): AiClientInterface
+    final public function setCaller(string $caller): AiClientInterface
     {
         $this->caller = $caller;
 
         return $this;
     }
 
-    public function setOrigin(string $origin): self
+    final public function setOrigin(string $origin): self
     {
         $this->origin = $origin;
 
         return $this;
     }
 
-    public function setAgentPrompt(string $agentPrompt): self
+    final public function setAgentPrompt(string $agentPrompt): self
     {
         $this->agentPrompt = $agentPrompt;
 
         return $this;
     }
 
-    public function getAgentPrompt(): string
+    final public function getAgentPrompt(): string
     {
         if (blank($this->userPrompt)) {
             throw new RuntimeException('Cannot use Agent Prompt without User Prompt');
@@ -62,57 +64,52 @@ abstract class BaseAiClient implements AiClientInterface
         return $this->agentPrompt;
     }
 
-    public function setUserPrompt(string $userPrompt): self
+    final public function setUserPrompt(string $userPrompt): self
     {
         $this->userPrompt = $userPrompt;
 
         return $this;
     }
 
-    public function getUserPrompt(): string
+    final public function getUserPrompt(): string
     {
         return $this->userPrompt;
     }
 
-    public function setMaxTokens(int $maxTokens): self
+    final public function setMaxTokens(int $maxTokens): self
     {
         $this->maxTokens = $maxTokens;
 
         return $this;
     }
 
-    public function setProviderConfig(array $providerConfig): self
+    final public function setProviderConfig(array $providerConfig): self
     {
         $this->providerConfig = $providerConfig;
 
         return $this;
     }
 
-    public function setClientOptions(array $clientOptions): self
+    final public function setClientOptions(array $clientOptions): self
     {
         $this->clientOptions = $clientOptions;
 
         return $this;
     }
 
-    public function setModel(string $model): self
+    final public function setModel(string $model): self
     {
         $this->model = $model;
 
         return $this;
     }
 
-    public function getModel(): string
+    final public function getModel(): string
     {
         return $this->model;
     }
 
-    protected function getMessageOptions(): array
-    {
-        return ['cacheType' => 'ephemeral'];
-    }
-
-    public function ask(): AiChatResponse
+    final public function ask(): AiChatResponse
     {
         $prism = Prism::text()
             ->using(
@@ -143,5 +140,10 @@ abstract class BaseAiClient implements AiClientInterface
             $this->caller,
             self::class,
         );
+    }
+
+    protected function getMessageOptions(): array
+    {
+        return ['cacheType' => 'ephemeral'];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\StoryGeneratorItem;
@@ -9,7 +11,7 @@ use App\Traits\Screenable;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class StoryGeneratorImportService implements ImportServiceInterface
+final class StoryGeneratorImportService implements ImportServiceInterface
 {
     use Screenable;
 
@@ -17,11 +19,11 @@ class StoryGeneratorImportService implements ImportServiceInterface
     {
         $this->info('Importing Amazing Story Generator');
 
-        $basePath = storage_path("app/public/promptgendata/tasg");
+        $basePath = storage_path('app/public/promptgendata/tasg');
         $files = [
-            "Situations" => "$basePath/01-situations.txt",
-            "Characters" => "$basePath/02-characters.txt",
-            "Actions" => "$basePath/03-actions.txt",
+            'Situations' => "$basePath/01-situations.txt",
+            'Characters' => "$basePath/02-characters.txt",
+            'Actions' => "$basePath/03-actions.txt",
         ];
 
         foreach ($files as $key => $file) {
@@ -38,16 +40,16 @@ class StoryGeneratorImportService implements ImportServiceInterface
         $i = 1;
         foreach ($files as $key => $file) {
             $part = StoryGeneratorSection::create([
-                "name" => str_replace("_", " ", $key),
-                "order" => $i
+                'name' => str_replace('_', ' ', $key),
+                'order' => $i,
             ]);
             $i++;
 
             $data = file($file);
             foreach ($data as $datum) {
                 StoryGeneratorItem::create([
-                    "story_generator_section_id" => $part->id,
-                    "text" => rtrim(str_replace(PHP_EOL, '', strtolower($datum)), ".")
+                    'story_generator_section_id' => $part->id,
+                    'text' => rtrim(str_replace(PHP_EOL, '', mb_strtolower($datum)), '.'),
                 ]);
 
                 $this->character('.');

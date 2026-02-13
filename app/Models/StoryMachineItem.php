@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -13,20 +15,15 @@ use RuntimeException;
  * @property bool $active
  * @property int $usages
  */
-class StoryMachineItem extends Model
+final class StoryMachineItem extends Model
 {
     public $timestamps = false;
 
     protected $guarded = ['id'];
 
-    public function section(): BelongsTo
-    {
-        return $this->belongsTo(StoryMachineSection::class);
-    }
-
     public static function getRandom(): string
     {
-        $prompt = "";
+        $prompt = '';
         $sections = StoryMachineSection::orderBy('order')->get();
 
         foreach ($sections as $section) {
@@ -46,13 +43,18 @@ class StoryMachineItem extends Model
 
             $prompt .= "**{$section->name}:**\n";
             foreach ($usedText as $item) {
-                $prompt .= ucwords($item) . "\n";
+                $prompt .= ucwords($item)."\n";
             }
 
             $prompt .= "\n";
         }
 
         return rtrim($prompt, "\n");
+    }
+
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(StoryMachineSection::class);
     }
 
     protected function casts(): array

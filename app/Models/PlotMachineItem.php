@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -13,28 +15,28 @@ use RuntimeException;
  * @property bool $active
  * @property int $usages
  */
-class PlotMachineItem extends Model
+final class PlotMachineItem extends Model
 {
     public $timestamps = false;
 
     protected $guarded = ['id'];
 
-    public function section(): BelongsTo
-    {
-        return $this->belongsTo(PlotMachineSection::class);
-    }
-
     public static function getRandom(): string
     {
-        $prompt = "";
+        $prompt = '';
         $sections = PlotMachineSection::orderBy('order')->get();
 
         foreach ($sections as $section) {
             $text = self::getPromptText($section);
-            $prompt .= "**{$section->name}:**\n" . ucwords($text) . "\n\n";
+            $prompt .= "**{$section->name}:**\n".ucwords($text)."\n\n";
         }
 
         return rtrim($prompt, "\n");
+    }
+
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(PlotMachineSection::class);
     }
 
     protected function casts(): array

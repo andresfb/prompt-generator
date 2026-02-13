@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Repositories\Search\RefreshMovieMashupService;
@@ -12,7 +14,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class RefreshMoviesMashupJob implements ShouldQueue
+final class RefreshMoviesMashupJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

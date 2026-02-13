@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Actions\Fortify\CreateNewUser;
@@ -15,7 +17,7 @@ use function Laravel\Prompts\form;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class CreateUserCommand extends Command
+final class CreateUserCommand extends Command
 {
     protected $signature = 'create:user';
 

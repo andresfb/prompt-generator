@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Carbon\CarbonInterface;
@@ -20,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property ?CarbonInterface $created_at
  * @property ?CarbonInterface $updated_at
  */
-class MovieMashupPrompt extends Model
+final class MovieMashupPrompt extends Model
 {
     use SoftDeletes;
 

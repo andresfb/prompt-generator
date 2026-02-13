@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Repositories\AI\Services\GeneratePromptService;
@@ -12,7 +14,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class GeneratePromptJob implements ShouldQueue
+final class GeneratePromptJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -34,7 +36,7 @@ class GeneratePromptJob implements ShouldQueue
             $service->execute();
         } catch (MaxAttemptsExceededException $e) {
             Log::error($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
 
             throw $e;

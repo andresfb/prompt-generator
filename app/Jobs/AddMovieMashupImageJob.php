@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Libraries\MediaNamesLibrary;
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
 
-class AddMovieMashupImageJob implements ShouldQueue
+final class AddMovieMashupImageJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

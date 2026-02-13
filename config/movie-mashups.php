@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'max_mashup_movie_usages' => (int) env('MAX_MASHUP_MOVIE_USAGES', 15),

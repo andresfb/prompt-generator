@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Clients;
 
 use Illuminate\Support\Facades\Config;
 use Prism\Prism\Enums\Provider as ProviderEnum;
 
-class AnthropicClient extends BaseAiClient
+final class AnthropicClient extends BaseAiClient
 {
     public function __construct()
     {

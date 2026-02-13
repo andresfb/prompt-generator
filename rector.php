@@ -31,8 +31,8 @@ try {
         ->withSetProviders(LaravelSetProvider::class)
         ->withComposerBased(laravel: true/** other options */)
         ->withSkip([
-//            AddOverrideAttributeToOverriddenMethodsRector::class,
-            DisallowedEmptyRuleFixerRectoxr::class,
+            //            AddOverrideAttributeToOverriddenMethodsRector::class,
+            DisallowedEmptyRuleFixerRector::class,
             ClosureToArrowFunctionRector::class,
             AddClosureVoidReturnTypeWhereNoReturnRector::class,
             AddFunctionVoidReturnTypeWhereNoReturnRector::class,

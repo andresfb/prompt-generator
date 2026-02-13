@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Libraries\MediaNamesLibrary;
@@ -11,11 +13,12 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 
-class ImageBasedPromptsImportService implements ImportServiceInterface
+final class ImageBasedPromptsImportService implements ImportServiceInterface
 {
     use Screenable;
 
     private const S3_LOCAL_DISK = 's3-local';
+
     private const S3_DISK = 's3';
 
     /**
@@ -23,7 +26,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
      */
     public function import(): void
     {
-        $this->info("Reading files from S3");
+        $this->info('Reading files from S3');
 
         $banded = Config::array('constants.banded_words');
         $this->listS3FilesLazy()
@@ -41,6 +44,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
 
                 if (ImageBasedPrompt::where('hash', $hash)->exists()) {
                     $this->character('x');
+
                     return;
                 }
 
@@ -61,7 +65,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
 
     public function getName(): string
     {
-        return "Import Image Based Prompts";
+        return 'Import Image Based Prompts';
     }
 
     private function listS3FilesLazy(): LazyCollection
@@ -69,7 +73,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $s3 = Storage::disk(self::S3_LOCAL_DISK)->getClient();
         $bucket = Config::string(sprintf(
-            "filesystems.disks.%s.bucket",
+            'filesystems.disks.%s.bucket',
             self::S3_LOCAL_DISK
         ));
 
@@ -81,7 +85,7 @@ class ImageBasedPromptsImportService implements ImportServiceInterface
             ]);
 
             foreach ($paginator as $result) {
-                if (!isset($result['Contents'])) {
+                if (! isset($result['Contents'])) {
                     continue;
                 }
 

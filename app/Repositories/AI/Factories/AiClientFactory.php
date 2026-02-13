@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Factories;
 
 use App\Repositories\AI\Interfaces\AiClientInterface;
 use Illuminate\Support\Collection;
 use RuntimeException;
 
-class AiClientFactory
+final class AiClientFactory
 {
     /**
      * Get an AI Client at random from the container

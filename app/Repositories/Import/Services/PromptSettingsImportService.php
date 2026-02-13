@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\PromptSetting;
@@ -7,13 +9,13 @@ use App\Repositories\Import\Interfaces\ImportServiceInterface;
 use App\Traits\Screenable;
 use RuntimeException;
 
-class PromptSettingsImportService implements ImportServiceInterface
+final class PromptSettingsImportService implements ImportServiceInterface
 {
     use Screenable;
 
     public function import(): void
     {
-        $dataFile = storage_path("app/public/promptgendata/prompt-settings/settings.csv");
+        $dataFile = storage_path('app/public/promptgendata/prompt-settings/settings.csv');
         if (! file_exists($dataFile)) {
             throw new RuntimeException("{$this->getName()} data not found in $dataFile");
         }
@@ -22,7 +24,7 @@ class PromptSettingsImportService implements ImportServiceInterface
 
         $file = fopen($dataFile, 'rb');
         $data = collect();
-        while (($row = fgetcsv($file)) !== FALSE) {
+        while (($row = fgetcsv($file)) !== false) {
             $data->push($row);
             $this->character('.');
         }

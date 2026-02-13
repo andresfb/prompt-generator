@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property int $order
  */
-class StoryGeneratorSection extends Model
+final class StoryGeneratorSection extends Model
 {
     public $timestamps = false;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\StoryMachineItem;
@@ -9,7 +11,7 @@ use App\Traits\Screenable;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class StoryMachineImportService implements ImportServiceInterface
+final class StoryMachineImportService implements ImportServiceInterface
 {
     use Screenable;
 
@@ -17,36 +19,36 @@ class StoryMachineImportService implements ImportServiceInterface
     {
         $this->info('Importing Story Machine Prompts');
 
-        $basePath = storage_path("app/public/promptgendata/story-machine");
+        $basePath = storage_path('app/public/promptgendata/story-machine');
         $files = [
-            "Conflicts" => [
-                "file" => "$basePath/01-conflicts-pick_one.txt",
-                "pick" => 1
+            'Conflicts' => [
+                'file' => "$basePath/01-conflicts-pick_one.txt",
+                'pick' => 1,
             ],
-            "Settings" => [
-                "file" => "$basePath/02-settings-pick_one.txt",
-                "pick" => 1
+            'Settings' => [
+                'file' => "$basePath/02-settings-pick_one.txt",
+                'pick' => 1,
             ],
-            "Subgenres" => [
-                "file" => "$basePath/03-subgenres-pick_two.txt",
-                "pick" => 2
+            'Subgenres' => [
+                'file' => "$basePath/03-subgenres-pick_two.txt",
+                'pick' => 2,
             ],
-            "Random_Items" => [
-                "file" => "$basePath/04-random_items-pick_four.txt",
-                "pick" => 4
+            'Random_Items' => [
+                'file' => "$basePath/04-random_items-pick_four.txt",
+                'pick' => 4,
             ],
-            "Random_Words" => [
-                "file" => "$basePath/05-random_words-pick_three.txt",
-                "pick" => 3
+            'Random_Words' => [
+                'file' => "$basePath/05-random_words-pick_three.txt",
+                'pick' => 3,
             ],
-            "Must_Feature" => [
-                "file" => "$basePath/06-must_feature-pick_one.txt",
-                "pick" => 1
+            'Must_Feature' => [
+                'file' => "$basePath/06-must_feature-pick_one.txt",
+                'pick' => 1,
             ],
-            "Must_Also_Feature" => [
-                "file" => "$basePath/07-must_also_feature-pick_one.txt",
-                "pick" => 1
-            ]
+            'Must_Also_Feature' => [
+                'file' => "$basePath/07-must_also_feature-pick_one.txt",
+                'pick' => 1,
+            ],
         ];
 
         foreach ($files as $key => $item) {
@@ -65,7 +67,7 @@ class StoryMachineImportService implements ImportServiceInterface
             $part = StoryMachineSection::create([
                 'name' => str_replace('_', ' ', $key),
                 'to_pick' => $info['pick'],
-                'order' => $i
+                'order' => $i,
             ]);
             $i++;
 
@@ -73,7 +75,7 @@ class StoryMachineImportService implements ImportServiceInterface
             foreach ($data as $datum) {
                 StoryMachineItem::create([
                     'story_machine_section_id' => $part->id,
-                    'text' => rtrim(str_replace(PHP_EOL, '', strtolower($datum)), '.')
+                    'text' => rtrim(str_replace(PHP_EOL, '', mb_strtolower($datum)), '.'),
                 ]);
 
                 $this->character('.');

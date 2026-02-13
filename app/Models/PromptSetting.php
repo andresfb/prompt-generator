@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Repositories\AI\Dtos\PromptSettingItem;
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Cache;
  * @property string $type
  * @property string $value
  */
-class PromptSetting extends Model
+final class PromptSetting extends Model
 {
     public $timestamps = false;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'item_url' => env('EMBY_SERVER_ITEM_PAGE'),

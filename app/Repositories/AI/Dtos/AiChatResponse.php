@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Dtos;
 
 use App\Traits\AiNotifiable;
@@ -9,7 +11,7 @@ use Prism\Prism\Text\Response;
 use Spatie\LaravelData\Data;
 use Throwable;
 
-class AiChatResponse extends Data
+final class AiChatResponse extends Data
 {
     use AiNotifiable;
 

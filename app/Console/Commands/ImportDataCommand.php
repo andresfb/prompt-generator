@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Repositories\Import\Factories\ImportServiceFactory;
@@ -13,7 +15,7 @@ use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 use function Laravel\Prompts\warning;
 
-class ImportDataCommand extends Command
+final class ImportDataCommand extends Command
 {
     // TODO: add Pint, LaraStan, Rector, and ran them
     // TODO: implement Huggingface, First/Last Lines, Modifiers imports
@@ -38,7 +40,7 @@ class ImportDataCommand extends Command
         intro('Import Prompt Data');
 
         try {
-            $dataPath = storage_path("app/public/promptgendata/");
+            $dataPath = storage_path('app/public/promptgendata/');
             if (! file_exists($dataPath)) {
                 throw new RuntimeException("Prompt data not found in $dataPath. Please clone it from Repo");
             }

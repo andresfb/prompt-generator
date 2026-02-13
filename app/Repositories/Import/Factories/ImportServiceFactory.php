@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Factories;
 
 use App\DataStructures\HashTable;
 use App\Repositories\Import\Interfaces\ImportServiceInterface;
 use RuntimeException;
 
-class ImportServiceFactory
+final class ImportServiceFactory
 {
     /**
      * @throws RuntimeException

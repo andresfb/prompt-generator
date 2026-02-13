@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Search;
 
 use App\Jobs\AddMovieMashupImageJob;
@@ -18,7 +20,7 @@ use Meilisearch\Contracts\DocumentsQuery;
 use RuntimeException;
 use Throwable;
 
-class RefreshMovieMashupService
+final class RefreshMovieMashupService
 {
     use Screenable;
 
@@ -92,7 +94,7 @@ class RefreshMovieMashupService
                 $chunk->each(function (array $movie) {
                     MovieInfo::updateOrCreate([
                         'movie_id' => $movie['Id'],
-                    ],[
+                    ], [
                         'content' => $movie,
                     ]);
 
@@ -121,7 +123,7 @@ class RefreshMovieMashupService
             $total = $stats['numberOfDocuments'];
 
             if ($total === MovieInfo::count()) {
-                $this->warning(sprintf("%sNo movie refresh needed.%s", PHP_EOL, PHP_EOL));
+                $this->warning(sprintf('%sNo movie refresh needed.%s', PHP_EOL, PHP_EOL));
 
                 return collect();
             }
