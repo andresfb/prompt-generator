@@ -17,7 +17,7 @@ use function Laravel\Prompts\warning;
 
 final class ImportDataCommand extends Command
 {
-    // TODO: implement APIs importers
+    // TODO: implement Media Studios API importers
 
     protected $signature = 'import:data
                             {--a|al : Import All data sets}
