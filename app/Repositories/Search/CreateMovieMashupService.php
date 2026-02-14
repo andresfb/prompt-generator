@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Search;
 
 use App\Jobs\AddMovieMashupImageJob;
-use App\Jobs\RefreshMoviesMashupJob;
+use App\Jobs\CreateMoviesMashupJob;
 use App\Models\Prompter\MovieInfo;
 use App\Models\Prompter\MovieMashupItem;
 use App\Models\Prompter\MovieMashupPrompt;
@@ -20,7 +20,7 @@ use Meilisearch\Contracts\DocumentsQuery;
 use RuntimeException;
 use Throwable;
 
-final class RefreshMovieMashupService
+final class CreateMovieMashupService
 {
     use Screenable;
 
@@ -47,7 +47,7 @@ final class RefreshMovieMashupService
         }
 
         $this->warning('No Movie Mashup Prompts Saved. Re-queuing the job');
-        RefreshMoviesMashupJob::dispatch();
+        CreateMoviesMashupJob::dispatch();
     }
 
     private function getMovies(): array

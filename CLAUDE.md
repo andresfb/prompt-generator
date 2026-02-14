@@ -1,3 +1,68 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+A Laravel application that generates random creative writing prompts from multiple data sources (Hugging Face, Reddit, news articles, movie databases). Uses AI clients (OpenAI, Anthropic, OpenRouter) via the Prism PHP library to generate dynamic prompts.
+
+## Commands
+
+### Development
+- `composer run dev` — Starts server, queue worker, log viewer (Pail), and Vite concurrently
+- `npm run build` — Production frontend build
+
+### Testing & Quality (run all: `composer test`)
+- `composer test:unit` — Pest tests with `--parallel --coverage --exactly=100` (100% coverage required)
+- `composer test:type-coverage` — Pest type coverage (100% minimum)
+- `composer test:types` — PHPStan static analysis via Larastan
+- `composer test:lint` — Pint formatting check
+- `composer test:rector` — Rector dry-run
+- Single test: `php artisan test --compact --filter=testName`
+
+### Formatting & Fixes
+- `vendor/bin/pint --dirty --format agent` — Format changed files before finalizing
+- `composer rector` — Apply Rector code upgrades
+
+### Setup
+- `composer run setup` — Full setup (install, env, key, migrate, npm install/build)
+
+## Architecture
+
+### Repository Pattern
+Business logic lives in `app/Repositories/` organized by domain:
+- `AI/` — AI client abstraction: `AiClientInterface` → `BaseAiClient` → `OpenAiClient`, `AnthropicClient`, `OpenRouterClient`. Uses fluent builder pattern and `AiClientFactory` for selection. Returns `AiChatResponse` DTO.
+- `Import/` — Data importers: `ImportServiceInterface` → `BaseImporterService` → specific importers. Files read from `storage/app/public/promptgendata/`. `ImportServiceFactory` selects the importer.
+- `Extract/` — News article extraction service
+- `Search/` — Movie mashup refresh service
+- `APIs/Services/` — External API integrations (Reddit, etc.)
+
+### Model Organization
+Models are namespaced by domain under `app/Models/`:
+- `Prompter/` — Core prompt models: `GeneratedPrompt`, `BookOfMatches`, `HuggingFacePrompt`, `MovieMashupPrompt`, `NewsArticlePrompt`, `TheLinesPrompt`, `PromptSetting`, `MovieInfo`, etc.
+- `Prompter/` paired Item/Section models — `PlotMachineItem`/`PlotMachineSection`, `StoryMachineItem`/`StoryMachineSection`, `PulpAdventureItem`/`PulpAdventureSection`, etc.
+- `Boogie/` — Story ideas
+- `Newsroom/` — News articles
+
+### Model Conventions
+- All models use `declare(strict_types=1)`, `final` keyword, PHPDoc `@property` blocks
+- Use `$guarded = ['id']` (not `$fillable`)
+- Casts via `casts()` method (not `$casts` property)
+- Static `getRandom()` methods for retrieving random records
+- `active` field and usage limits checked in query scopes
+
+### Traits
+- `Screenable` — Provides `info()`, `line()`, `character()` output methods for services (logs + optional screen output)
+- `AiNotifiable` — Sends AI token usage notifications to users
+
+### Jobs & Queues
+Jobs in `app/Jobs/` use custom queue names (`ai-generator`, `notifications`) and delayed execution. Horizon manages the queue dashboard.
+
+### Key Libraries
+- **Prism PHP** (`prism-php/prism`) — Unified AI client wrapper for OpenAI/Anthropic/OpenRouter
+- **Spatie Media Library** — Image management with custom `MediaFileNamer` and `MediaPathGenerator`
+- **Spatie Laravel Data** — DTOs
+
 <laravel-boost-guidelines>
 === foundation rules ===
 

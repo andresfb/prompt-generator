@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Jobs;
 
-use App\Repositories\Search\RefreshMovieMashupService;
+use App\Repositories\APIs\Services\RedditWritingPromptsService;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,26 +12,26 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-final class RefreshMoviesMashupJob implements ShouldQueue
+class RedditWritingPromptsJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
 
-    public function __construct()
+    public function __construct(private readonly string $endpoint)
     {
         $this->queue = 'worker';
-        $this->delay = now()->addSeconds(30);
+        $this->delay = now()->addSeconds(15);
     }
 
     /**
      * @throws Exception
      */
-    public function handle(RefreshMovieMashupService $service): void
+    public function handle(RedditWritingPromptsService $service): void
     {
         try {
-            $service->execute();
+            $service->execute($this->endpoint);
         } catch (MaxAttemptsExceededException $e) {
             Log::error($e->getMessage());
         } catch (Exception $e) {

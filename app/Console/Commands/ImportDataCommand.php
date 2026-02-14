@@ -17,7 +17,7 @@ use function Laravel\Prompts\warning;
 
 final class ImportDataCommand extends Command
 {
-    // TODO: implement Boogie Prompts, and APIs importers
+    // TODO: implement APIs importers
 
     protected $signature = 'import:data
                             {--a|al : Import All data sets}
@@ -33,7 +33,7 @@ final class ImportDataCommand extends Command
                             {--l|mf : Import data from Modifiers}
                             {--m|ib : Import data from Image Based prompts}';
 
-    protected $description = 'Imports all Prompt data from the repo';
+    protected $description = 'Imports Prompt datasets';
 
     public function handle(): void
     {

@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Console\Commands;
 
-use App\Repositories\Search\RefreshMovieMashupService;
+use App\Repositories\APIs\Services\RedditPromptsStarterService;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -13,17 +11,17 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-final class RefreshMovieMashupCommand extends Command
+class RedditPromptsStarterCommand extends Command
 {
-    protected $signature = 'refresh:mashup';
+    protected $signature = 'reddit:starter';
 
-    protected $description = 'Refresh the Movie Mashup database';
+    protected $description = 'Start the process to import the Reddit Writing Prompts';
 
-    public function handle(RefreshMovieMashupService $service): void
+    public function handle(RedditPromptsStarterService $service): void
     {
         try {
             clear();
-            intro('Refreshing Movie Mashup database');
+            intro('Starting Reddit Writing Prompts Import');
 
             $service->setToScreen(true)
                 ->execute();
