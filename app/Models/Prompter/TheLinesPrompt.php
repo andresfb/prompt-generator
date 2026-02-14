@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $active
  * @property int $usages
  */
-class TheLinesPrompt extends Model
+final class TheLinesPrompt extends Model
 {
     public $timestamps = false;
 

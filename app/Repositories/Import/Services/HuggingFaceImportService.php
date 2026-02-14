@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\HuggingFacePrompt;
@@ -7,7 +9,7 @@ use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class HuggingFaceImportService extends BaseImporterService
+final class HuggingFaceImportService extends BaseImporterService
 {
     public function execute(): void
     {
@@ -27,30 +29,30 @@ class HuggingFaceImportService extends BaseImporterService
             HuggingFacePrompt::create([
                 'text' => str($datum)
                     ->replace("\n", '')
-                    ->replace("  ", ' ')
-                    ->replace(" ,", ',')
-                    ->replace(" .", '.')
-                    ->replace(" ;", ';')
-                    ->replace("`` ", '"')
-                    ->replace("``", '"')
+                    ->replace('  ', ' ')
+                    ->replace(' ,', ',')
+                    ->replace(' .', '.')
+                    ->replace(' ;', ';')
+                    ->replace('`` ', '"')
+                    ->replace('``', '"')
                     ->replace(" ''", '"')
                     ->replace(" ' ", "' ")
                     ->replace(" ',", "',")
                     ->replace(" '.", "'.")
-                    ->replace("’", "'")
-                    ->replace("‘", "'")
+                    ->replace('’', "'")
+                    ->replace('‘', "'")
                     ->replace("''", '"')
                     ->replace(' " ', '" ')
-                    ->replace(" )", ')')
-                    ->replace("( ", '(')
-                    ->replace(" ]", ']')
-                    ->replace("[ ", '[')
-                    ->replace(" ?", '?')
-                    ->replace(" !", '!')
-                    ->replace(" :", ':')
-                    ->replace(" %", '%')
-                    ->replace("$ ", '$')
-                    ->replace(" ...", '...')
+                    ->replace(' )', ')')
+                    ->replace('( ', '(')
+                    ->replace(' ]', ']')
+                    ->replace('[ ', '[')
+                    ->replace(' ?', '?')
+                    ->replace(' !', '!')
+                    ->replace(' :', ':')
+                    ->replace(' %', '%')
+                    ->replace('$ ', '$')
+                    ->replace(' ...', '...')
                     ->replace("do n't", "don't", false)
                     ->replace("does n't", "doesn't", false)
                     ->replace("have n't", "haven't", false)

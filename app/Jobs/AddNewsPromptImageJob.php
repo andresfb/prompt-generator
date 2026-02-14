@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Libraries\MediaNamesLibrary;
@@ -13,7 +15,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class AddNewsPromptImageJob implements ShouldQueue
+final class AddNewsPromptImageJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

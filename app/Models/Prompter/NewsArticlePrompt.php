@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use App\Libraries\MediaNamesLibrary;
@@ -22,19 +24,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-class NewsArticlePrompt extends Model implements HasMedia
+final class NewsArticlePrompt extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
     protected $guarded = ['id'];
-
-    protected function casts(): array
-    {
-        return [
-            'active' => 'boolean',
-            'published_at' => 'timestamp',
-        ];
-    }
 
     public function registerMediaCollections(): void
     {
@@ -45,5 +39,13 @@ class NewsArticlePrompt extends Model implements HasMedia
                 'image/png',
                 'image/avif',
             ])->singleFile();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'active' => 'boolean',
+            'published_at' => 'timestamp',
+        ];
     }
 }

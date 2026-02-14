@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Repositories\Extract\Services\NewsArticleExtractorService;
@@ -12,7 +14,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class NewsArticleExtractorJob implements ShouldQueue
+final class NewsArticleExtractorJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

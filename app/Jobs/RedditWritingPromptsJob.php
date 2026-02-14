@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Repositories\APIs\Services\RedditWritingPromptsService;
@@ -12,7 +14,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class RedditWritingPromptsJob implements ShouldQueue
+final class RedditWritingPromptsJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

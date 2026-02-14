@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services\Base;
 
 use App\Repositories\Import\Interfaces\ImportServiceInterface;
@@ -12,14 +14,14 @@ abstract class BaseImporterService implements ImportServiceInterface
 
     private array $disabled;
 
-    abstract protected function execute(): void;
-
     public function __construct()
     {
         $this->disabled = Config::array('constants.disabled_importers');
     }
 
-    public function import(): void
+    abstract protected function execute(): void;
+
+    final public function import(): void
     {
         if (in_array(static::class, $this->disabled, true)) {
             $this->error("Importer {$this->getName()} is disabled");

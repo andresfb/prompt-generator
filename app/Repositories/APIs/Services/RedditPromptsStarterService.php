@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\APIs\Services;
 
 use App\Jobs\RedditWritingPromptsJob;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class RedditPromptsStarterService
+final class RedditPromptsStarterService
 {
     use Screenable;
 

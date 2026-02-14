@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     // TODO: extract this value to the .env file and increase to 200

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\TheLinesPrompt;
@@ -7,8 +9,13 @@ use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class TheLinesImportService extends BaseImporterService
+final class TheLinesImportService extends BaseImporterService
 {
+    public function getName(): string
+    {
+        return 'The First/Last lines Prompts';
+    }
+
     protected function execute(): void
     {
         $basePath = storage_path('app/public/promptgendata/the-lines');
@@ -52,10 +59,5 @@ class TheLinesImportService extends BaseImporterService
 
         $this->line(2);
         $this->info('--');
-    }
-
-    public function getName(): string
-    {
-        return 'The First/Last lines Prompts';
     }
 }

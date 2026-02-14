@@ -19,12 +19,12 @@ final class NovelStarterSection extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
     public function items(): HasMany
     {
         return $this->hasMany(NovelStarterItem::class);
     }
-
-    protected $casts = [
-        'active' => 'boolean',
-    ];
 }

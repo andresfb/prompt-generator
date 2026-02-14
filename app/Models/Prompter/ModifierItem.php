@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property bool $active
  * @property int $usages
  */
-class ModifierItem extends Model
+final class ModifierItem extends Model
 {
     public $timestamps = false;
 

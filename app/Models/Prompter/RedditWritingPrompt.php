@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use Carbon\CarbonInterface;
@@ -18,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property CarbonInterface|null $created_at
  * @property CarbonInterface|null $updated_at
  */
-class RedditWritingPrompt extends Model
+final class RedditWritingPrompt extends Model
 {
     use SoftDeletes;
 

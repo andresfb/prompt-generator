@@ -20,12 +20,12 @@ final class PulpAdventureSection extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
     public function items(): HasMany
     {
         return $this->hasMany(PulpAdventureItem::class);
     }
-
-    protected $casts = [
-        'active' => 'boolean',
-    ];
 }

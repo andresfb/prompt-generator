@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'endpoints' => [
@@ -14,6 +16,6 @@ return [
 
         'top_year' => env('REDDIT_PROMPTS_TOP_YEAR'),
 
-    ]
+    ],
 
 ];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\APIs\Services;
 
 use App\Models\Prompter\RedditWritingPrompt;
@@ -10,22 +12,22 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
-class RedditWritingPromptsService
+final class RedditWritingPromptsService
 {
     use Screenable;
 
     private array $postTypes = [
-        "[WP]" => "Writing Prompt",
-        "[SP]" => "Simple Prompt",
-        "[EU]" => "Established Universe",
-        "[CW]" => "Constrained Writing",
-        "[TT]" => "Theme Thursday",
-        "[MP]" => "Media Prompt",
-        "[IP]" => "Image Prompt",
-        "[RF]" => "Reality Fiction",
-        "[PM]" => "Prompt Me",
-        "[PI]" => "Prompt Inspired",
-        "[OT]" => "Off Topic",
+        '[WP]' => 'Writing Prompt',
+        '[SP]' => 'Simple Prompt',
+        '[EU]' => 'Established Universe',
+        '[CW]' => 'Constrained Writing',
+        '[TT]' => 'Theme Thursday',
+        '[MP]' => 'Media Prompt',
+        '[IP]' => 'Image Prompt',
+        '[RF]' => 'Reality Fiction',
+        '[PM]' => 'Prompt Me',
+        '[PI]' => 'Prompt Inspired',
+        '[OT]' => 'Off Topic',
     ];
 
     public function execute(string $endpoint): void
@@ -50,12 +52,13 @@ class RedditWritingPromptsService
 
     /**
      * @return Collection<RedditResponseItem>
+     *
      * @throws ConnectionException
      */
     private function loadFromApi(string $endpoint): Collection
     {
         $response = Http::withHeaders([
-            'User-Agent' => config('app.name') . '/1.0',
+            'User-Agent' => config('app.name').'/1.0',
         ])->get($endpoint);
 
         if ($response->failed()) {

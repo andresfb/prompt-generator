@@ -26,7 +26,5 @@ Schedule::job(app(NewsArticleExtractorJob::class))->twiceDaily(2, 14);
 // Twice a day at 3 AM and 3 PM
 Schedule::job(app(GenerateMovieMashupPromptJob::class))->twiceDaily(3, 15);
 
-
-
 // Once a day at 10:15 pm
-Schedule::job(app(RedditPromptsStarterJob::class))->dailyAt("22:15");
+Schedule::job(app(RedditPromptsStarterJob::class))->dailyAt('22:15');

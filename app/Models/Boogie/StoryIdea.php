@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Boogie;
 
 use Carbon\CarbonInterface;
@@ -18,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-class StoryIdea extends Model
+final class StoryIdea extends Model
 {
     use SoftDeletes;
 

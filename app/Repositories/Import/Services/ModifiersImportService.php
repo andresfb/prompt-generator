@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\ModifierItem;
@@ -8,8 +10,13 @@ use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class ModifiersImportService extends BaseImporterService
+final class ModifiersImportService extends BaseImporterService
 {
+    public function getName(): string
+    {
+        return 'Prompt Modifiers';
+    }
+
     protected function execute(): void
     {
         $basePath = storage_path('app/public/promptgendata/modifiers');
@@ -55,10 +62,5 @@ class ModifiersImportService extends BaseImporterService
 
         $this->line(2);
         $this->info('--');
-    }
-
-    public function getName(): string
-    {
-        return 'Prompt Modifiers';
     }
 }

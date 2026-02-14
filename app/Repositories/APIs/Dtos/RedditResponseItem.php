@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\APIs\Dtos;
 
 use Carbon\CarbonInterface;
 use Spatie\LaravelData\Data;
 
-class RedditResponseItem extends Data
+final class RedditResponseItem extends Data
 {
     public function __construct(
         public int $id,

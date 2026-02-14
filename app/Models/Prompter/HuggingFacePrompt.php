@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $active
  * @property int $usages
  */
-class HuggingFacePrompt extends Model
+final class HuggingFacePrompt extends Model
 {
     public $timestamps = false;
 

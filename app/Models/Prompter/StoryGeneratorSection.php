@@ -19,12 +19,12 @@ final class StoryGeneratorSection extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
     public function items(): HasMany
     {
         return $this->hasMany(StoryGeneratorItem::class);
     }
-
-    protected $casts = [
-        'active' => 'boolean',
-    ];
 }

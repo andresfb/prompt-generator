@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Extract\Services;
 
 use App\Jobs\AddNewsPromptImageJob;
@@ -10,7 +12,7 @@ use App\Traits\Screenable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Config;
 
-class NewsArticleExtractorService
+final class NewsArticleExtractorService
 {
     use Screenable;
 
@@ -113,7 +115,7 @@ class NewsArticleExtractorService
         $count = count($parts);
 
         if ($count >= 2) {
-            return $parts[$count - 2] . '.' . $parts[$count - 1];
+            return $parts[$count - 2].'.'.$parts[$count - 1];
         }
 
         return $host;
