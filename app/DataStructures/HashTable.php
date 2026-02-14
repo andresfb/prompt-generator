@@ -9,9 +9,9 @@ use Traversable;
 
 final class HashTable implements IteratorAggregate
 {
-    protected array $buckets;
+    private array $buckets;
 
-    public function __construct(protected int $size = 20)
+    public function __construct(private readonly int $size = 20)
     {
         // Initialize buckets to hold arrays for separate chaining
         $this->buckets = array_fill(0, $this->size, []);
@@ -61,7 +61,7 @@ final class HashTable implements IteratorAggregate
         }
     }
 
-    protected function hash(string $key): int
+    private function hash(string $key): int
     {
         $hash = 0;
         for ($i = 0, $iMax = mb_strlen($key); $i < $iMax; $i++) {

@@ -14,24 +14,19 @@ class RedditWritingPromptsService
 {
     use Screenable;
 
-    private array $postTypes;
-
-    public function __construct()
-    {
-        $this->postTypes = [
-            "[WP]" => "Writing Prompt",
-            "[SP]" => "Simple Prompt",
-            "[EU]" => "Established Universe",
-            "[CW]" => "Constrained Writing",
-            "[TT]" => "Theme Thursday",
-            "[MP]" => "Media Prompt",
-            "[IP]" => "Image Prompt",
-            "[RF]" => "Reality Fiction",
-            "[PM]" => "Prompt Me",
-            "[PI]" => "Prompt Inspired",
-            "[OT]" => "Off Topic",
-        ];
-    }
+    private array $postTypes = [
+        "[WP]" => "Writing Prompt",
+        "[SP]" => "Simple Prompt",
+        "[EU]" => "Established Universe",
+        "[CW]" => "Constrained Writing",
+        "[TT]" => "Theme Thursday",
+        "[MP]" => "Media Prompt",
+        "[IP]" => "Image Prompt",
+        "[RF]" => "Reality Fiction",
+        "[PM]" => "Prompt Me",
+        "[PI]" => "Prompt Inspired",
+        "[OT]" => "Off Topic",
+    ];
 
     public function execute(string $endpoint): void
     {

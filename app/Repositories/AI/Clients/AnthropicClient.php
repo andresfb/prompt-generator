@@ -20,7 +20,7 @@ final class AnthropicClient extends BaseAiClient
         return 'Anthropic';
     }
 
-    public function getProvider(): string|ProviderEnum
+    public function getProvider(): ProviderEnum
     {
         return ProviderEnum::Anthropic;
     }

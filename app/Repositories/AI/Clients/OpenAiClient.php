@@ -20,7 +20,7 @@ final class OpenAiClient extends BaseAiClient
         return 'OpenAI';
     }
 
-    public function getProvider(): string|ProviderEnum
+    public function getProvider(): ProviderEnum
     {
         return ProviderEnum::OpenAI;
     }

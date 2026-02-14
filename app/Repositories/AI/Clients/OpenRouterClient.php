@@ -20,7 +20,7 @@ final class OpenRouterClient extends BaseAiClient
         return 'OpenRouter';
     }
 
-    public function getProvider(): string|ProviderEnum
+    public function getProvider(): ProviderEnum
     {
         return ProviderEnum::OpenRouter;
     }
