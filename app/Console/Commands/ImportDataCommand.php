@@ -17,7 +17,9 @@ use function Laravel\Prompts\warning;
 
 final class ImportDataCommand extends Command
 {
-    // TODO: implement Media Studios API importers
+    // TODO: when serving this from the Public network 👇
+    // TODO: add a 'public' boolean field to all prompter models
+    // TODO: use the 'public' field to restrict those with public=false to request from the internal network only (or tailscale).
 
     protected $signature = 'import:data
                             {--a|al : Import All data sets}
@@ -31,7 +33,9 @@ final class ImportDataCommand extends Command
                             {--j|ns : Import data from Novel Starter}
                             {--k|fl : Import data from First/Last Lines}
                             {--l|mf : Import data from Modifiers}
-                            {--m|ib : Import data from Image Based prompts}';
+                            {--m|mc : Import data from Movie Collections}
+                            {--o|ms : Import data from Media Studio List}
+                            {--p|ib : Import data from Image Based prompts}';
 
     protected $description = 'Imports Prompt datasets';
 

@@ -47,6 +47,13 @@ final class MediaPathGenerator implements PathGenerator
                 ->implode('/')
         )
             ->append('/')
+            ->append(
+                Str::of($media->model_type)
+                    ->classBasename()
+                    ->kebab()
+                    ->toString()
+            )
+            ->append('/')
             ->append($media->collection_name)
             ->append('/')
             ->append((string) $media->id)

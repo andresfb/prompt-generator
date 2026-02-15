@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('endpoint');
             $table->unsignedSmallInteger('total_scenes')->default(0);
             $table->unsignedSmallInteger('per_page')->default(0);
+            $table->unsignedSmallInteger('current_page')->default(0);
             $table->unsignedSmallInteger('last_page')->default(0);
             $table->boolean('active')
                 ->default(true)
                 ->index();
-            $table->timestamp('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

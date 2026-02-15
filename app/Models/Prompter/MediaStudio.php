@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $endpoint
  * @property int $total_scenes
  * @property int $per_page
+ * @property int $current_page
  * @property int $last_page
  * @property bool $active
  * @property-read CarbonInterface|null $published_at

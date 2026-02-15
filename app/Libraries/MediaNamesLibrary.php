@@ -6,6 +6,11 @@ namespace App\Libraries;
 
 final readonly class MediaNamesLibrary
 {
+    public static function primary(): string
+    {
+        return 'primary';
+    }
+
     public static function thumbnail(): string
     {
         return 'thumbnail';

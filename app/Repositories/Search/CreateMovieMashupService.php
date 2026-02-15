@@ -9,6 +9,7 @@ use App\Jobs\CreateMoviesMashupJob;
 use App\Models\Prompter\MovieInfo;
 use App\Models\Prompter\MovieMashupItem;
 use App\Models\Prompter\MovieMashupPrompt;
+use App\Traits\ImageExtractor;
 use App\Traits\Screenable;
 use Exception;
 use Illuminate\Support\Collection;
@@ -22,6 +23,7 @@ use Throwable;
 
 final class CreateMovieMashupService
 {
+    use ImageExtractor;
     use Screenable;
 
     private int $maxMovies;
@@ -167,27 +169,14 @@ final class CreateMovieMashupService
             }
 
             try {
-                DB::transaction(static function () use ($hash, $movies, &$promptId) {
+                DB::transaction(function () use ($hash, $movies, &$promptId) {
                     $prompt = MovieMashupPrompt::create([
                         'hash' => $hash,
                     ]);
 
                     $promptId = $prompt->id;
                     foreach ($movies as $movie) {
-                        $image = '';
-                        $imageType = '';
-
-                        $imageTags = $movie['content']['ImageTags'] ?? ['' => ''];
-                        foreach ($imageTags as $type => $imageTag) {
-                            if ($type !== 'Primary') {
-                                continue;
-                            }
-
-                            $imageType = $type;
-                            $image = $imageTag;
-
-                            break;
-                        }
+                        [$image, $imageType] = $this->getImage($movie['content']);
 
                         $item = MovieMashupItem::create([
                             'movie_mashup_prompt_id' => $promptId,

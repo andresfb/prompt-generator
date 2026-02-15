@@ -14,9 +14,9 @@ use Illuminate\Support\LazyCollection;
 
 final class ImageBasedPromptsImportService extends BaseImporterService
 {
-    private const S3_LOCAL_DISK = 's3-local';
+    private const string S3_LOCAL_DISK = 's3-local';
 
-    private const S3_DISK = 's3';
+    private const string S3_DISK = 's3';
 
     /**
      * @throws Exception

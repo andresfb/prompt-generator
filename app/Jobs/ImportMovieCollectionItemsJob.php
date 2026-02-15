@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use App\Actions\AddMovieImageAction;
-use App\Models\Prompter\MovieMashupItem;
+use App\Repositories\APIs\Services\MovieCollectionItemsService;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,30 +14,26 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-final class AddMovieMashupImageJob implements ShouldQueue
+final class ImportMovieCollectionItemsJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private readonly int $movieId)
+    public function __construct()
     {
-        $this->queue = 'media';
+        $this->queue = 'worker';
         $this->delay = now()->addSeconds(5);
     }
 
     /**
      * @throws Exception
      */
-    public function handle(AddMovieImageAction $action): void
+    public function handle(MovieCollectionItemsService $service): void
     {
         try {
-            $movie = MovieMashupItem::query()
-                ->where('id', $this->movieId)
-                ->firstOrFail();
-
-            $action->handle($movie);
+            $service->execute();
         } catch (MaxAttemptsExceededException $e) {
             Log::error($e->getMessage());
         } catch (Exception $e) {

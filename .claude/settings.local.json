@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(git -C /Volumes/Personal/SourceControl/Projects/prompt-generator log --oneline -10)",
-      "WebFetch(domain:www.reddit.com)"
+      "WebFetch(domain:www.reddit.com)",
+      "WebFetch(domain:api.theporndb.net)",
+      "Bash(composer test:types:*)",
+      "mcp__laravel-boost__last-error"
     ]
   },
   "enableAllProjectMcpServers": true,

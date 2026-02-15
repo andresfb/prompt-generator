@@ -11,7 +11,9 @@ use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
 use App\Repositories\Import\Services\HuggingFaceImportService;
 use App\Repositories\Import\Services\ImageBasedPromptsImportService;
+use App\Repositories\Import\Services\MediaStudioImportService;
 use App\Repositories\Import\Services\ModifiersImportService;
+use App\Repositories\Import\Services\MovieCollectionsImportService;
 use App\Repositories\Import\Services\NovelStarterImportService;
 use App\Repositories\Import\Services\PlotMachineImportService;
 use App\Repositories\Import\Services\PromptSettingsImportService;
@@ -48,6 +50,8 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('ns', NovelStarterImportService::class);
             $services->insert('fl', TheLinesImportService::class);
             $services->insert('mf', ModifiersImportService::class);
+            $services->insert('mc', MovieCollectionsImportService::class);
+            $services->insert('ms', MediaStudioImportService::class);
             $services->insert('ib', ImageBasedPromptsImportService::class);
         });
     }

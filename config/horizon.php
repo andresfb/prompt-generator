@@ -240,8 +240,8 @@ return [
                 'autoScalingStrategy' => 'size',
                 'balance' => 'auto',
                 'minProcesses' => 1,
-                'maxProcesses' => 4,
-                'timeout' => 300, // 5 Minutes
+                'maxProcesses' => 6,
+                'timeout' => 600, // 10 Minutes
                 'tries' => 1,
             ],
 
@@ -252,6 +252,17 @@ return [
                 'balance' => 'auto',
                 'minProcesses' => 1,
                 'maxProcesses' => 5,
+                'timeout' => 600, // 10 Minutes
+                'tries' => 1,
+            ],
+
+            'download-supervisor' => [
+                'connection' => 'redis',
+                'queue' => ['download'],
+                'autoScalingStrategy' => 'size',
+                'balance' => 'auto',
+                'minProcesses' => 1,
+                'maxProcesses' => 2,
                 'timeout' => 600, // 10 Minutes
                 'tries' => 1,
             ],
@@ -288,6 +299,22 @@ return [
             'media-supervisor' => [
                 'connection' => 'redis',
                 'queue' => ['media'],
+                'autoScalingStrategy' => 'size',
+                'balance' => 'auto',
+                'tries' => 1,
+            ],
+
+            'worker-supervisor' => [
+                'connection' => 'redis',
+                'queue' => ['worker'],
+                'autoScalingStrategy' => 'size',
+                'balance' => 'auto',
+                'tries' => 1,
+            ],
+
+            'download-supervisor' => [
+                'connection' => 'redis',
+                'queue' => ['download'],
                 'autoScalingStrategy' => 'size',
                 'balance' => 'auto',
                 'tries' => 1,

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Actions\AddMovieImageAction;
-use App\Models\Prompter\MovieMashupItem;
+use App\Models\Prompter\MovieCollectionItem;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,7 +15,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-final class AddMovieMashupImageJob implements ShouldQueue
+final class AddMovieItemImageJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -34,7 +34,7 @@ final class AddMovieMashupImageJob implements ShouldQueue
     public function handle(AddMovieImageAction $action): void
     {
         try {
-            $movie = MovieMashupItem::query()
+            $movie = MovieCollectionItem::query()
                 ->where('id', $this->movieId)
                 ->firstOrFail();
 
