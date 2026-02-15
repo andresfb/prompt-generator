@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\APIs\Dtos;
 
 use Spatie\LaravelData\Data;
 
-class StudioRequestItem extends Data
+final class StudioRequestItem extends Data
 {
     public function __construct(
         public string $uuid,

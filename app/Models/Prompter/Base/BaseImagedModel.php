@@ -20,12 +20,12 @@ abstract class BaseImagedModel extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    public function getMediaName(): string
+    final public function getMediaName(): string
     {
         return MediaNamesLibrary::primary();
     }
 
-    public function registerMediaCollections(): void
+    final public function registerMediaCollections(): void
     {
         $this->addMediaCollection($this->getMediaName())
             ->withResponsiveImages()

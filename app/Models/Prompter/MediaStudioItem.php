@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use App\Libraries\MediaNamesLibrary;
@@ -17,18 +19,25 @@ use Spatie\Tags\HasTags;
  * @property string $description
  * @property string|null $image
  * @property string|null $trailer
- * @property boolean $active
- * @property integer $usages
+ * @property bool $active
+ * @property int $usages
  * @property-read CarbonInterface|null $deleted_at
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-class MediaStudioItem extends BaseImagedModel
+final class MediaStudioItem extends BaseImagedModel
 {
     use HasTags;
     use SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public static function getCount(string $studioId): int
+    {
+        return self::query()
+            ->where('media_studio_id', $studioId)
+            ->count();
+    }
 
     public function studio(): BelongsTo
     {
@@ -38,13 +47,6 @@ class MediaStudioItem extends BaseImagedModel
     public function getMediaName(): string
     {
         return MediaNamesLibrary::image();
-    }
-
-    public static function getCount(string $studioId): int
-    {
-        return static::query()
-            ->where('media_studio_id', $studioId)
-            ->count();
     }
 
     protected function casts(): array

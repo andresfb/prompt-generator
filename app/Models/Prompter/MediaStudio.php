@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use Carbon\CarbonInterface;
@@ -24,11 +26,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-class MediaStudio extends Model
+final class MediaStudio extends Model
 {
     use SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(MediaStudioItem::class);
+    }
 
     protected function casts(): array
     {
@@ -36,10 +43,5 @@ class MediaStudio extends Model
             'uuid' => 'string',
             'active' => 'boolean',
         ];
-    }
-
-    public function items(): HasMany
-    {
-        return $this->hasMany(MediaStudioItem::class);
     }
 }

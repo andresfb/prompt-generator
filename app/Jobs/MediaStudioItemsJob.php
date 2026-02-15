@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Repositories\APIs\Dtos\StudioRequestItem;
@@ -13,7 +15,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class MediaStudioItemsJob implements ShouldQueue
+final class MediaStudioItemsJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\APIs\Dtos;
 
 use Carbon\CarbonInterface;
 use Spatie\LaravelData\Data;
 
-class StudioRespondSceneItem extends Data
+final class StudioRespondSceneItem extends Data
 {
     public function __construct(
         public string $id,

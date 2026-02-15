@@ -54,7 +54,7 @@ final class MediaStudioApiLibrary
 
     /**
      * @return Collection<int, StudioRespondSceneItem|null>
-    */
+     */
     private function loadScenes(array $data): Collection
     {
         if (blank($data)) {
@@ -83,6 +83,6 @@ final class MediaStudioApiLibrary
                     : null,
             );
         })
-        ->reject(fn(?StudioRespondSceneItem $sceneItem): bool => !$sceneItem instanceof StudioRespondSceneItem);
+            ->reject(fn (?StudioRespondSceneItem $sceneItem): bool => ! $sceneItem instanceof StudioRespondSceneItem);
     }
 }

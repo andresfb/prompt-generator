@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\APIs\Services;
 
 use App\Jobs\MediaStudioItemsJob;
@@ -7,7 +9,7 @@ use App\Models\Prompter\MediaStudio;
 use App\Repositories\APIs\Dtos\StudioRequestItem;
 use App\Traits\Screenable;
 
-class MediaStudioStarterService
+final class MediaStudioStarterService
 {
     use Screenable;
 

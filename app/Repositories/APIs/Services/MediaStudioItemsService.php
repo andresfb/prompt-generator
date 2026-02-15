@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\APIs\Services;
 
 use App\Models\Prompter\MediaStudio;
@@ -10,7 +12,7 @@ use App\Repositories\APIs\Libraries\MediaStudioApiLibrary;
 use App\Traits\Screenable;
 use Exception;
 
-class MediaStudioItemsService
+final class MediaStudioItemsService
 {
     use Screenable;
 

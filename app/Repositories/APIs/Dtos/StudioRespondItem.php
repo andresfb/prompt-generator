@@ -10,7 +10,7 @@ use Spatie\LaravelData\Data;
 final class StudioRespondItem extends Data
 {
     /**
-     * @param  Collection<StudioRespondSceneItem> $scenes
+     * @param  Collection<StudioRespondSceneItem>|null  $scenes
      */
     public function __construct(
         public string $uuid,
