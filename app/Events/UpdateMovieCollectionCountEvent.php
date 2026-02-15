@@ -6,9 +6,9 @@ namespace App\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 
-final class UpdateMovieCollectionCountEvent
+final readonly class UpdateMovieCollectionCountEvent
 {
     use Dispatchable;
 
-    public function __construct(public readonly string $collectionId) {}
+    public function __construct(public string $collectionId) {}
 }

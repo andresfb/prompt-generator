@@ -83,6 +83,6 @@ final class MediaStudioApiLibrary
                     : null,
             );
         })
-        ->reject(fn(?StudioRespondSceneItem $sceneItem) => $sceneItem === null);
+        ->reject(fn(?StudioRespondSceneItem $sceneItem): bool => !$sceneItem instanceof StudioRespondSceneItem);
     }
 }

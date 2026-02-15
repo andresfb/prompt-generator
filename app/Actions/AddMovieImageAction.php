@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Libraries\MediaNamesLibrary;
 use App\Models\Prompter\Base\BaseImagedModel;
 use Exception;
 use Illuminate\Support\Facades\Config;

@@ -17,6 +17,6 @@ final class StudioRespondItem extends Data
         public int $total,
         public int $current_page = 1,
         public int $last_page = 25,
-        public Collection $scenes,
+        public ?Collection $scenes = null,
     ) {}
 }

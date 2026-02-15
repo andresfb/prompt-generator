@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Repositories\APIs\Dtos\StudioRequestItem;
 use App\Repositories\APIs\Services\MediaStudioStarterService;
 use Exception;
 use Illuminate\Bus\Queueable;

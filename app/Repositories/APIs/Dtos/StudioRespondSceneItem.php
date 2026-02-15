@@ -13,9 +13,9 @@ class StudioRespondSceneItem extends Data
         public string $title,
         public string $description,
         public array $tags = [],
-        public ?string $image,
-        public ?string $trailer,
-        public ?CarbonInterface $published_at,
+        public ?string $image = null,
+        public ?string $trailer = null,
+        public ?CarbonInterface $published_at = null,
     ) {}
 
     public function toArray(): array
