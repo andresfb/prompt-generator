@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Search;
+namespace App\Repositories\Search\Services;
 
 use App\Jobs\AddMovieMashupImageJob;
 use App\Jobs\CreateMoviesMashupJob;
@@ -11,13 +11,9 @@ use App\Models\Prompter\MovieMashupItem;
 use App\Models\Prompter\MovieMashupPrompt;
 use App\Traits\ImageExtractor;
 use App\Traits\Screenable;
-use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Meilisearch\Client;
-use Meilisearch\Contracts\DocumentsQuery;
 use RuntimeException;
 use Throwable;
 
@@ -28,9 +24,7 @@ final class CreateMovieMashupService
 
     private int $maxMovies;
 
-    private int $maxChunks = 500;
-
-    public function __construct()
+    public function __construct(private readonly RefreshMoviesService $refreshService)
     {
         $this->maxMovies = count(
             Config::array('movie-mashups.mashup_settings')
@@ -54,7 +48,9 @@ final class CreateMovieMashupService
 
     private function getMovies(): array
     {
-        $this->refreshMovies();
+        $this->refreshService
+            ->setToScreen($this->toScreen)
+            ->execute();
 
         $maxUsages = Config::integer('movie-mashups.max_mashup_movie_usages');
         $data = MovieInfo::query()
@@ -80,82 +76,6 @@ final class CreateMovieMashupService
             });
 
         return $movies;
-    }
-
-    private function refreshMovies(): void
-    {
-        $movies = $this->loadMovies();
-        if ($movies->isEmpty()) {
-            return;
-        }
-
-        $this->info('Saving movies');
-
-        $movies->chunk($this->maxChunks)
-            ->each(function (Collection $chunk) {
-                $chunk->each(function (array $movie) {
-                    MovieInfo::updateOrCreate([
-                        'movie_id' => $movie['Id'],
-                    ], [
-                        'content' => $movie,
-                    ]);
-
-                    $this->character('.');
-                });
-            });
-
-        $this->line(2);
-    }
-
-    private function loadMovies(): Collection
-    {
-        info('Loading movies');
-
-        try {
-            $client = new Client(
-                Config::string('meilisearch.host'),
-                Config::string('meilisearch.key'),
-            );
-
-            $index = $client->index(
-                Config::string('meilisearch.movies_index'),
-            );
-
-            $stats = $index->stats();
-            $total = $stats['numberOfDocuments'];
-
-            if ($total === MovieInfo::count()) {
-                $this->warning(sprintf('%sNo movie refresh needed.%s', PHP_EOL, PHP_EOL));
-
-                return collect();
-            }
-
-            $limit = $this->maxChunks;
-            $offset = 0;
-            $allDocuments = collect();
-
-            do {
-                $limits = new DocumentsQuery;
-                $limits->setLimit($limit);
-                $limits->setOffset($offset);
-
-                $response = $index->getDocuments($limits);
-                $documents = $response->getResults();
-
-                $allDocuments = $allDocuments->merge($documents);
-                $offset += $limit;
-
-                $this->character('.');
-            } while (count($documents) === $limit);
-
-            $this->line(2);
-
-            return $allDocuments;
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-
-            return collect();
-        }
     }
 
     private function savePrompt(array $items): bool

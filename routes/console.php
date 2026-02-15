@@ -8,7 +8,7 @@ use App\Jobs\ImportMovieCollectionItemsJob;
 use App\Jobs\MediaStudioStarterJob;
 use App\Jobs\NewsArticleExtractorJob;
 use App\Jobs\RedditPromptsStarterJob;
-use App\Repositories\Search\CreateMovieMashupService;
+use App\Repositories\Search\Services\CreateMovieMashupService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 

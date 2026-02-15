@@ -1,28 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Console\Commands;
 
-use App\Repositories\Search\Services\CreateMovieMashupService;
+use App\Repositories\Search\Services\RefreshMoviesService;
 use Exception;
 use Illuminate\Console\Command;
+
 use function Laravel\Prompts\clear;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-final class CreateMovieMashupCommand extends Command
+class RefreshMoviesCommand extends Command
 {
-    protected $signature = 'create:mashup';
+    protected $signature = 'refresh:movies';
 
-    protected $description = 'Creates Movie Mashups';
+    protected $description = 'Import new movies from the Search index';
 
-    public function handle(CreateMovieMashupService $service): void
+    public function handle(RefreshMoviesService $service): void
     {
         try {
             clear();
-            intro('Creating Movie Mashups');
+            intro('Refreshing movies');
 
             $service->setToScreen(true)
                 ->execute();

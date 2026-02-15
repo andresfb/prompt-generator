@@ -20,7 +20,7 @@ php artisan create:token
 ```
 ### Refresh the Movie Info database for the Mashups from the Meilisearch index (from a separate project)
 ```sh
-php artisan refresh:mashup
+php artisan refresh:movies
 ```
 ### Import all the Prompt datasets
 ```sh
