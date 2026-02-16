@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,10 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $title
  * @property string $text
- * @property boolean $active
+ * @property bool $active
  * @property int $usages
  */
-class WritersDigestPrompt extends Model
+final class WritersDigestPrompt extends Model
 {
     public $timestamps = false;
 

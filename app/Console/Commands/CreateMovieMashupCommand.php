@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\Repositories\Search\Services\CreateMovieMashupService;
 use Exception;
 use Illuminate\Console\Command;
+
 use function Laravel\Prompts\clear;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;

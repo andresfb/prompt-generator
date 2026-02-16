@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\WritersDigestPrompt;
@@ -7,16 +9,21 @@ use App\Repositories\Import\Services\Base\BaseImporterService;
 use App\Traits\CsvReadable;
 use Illuminate\Support\Facades\DB;
 
-class WritersDigestImportService extends BaseImporterService
+final class WritersDigestImportService extends BaseImporterService
 {
     use CsvReadable;
+
+    public function getName(): string
+    {
+        return "Writer's Digest Prompts";
+    }
 
     protected function execute(): void
     {
         $dataFile = storage_path('app/public/promptgendata/writers-digest/prompts.csv');
         $data = $this->readfile($dataFile);
 
-        $this->info("Saving prompts");
+        $this->info('Saving prompts');
         DB::table('writers_digest_prompts')->truncate();
 
         $data->shift();
@@ -30,10 +37,5 @@ class WritersDigestImportService extends BaseImporterService
         });
 
         $this->line();
-    }
-
-    public function getName(): string
-    {
-        return "Writer's Digest Prompts";
     }
 }

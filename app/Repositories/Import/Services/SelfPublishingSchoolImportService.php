@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\SelfPublishingSchoolItem;
@@ -10,9 +12,14 @@ use Illuminate\Support\Facades\DB;
 use RuntimeException;
 use Throwable;
 
-class SelfPublishingSchoolImportService extends BaseImporterService
+final class SelfPublishingSchoolImportService extends BaseImporterService
 {
     use CsvReadable;
+
+    public function getName(): string
+    {
+        return 'Self Publishing School Prompts';
+    }
 
     protected function execute(): void
     {
@@ -70,10 +77,5 @@ class SelfPublishingSchoolImportService extends BaseImporterService
                 $this->error($e->getMessage());
             }
         }
-    }
-
-    public function getName(): string
-    {
-        return 'Self Publishing School Prompts';
     }
 }

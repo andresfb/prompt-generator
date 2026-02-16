@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\KindlepreneurItem;
@@ -10,9 +12,14 @@ use Illuminate\Support\Facades\DB;
 use RuntimeException;
 use Throwable;
 
-class KindlepreneurImportService extends BaseImporterService
+final class KindlepreneurImportService extends BaseImporterService
 {
     use CsvReadable;
+
+    public function getName(): string
+    {
+        return 'Kindlepreneur Prompts';
+    }
 
     protected function execute(): void
     {
@@ -67,10 +74,5 @@ class KindlepreneurImportService extends BaseImporterService
                 $this->error($e->getMessage());
             }
         }
-    }
-
-    public function getName(): string
-    {
-        return 'Kindlepreneur Prompts';
     }
 }

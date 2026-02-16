@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,9 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $title
  * @property string $description
  * @property string $hint
- * @property boolean $active
+ * @property bool $active
  */
-class SelfPublishingSchoolSection extends Model
+final class SelfPublishingSchoolSection extends Model
 {
     public $timestamps = false;
 
