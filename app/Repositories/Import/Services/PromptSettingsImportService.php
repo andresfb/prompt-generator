@@ -6,31 +6,16 @@ namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\PromptSetting;
 use App\Repositories\Import\Services\Base\BaseImporterService;
-use RuntimeException;
+use App\Traits\CsvReadable;
 
 final class PromptSettingsImportService extends BaseImporterService
 {
+    use CsvReadable;
+
     public function execute(): void
     {
         $dataFile = storage_path('app/public/promptgendata/prompt-settings/settings.csv');
-        if (! file_exists($dataFile)) {
-            throw new RuntimeException("{$this->getName()} data not found in $dataFile");
-        }
-
-        $this->info("Reading from $dataFile");
-
-        $file = fopen($dataFile, 'rb');
-        $data = collect();
-        while (($row = fgetcsv($file)) !== false) {
-            $data->push($row);
-            $this->character('.');
-        }
-        fclose($file);
-
-        $this->line();
-        if ($data->isEmpty()) {
-            throw new RuntimeException("No records found in $dataFile");
-        }
+        $data = $this->readfile($dataFile);
 
         $this->info("Importing {$data->count()} Prompt Settings");
 
@@ -46,7 +31,7 @@ final class PromptSettingsImportService extends BaseImporterService
             $this->character('.');
         });
 
-        $this->line(2);
+        $this->line();
     }
 
     public function getName(): string

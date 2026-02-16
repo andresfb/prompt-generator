@@ -35,7 +35,11 @@ final class ImportDataCommand extends Command
                             {--l|mf : Import data from Modifiers}
                             {--m|mc : Import data from Movie Collections}
                             {--o|ms : Import data from Media Studio List}
-                            {--p|ib : Import data from Image Based prompts}';
+                            {--p|rd : Import Reddit Endpoints}
+                            {--r|wd : Import data from Writer\'s Digest prompts}
+                            {--s|ke : Import data from Kindlepreneur prompts}
+                            {--t|sp : Import data from Self Publishing School prompts}
+                            {--u|ib : Import data from Image Based prompts}';
 
     protected $description = 'Imports Prompt datasets';
 

@@ -5,7 +5,8 @@
       "WebFetch(domain:www.reddit.com)",
       "WebFetch(domain:api.theporndb.net)",
       "Bash(composer test:types:*)",
-      "mcp__laravel-boost__last-error"
+      "mcp__laravel-boost__last-error",
+      "Bash(git diff:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

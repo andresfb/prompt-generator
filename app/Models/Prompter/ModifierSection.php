@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 final class ModifierSection extends Model
 {
+    // TODO: add an "Make it Anachronistic" modifier added at a 1 to `count()` chance when the "Time Periods are anything in the far past (ids: 29, 30, 31)
+
     public $timestamps = false;
 
     protected $guarded = ['id'];

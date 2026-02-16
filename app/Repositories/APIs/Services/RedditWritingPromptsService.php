@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\APIs\Services;
 
+use App\Models\Prompter\RedditPromptEndpoint;
 use App\Models\Prompter\RedditWritingPrompt;
 use App\Repositories\APIs\Dtos\RedditResponseItem;
 use App\Traits\Screenable;
@@ -30,23 +31,29 @@ final class RedditWritingPromptsService
         '[OT]' => 'Off Topic',
     ];
 
-    public function execute(string $endpoint): void
+    public function execute(RedditPromptEndpoint $endpoint): void
     {
         $this->info("Querying $endpoint API");
 
         try {
-            $results = $this->loadFromApi($endpoint);
-            $results->each(function (RedditResponseItem $item) {
+            $results = $this->loadFromApi($endpoint->url);
+            $results->each(function (RedditResponseItem $item) use ($endpoint) {
                 if (RedditWritingPrompt::where('hash', $item->hash)->exists()) {
                     return;
                 }
 
-                RedditWritingPrompt::create($item->toArray());
+                $prompt = $item->toArray();
+                $prompt['reddit_prompt_endpoint_id'] = $endpoint->id;
+
+                RedditWritingPrompt::create($prompt);
+
+                $this->character('.');
             });
         } catch (ConnectionException $e) {
             $this->error("There was an error with $endpoint: {$e->getMessage()}");
         }
 
+        $this->line();
         $this->info("Done with $endpoint");
     }
 

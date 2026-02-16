@@ -6,11 +6,13 @@ namespace App\Repositories\Import\Services;
 
 use App\Models\Prompter\MediaStudio;
 use App\Repositories\Import\Services\Base\BaseImporterService;
+use App\Traits\CsvReadable;
 use Illuminate\Support\Facades\DB;
-use RuntimeException;
 
 final class MediaStudioImportService extends BaseImporterService
 {
+    use CsvReadable;
+
     public function getName(): string
     {
         return 'Media Studios';
@@ -19,26 +21,7 @@ final class MediaStudioImportService extends BaseImporterService
     protected function execute(): void
     {
         $dataFile = storage_path('app/public/promptgendata/media-studios/studio-list.csv');
-
-        /** @noinspection DuplicatedCode */
-        if (! file_exists($dataFile)) {
-            throw new RuntimeException("{$this->getName()} data not found in $dataFile");
-        }
-
-        $this->info("Reading from $dataFile");
-
-        $file = fopen($dataFile, 'rb');
-        $data = collect();
-        while (($row = fgetcsv($file)) !== false) {
-            $data->push($row);
-            $this->character('.');
-        }
-        fclose($file);
-
-        $this->line();
-        if ($data->isEmpty()) {
-            throw new RuntimeException("No records found in $dataFile");
-        }
+        $data = $this->readfile($dataFile);
 
         $this->info("Importing {$data->count()} Media Studios");
 
@@ -58,6 +41,6 @@ final class MediaStudioImportService extends BaseImporterService
             $this->character('.');
         });
 
-        $this->line(2);
+        $this->line();
     }
 }

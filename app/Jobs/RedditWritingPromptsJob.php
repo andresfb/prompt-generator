@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use App\Models\Prompter\RedditPromptEndpoint;
 use App\Repositories\APIs\Services\RedditWritingPromptsService;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -21,7 +22,7 @@ final class RedditWritingPromptsJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private readonly string $endpoint)
+    public function __construct(private readonly RedditPromptEndpoint $endpoint)
     {
         $this->queue = 'worker';
         $this->delay = now()->addSeconds(15);
