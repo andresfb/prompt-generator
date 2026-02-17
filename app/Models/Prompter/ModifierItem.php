@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property string $text
  * @property bool $active
+ * @property bool $anachronisable
  * @property int $usages
  */
 final class ModifierItem extends Model
@@ -28,6 +29,7 @@ final class ModifierItem extends Model
     {
         return [
             'active' => 'boolean',
+            'anachronisable' => 'boolean',
         ];
     }
 }

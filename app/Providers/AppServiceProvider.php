@@ -25,6 +25,12 @@ use App\Repositories\Import\Services\StoryGeneratorImportService;
 use App\Repositories\Import\Services\StoryMachineImportService;
 use App\Repositories\Import\Services\TheLinesImportService;
 use App\Repositories\Import\Services\WritersDigestImportService;
+use App\Repositories\Prompters\Services\BookOfMatchesPromptService;
+use App\Repositories\Prompters\Services\GeneratedPromptService;
+use App\Repositories\Prompters\Services\PlotMachinePromptService;
+use App\Repositories\Prompters\Services\PulpAdventurePromptService;
+use App\Repositories\Prompters\Services\StoryGeneratorPromptService;
+use App\Repositories\Prompters\Services\StoryMachinePromptService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -61,6 +67,16 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('ke', KindlepreneurImportService::class);
             $services->insert('sp', SelfPublishingSchoolImportService::class);
             $services->insert('ib', ImageBasedPromptsImportService::class);
+        });
+
+        $this->app->bind('prompters', fn ($app): Collection => collect());
+        $this->app->resolving('prompters', function (Collection $prompters): void {
+//            $prompters->push(GeneratedPromptService::class);
+//            $prompters->push(BookOfMatchesPromptService::class);
+//            $prompters->push(PlotMachinePromptService::class);
+//            $prompters->push(StoryMachinePromptService::class);
+//            $prompters->push(StoryGeneratorPromptService::class);
+            $prompters->push(PulpAdventurePromptService::class);
         });
     }
 

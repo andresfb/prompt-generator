@@ -45,15 +45,25 @@ final class ModifiersImportService extends BaseImporterService
                 'name' => str($key)->replace('_', ' ')
                     ->title()
                     ->toString(),
+                'anachronisable' => $key === 'time_periods',
                 'order' => $i,
             ]);
             $i++;
 
+            $anachronisable = [
+                'ad times (fist to 19th centuries)',
+                'bc times (mesopotamia to roman empire)',
+                'far into the past (10,000 years ago)',
+            ];
+
             $data = file($file);
             foreach ($data as $datum) {
+                $text = rtrim(str_replace(PHP_EOL, '', mb_strtolower($datum)), '.');
+
                 ModifierItem::create([
                     'modifier_section_id' => $part->id,
-                    'text' => rtrim(str_replace(PHP_EOL, '', mb_strtolower($datum)), '.'),
+                    'text' => $text,
+                    'anachronisable' => in_array($text, $anachronisable, true),
                 ]);
 
                 $this->character('.');

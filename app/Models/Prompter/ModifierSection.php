@@ -11,18 +11,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property bool $active
+ * @property bool $anachronisable
  * @property int $order
  */
 final class ModifierSection extends Model
 {
-    // TODO: add an "Make it Anachronistic" modifier added at a 1 to `count()` chance when the "Time Periods are anything in the far past (ids: 29, 30, 31)
-
     public $timestamps = false;
 
     protected $guarded = ['id'];
 
     protected $casts = [
         'active' => 'boolean',
+        'anachronisable' => 'boolean',
     ];
 
     public function items(): HasMany
