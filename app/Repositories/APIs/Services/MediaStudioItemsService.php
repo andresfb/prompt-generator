@@ -60,17 +60,6 @@ final class MediaStudioItemsService
                 if (! blank($scene->tags)) {
                     $item->attachTags($scene->tags);
                 }
-
-                if ($item->image === null) {
-                    return;
-                }
-
-                try {
-                    $item->addMediaFromUrl($item->image)
-                        ->toMediaCollection($item->getMediaName());
-                } catch (Exception $e) {
-                    $this->error($e->getMessage());
-                }
             });
 
             $this->line();

@@ -6,10 +6,12 @@ namespace App\Models\Prompter;
 
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
+ * @property int $reddit_prompt_endpoint_id
  * @property string $hash
  * @property string $title
  * @property string $permalink
@@ -25,6 +27,11 @@ final class RedditWritingPrompt extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(RedditPromptEndpoint::class, 'reddit_prompt_endpoint_id');
+    }
 
     protected function casts(): array
     {

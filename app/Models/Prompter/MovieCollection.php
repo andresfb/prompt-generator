@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace App\Models\Prompter;
 
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @property int $id
@@ -37,6 +41,21 @@ final class MovieCollection extends Model
         }
 
         return $select->count;
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(MovieCollectionItem::class);
+    }
+
+    #[Scope]
+    protected function withActiveItems(Builder $query): Builder
+    {
+        return $query->select('movie_collections.*')
+            ->where('movie_collections.active', true)
+            ->join('movie_collection_items', 'movie_collections.id', '=', 'movie_collection_items.movie_collection_id')
+            ->where('movie_collection_items.active', true)
+            ->where('movie_collection_items.usages', '<=', Config::integer('constants.prompts_max_usages'));
     }
 
     protected function casts(): array

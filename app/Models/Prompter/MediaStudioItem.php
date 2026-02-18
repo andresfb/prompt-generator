@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Models\Prompter;
 
 use App\Libraries\MediaNamesLibrary;
-use App\Models\Prompter\Base\BaseImagedModel;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Tags\HasTags;
@@ -25,7 +25,7 @@ use Spatie\Tags\HasTags;
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-final class MediaStudioItem extends BaseImagedModel
+final class MediaStudioItem extends Model
 {
     use HasTags;
     use SoftDeletes;
@@ -42,11 +42,6 @@ final class MediaStudioItem extends BaseImagedModel
     public function studio(): BelongsTo
     {
         return $this->belongsTo(MediaStudio::class);
-    }
-
-    public function getMediaName(): string
-    {
-        return MediaNamesLibrary::image();
     }
 
     protected function casts(): array

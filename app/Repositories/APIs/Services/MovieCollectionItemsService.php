@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\APIs\Services;
 
 use App\Events\UpdateMovieCollectionCountEvent;
-use App\Jobs\AddMovieItemImageJob;
 use App\Models\Prompter\MovieCollection;
 use App\Models\Prompter\MovieCollectionItem;
 use App\Models\Prompter\MovieInfo;
@@ -66,7 +65,8 @@ final class MovieCollectionItemsService
     {
         /** @var stdClass $movie */
         foreach ($movies as $movie) {
-            if (MovieCollectionItem::where('movie_info_id', $movie->Id)->exists()) {
+            if (MovieCollectionItem::where('movie_id', $movie->Id)->exists()) {
+                $this->character('x');
                 continue;
             }
 
@@ -80,7 +80,7 @@ final class MovieCollectionItemsService
 
             [$image, $imageType] = $this->getImage($info->content);
 
-            $item = MovieCollectionItem::create([
+            MovieCollectionItem::create([
                 'movie_collection_id' => $collectionId,
                 'movie_info_id' => $info->id,
                 'movie_id' => $info->movie_id,
@@ -95,8 +95,6 @@ final class MovieCollectionItemsService
             ]);
 
             $this->character('.');
-
-            AddMovieItemImageJob::dispatch($item->id);
         }
 
         $this->line();

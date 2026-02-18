@@ -2,16 +2,15 @@
 
 namespace App\Repositories\Prompters\Services;
 
-use App\Models\Prompter\PlotMachineItem;
-use App\Models\Prompter\PlotMachineSection;
+use App\Models\Prompter\SelfPublishingSchoolItem;
+use App\Models\Prompter\SelfPublishingSchoolSection;
 use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Config;
 
-class PlotMachinePromptService implements PrompterServiceInterface
+class SelfPublishingSchoolPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -23,51 +22,53 @@ class PlotMachinePromptService implements PrompterServiceInterface
 
     public function execute(): ?PromptItem
     {
-        $sections = PlotMachineSection::orderBy('order')->get();
-        if ($sections === null) {
+        $category = SelfPublishingSchoolSection::query()
+            ->where('active', true)
+            ->inRandomOrder()
+            ->first();
+
+        if ($category === null) {
             return null;
         }
 
         return new PromptItem(
-            text: $this->buildText($sections),
+            text: $this->buildText($category),
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
+            hint: $category->hint,
         );
     }
 
-    /**
-     * @param Collection<PlotMachineSection> $sections
-     */
-    private function buildText(Collection $sections): string
+    private function buildText(SelfPublishingSchoolSection $category): string
     {
-        $text = str('');
-
-        $sections->each(function (PlotMachineSection $section) use (&$text) {
-            $prompt = $this->getPromptText($section);
-            if (blank($prompt)) {
-                return;
-            }
-
-            $text = $text->append("**$section->name:** ")
-                ->append($this->getPromptText($section))
-                ->append(PHP_EOL);
-        });
-
-        if ($text->isEmpty()) {
+        $prompt = $this->getPromptText($category);
+        if (blank($prompt)) {
             return '';
         }
+
+        $hint = '';
+        if (! blank($category->hint)) {
+            $hint = "{{HINT}}";
+        }
+
+        $text = str("**$category->title:**$hint")
+            ->append(PHP_EOL)
+            ->append("<p><small>$category->description</small></p>")
+            ->append(PHP_EOL.PHP_EOL)
+            ->append($prompt)
+            ->append(PHP_EOL);
 
         return $text->prepend(PHP_EOL.PHP_EOL)
             ->prepend("## Prompt")
             ->prepend(PHP_EOL.PHP_EOL)
-            ->prepend("# Plot Machine Prompts")
+            ->prepend("# Self-Publishing School Prompts")
             ->append($this->library->getModifier())
             ->trim()
             ->append(PHP_EOL)
             ->toString();
     }
 
-    private function getPromptText(PlotMachineSection $section): string
+    private function getPromptText(SelfPublishingSchoolSection $section): string
     {
         $runs = 0;
         $maxRuns = Config::integer('constants.prompts_max_usages');
@@ -75,12 +76,12 @@ class PlotMachinePromptService implements PrompterServiceInterface
 
         while (blank($text)) {
             if ($runs >= $maxRuns) {
-                $this->error("PlotMachinePromptService@getPromptText $section->name Maximum number of runs reached");
+                $this->error("SelfPublishingSchoolPromptService@getPromptText $section->title Maximum number of runs reached");
 
                 break;
             }
 
-            $text = PlotMachineItem::where('plot_machine_section_id', $section->id)
+            $text = SelfPublishingSchoolItem::where('self_publishing_school_section_id', $section->id)
                 ->where('active', true)
                 ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
                 ->inRandomOrder()

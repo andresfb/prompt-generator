@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('reddit_writing_prompts', static function (Blueprint $table) {
             $table->foreignIdFor(RedditPromptEndpoint::class)
                 ->after('id')
-                ->constrained('reddit_writing_prompts')
+                ->constrained('reddit_prompt_endpoints')
                 ->onDelete('cascade');
         });
     }

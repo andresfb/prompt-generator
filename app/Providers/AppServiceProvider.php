@@ -27,10 +27,22 @@ use App\Repositories\Import\Services\TheLinesImportService;
 use App\Repositories\Import\Services\WritersDigestImportService;
 use App\Repositories\Prompters\Services\BookOfMatchesPromptService;
 use App\Repositories\Prompters\Services\GeneratedPromptService;
+use App\Repositories\Prompters\Services\HuggingFacePromptService;
+use App\Repositories\Prompters\Services\KindlepreneurPromptService;
+use App\Repositories\Prompters\Services\MediaStudioPromptService;
+use App\Repositories\Prompters\Services\MovieCollectionItemsPromptService;
+use App\Repositories\Prompters\Services\MovieMashupPromptService;
+use App\Repositories\Prompters\Services\NewsArticlePromptService;
+use App\Repositories\Prompters\Services\NovelStarterPromptService;
 use App\Repositories\Prompters\Services\PlotMachinePromptService;
 use App\Repositories\Prompters\Services\PulpAdventurePromptService;
+use App\Repositories\Prompters\Services\RedditWritingPromptService;
+use App\Repositories\Prompters\Services\SelfPublishingSchoolPromptService;
 use App\Repositories\Prompters\Services\StoryGeneratorPromptService;
+use App\Repositories\Prompters\Services\StoryIdeaPromptService;
 use App\Repositories\Prompters\Services\StoryMachinePromptService;
+use App\Repositories\Prompters\Services\TheLinesPromptService;
+use App\Repositories\Prompters\Services\WritersDigestPromptService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -71,12 +83,24 @@ final class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('prompters', fn ($app): Collection => collect());
         $this->app->resolving('prompters', function (Collection $prompters): void {
-//            $prompters->push(GeneratedPromptService::class);
-//            $prompters->push(BookOfMatchesPromptService::class);
-//            $prompters->push(PlotMachinePromptService::class);
-//            $prompters->push(StoryMachinePromptService::class);
-//            $prompters->push(StoryGeneratorPromptService::class);
+            $prompters->push(GeneratedPromptService::class);
+            $prompters->push(BookOfMatchesPromptService::class);
+            $prompters->push(PlotMachinePromptService::class);
+            $prompters->push(StoryMachinePromptService::class);
+            $prompters->push(StoryGeneratorPromptService::class);
             $prompters->push(PulpAdventurePromptService::class);
+            $prompters->push(HuggingFacePromptService::class);
+            $prompters->push(NovelStarterPromptService::class);
+            $prompters->push(TheLinesPromptService::class);
+            $prompters->push(MovieCollectionItemsPromptService::class);
+            $prompters->push(MediaStudioPromptService::class);
+            $prompters->push(RedditWritingPromptService::class);
+            $prompters->push(WritersDigestPromptService::class);
+            $prompters->push(KindlepreneurPromptService::class);
+            $prompters->push(SelfPublishingSchoolPromptService::class);
+            $prompters->push(NewsArticlePromptService::class);
+            $prompters->push(StoryIdeaPromptService::class);
+            $prompters->push(MovieMashupPromptService::class);
         });
     }
 

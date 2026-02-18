@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Prompters\Services;
 
-use App\Models\Prompter\PlotMachineItem;
-use App\Models\Prompter\PlotMachineSection;
+use App\Models\Prompter\NovelStarterItem;
+use App\Models\Prompter\NovelStarterSection;
 use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
@@ -11,19 +11,19 @@ use App\Traits\Screenable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Config;
 
-class PlotMachinePromptService implements PrompterServiceInterface
+class NovelStarterPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
+    private const VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
+    private Const API_RESOURCE = '';
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItem
     {
-        $sections = PlotMachineSection::orderBy('order')->get();
+        $sections = NovelStarterSection::orderBy('order')->get();
         if ($sections === null) {
             return null;
         }
@@ -36,13 +36,13 @@ class PlotMachinePromptService implements PrompterServiceInterface
     }
 
     /**
-     * @param Collection<PlotMachineSection> $sections
+     * @param Collection<NovelStarterSection> $sections
      */
     private function buildText(Collection $sections): string
     {
         $text = str('');
 
-        $sections->each(function (PlotMachineSection $section) use (&$text) {
+        $sections->each(function (NovelStarterSection $section) use (&$text) {
             $prompt = $this->getPromptText($section);
             if (blank($prompt)) {
                 return;
@@ -67,7 +67,7 @@ class PlotMachinePromptService implements PrompterServiceInterface
             ->toString();
     }
 
-    private function getPromptText(PlotMachineSection $section): string
+    private function getPromptText(NovelStarterSection $section): string
     {
         $runs = 0;
         $maxRuns = Config::integer('constants.prompts_max_usages');
@@ -75,12 +75,12 @@ class PlotMachinePromptService implements PrompterServiceInterface
 
         while (blank($text)) {
             if ($runs >= $maxRuns) {
-                $this->error("PlotMachinePromptService@getPromptText $section->name Maximum number of runs reached");
+                $this->error("NovelStarterPromptService@getPromptText $section->name Maximum number of runs reached");
 
                 break;
             }
 
-            $text = PlotMachineItem::where('plot_machine_section_id', $section->id)
+            $text = NovelStarterItem::where('novel_starter_section_id', $section->id)
                 ->where('active', true)
                 ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
                 ->inRandomOrder()
@@ -92,4 +92,5 @@ class PlotMachinePromptService implements PrompterServiceInterface
 
         return ucwords($text) ?? '';
     }
+
 }

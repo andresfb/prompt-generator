@@ -16,9 +16,9 @@ final class UpdateMovieCollectionCountListener implements ShouldQueue
     public function handle(UpdateMovieCollectionCountEvent $event): void
     {
         MovieCollection::query()
-            ->where('item_id', $event->collectionId)
+            ->where('id', $event->collectionId)
             ->update([
-                'count' => MovieCollectionItem::where('collection_id', $event->collectionId)->count() ?? 0,
+                'count' => MovieCollectionItem::where('movie_collection_id', $event->collectionId)->count(),
             ]);
     }
 }

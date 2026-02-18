@@ -20,7 +20,7 @@ abstract class BaseImagedModel extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    final public function getMediaName(): string
+    public function getMediaName(): string
     {
         return MediaNamesLibrary::primary();
     }

@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Prompters\Services;
 
-use App\Models\Prompter\BookOfMatches;
+use App\Models\Boogie\StoryIdea;
 use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class BookOfMatchesPromptService implements PrompterServiceInterface
+class StoryIdeaPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -21,9 +21,8 @@ class BookOfMatchesPromptService implements PrompterServiceInterface
 
     public function execute(): ?PromptItem
     {
-        $prompt = BookOfMatches::query()
-            ->where('active', true)
-            ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
+        $prompt = StoryIdea::query()
+            ->where('use_count', '<=', Config::integer('constants.prompts_max_usages'))
             ->inRandomOrder()
             ->first();
 
@@ -38,13 +37,29 @@ class BookOfMatchesPromptService implements PrompterServiceInterface
         );
     }
 
-    private function buildText(BookOfMatches $prompt): string
+    private function buildText(StoryIdea $prompt): string
     {
-        return str("# Book of Matches")
+        $subGenre = str('');
+        if (! blank($prompt->sub_genre)) {
+            $subGenre = $subGenre->append("**Sub Genre:** ")
+                ->append($prompt->sub_genre)
+                ->append(PHP_EOL.PHP_EOL);
+        }
+
+        return str("# Generated Story Idea")
             ->append(PHP_EOL.PHP_EOL)
             ->append("## Prompt")
             ->append(PHP_EOL.PHP_EOL)
-            ->append($prompt->text)
+            ->append('**Genre:** ')
+            ->append($prompt->genre)
+            ->append(PHP_EOL.PHP_EOL)
+            ->append($subGenre)
+            ->append('**Tone:** ')
+            ->append($prompt->tone)
+            ->append(PHP_EOL.PHP_EOL)
+            ->append("**Idea:**")
+            ->append(PHP_EOL)
+            ->append(preg_replace('/^\s*(\d+[.)]|-)\s+/', '', $prompt->idea))
             ->append(PHP_EOL)
             ->append($this->library->getModifier())
             ->trim()

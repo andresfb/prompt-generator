@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
-use App\Models\Prompter\Base\BaseImagedModel;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-final class MovieCollectionItem extends BaseImagedModel
+final class MovieCollectionItem extends Model
 {
     use SoftDeletes;
 
@@ -38,6 +38,7 @@ final class MovieCollectionItem extends BaseImagedModel
     protected function casts(): array
     {
         return [
+            'active' => 'boolean',
             'genres' => 'json',
             'tag_lines' => 'json',
             'trailers' => 'json',

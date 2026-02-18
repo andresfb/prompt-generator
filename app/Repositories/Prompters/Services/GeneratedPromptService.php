@@ -13,9 +13,9 @@ class GeneratedPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const VIEW_NAME = '';
+    private const string VIEW_NAME = '';
 
-    private Const API_RESOURCE = '';
+    private Const string API_RESOURCE = '';
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 

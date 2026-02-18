@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repositories\Extract\Services;
 
-use App\Jobs\AddNewsPromptImageJob;
 use App\Jobs\MarkNewsArticleReadJob;
 use App\Models\Newsroom\Article;
 use App\Models\Prompter\NewsArticlePrompt;
@@ -49,7 +48,7 @@ final class NewsArticleExtractorService
                 continue;
             }
 
-            $news = NewsArticlePrompt::create([
+            NewsArticlePrompt::create([
                 'source_id' => $source->id,
                 'source' => $this->getSource($source->permalink),
                 'title' => $source->title,
@@ -61,8 +60,6 @@ final class NewsArticleExtractorService
 
             $savedCount++;
             $saved[] = $source->id;
-
-            AddNewsPromptImageJob::dispatch($news->id);
 
             $this->character('.');
         }

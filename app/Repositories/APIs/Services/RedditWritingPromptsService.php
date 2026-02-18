@@ -43,6 +43,7 @@ final class RedditWritingPromptsService
                 }
 
                 $prompt = $item->toArray();
+                unset($prompt['id']);
                 $prompt['reddit_prompt_endpoint_id'] = $endpoint->id;
 
                 RedditWritingPrompt::create($prompt);
