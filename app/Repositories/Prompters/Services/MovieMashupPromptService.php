@@ -7,7 +7,7 @@ use App\Repositories\Prompters\Dtos\MovieMashupItem;
 use App\Repositories\Prompters\Dtos\MovieMashupPromptItem;
 use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
-use App\Repositories\Prompters\Interfaces\SpecialPromptItemInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
@@ -48,7 +48,7 @@ class MovieMashupPromptService implements PrompterServiceInterface
         );
     }
 
-    private function getMovieItem(MovieMashupPrompt $mashup): SpecialPromptItemInterface
+    private function getMovieItem(MovieMashupPrompt $mashup): PromptItemInterface
     {
         $movies = collect();
         $mashup->items()->each(function ($item) use ($movies) {

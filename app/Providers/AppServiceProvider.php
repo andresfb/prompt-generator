@@ -85,22 +85,22 @@ final class AppServiceProvider extends ServiceProvider
         $this->app->resolving('prompters', function (Collection $prompters): void {
             $prompters->push(GeneratedPromptService::class);
             $prompters->push(BookOfMatchesPromptService::class);
-            $prompters->push(PlotMachinePromptService::class);
-            $prompters->push(StoryMachinePromptService::class);
-            $prompters->push(StoryGeneratorPromptService::class);
-            $prompters->push(PulpAdventurePromptService::class);
-            $prompters->push(HuggingFacePromptService::class);
-            $prompters->push(NovelStarterPromptService::class);
-            $prompters->push(TheLinesPromptService::class);
-            $prompters->push(MovieCollectionItemsPromptService::class);
-            $prompters->push(MediaStudioPromptService::class);
-            $prompters->push(RedditWritingPromptService::class);
-            $prompters->push(WritersDigestPromptService::class);
-            $prompters->push(KindlepreneurPromptService::class);
-            $prompters->push(SelfPublishingSchoolPromptService::class);
-            $prompters->push(NewsArticlePromptService::class);
-            $prompters->push(StoryIdeaPromptService::class);
-            $prompters->push(MovieMashupPromptService::class);
+//            $prompters->push(PlotMachinePromptService::class);
+//            $prompters->push(StoryMachinePromptService::class);
+//            $prompters->push(StoryGeneratorPromptService::class);
+//            $prompters->push(PulpAdventurePromptService::class);
+//            $prompters->push(HuggingFacePromptService::class);
+//            $prompters->push(NovelStarterPromptService::class);
+//            $prompters->push(TheLinesPromptService::class);
+//            $prompters->push(MovieCollectionItemsPromptService::class);
+//            $prompters->push(MediaStudioPromptService::class);
+//            $prompters->push(RedditWritingPromptService::class);
+//            $prompters->push(WritersDigestPromptService::class);
+//            $prompters->push(KindlepreneurPromptService::class);
+//            $prompters->push(SelfPublishingSchoolPromptService::class);
+//            $prompters->push(NewsArticlePromptService::class);
+//            $prompters->push(StoryIdeaPromptService::class);
+//            $prompters->push(MovieMashupPromptService::class);
         });
     }
 

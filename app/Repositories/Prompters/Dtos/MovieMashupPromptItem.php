@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Prompters\Dtos;
 
-use App\Repositories\Prompters\Interfaces\SpecialPromptItemInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 
-class MovieMashupPromptItem extends Data implements SpecialPromptItemInterface
+class MovieMashupPromptItem extends Data implements PromptItemInterface
 {
     /**
      * @param Collection<MovieMashupItem> $movies
