@@ -41,9 +41,9 @@ class NovelStarterPromptService implements PrompterServiceInterface
             hero: $data['hero'],
             sectionFlaws: 'Flaws',
             flaws: $data['flaws'],
-            modifiers: $this->library->getModifier(),
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
+            modifiers: $this->library->getModifier(),
         );
     }
 

@@ -4,8 +4,10 @@ namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\KindlepreneurItem;
 use App\Models\Prompter\KindlepreneurSection;
+use App\Repositories\Prompters\Dtos\KindlepreneurPromptItem;
 use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
@@ -20,7 +22,7 @@ class KindlepreneurPromptService implements PrompterServiceInterface
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItem
+    public function execute(): ?PromptItemInterface
     {
         $category = KindlepreneurSection::query()
             ->where('active', true)
@@ -31,60 +33,47 @@ class KindlepreneurPromptService implements PrompterServiceInterface
             return null;
         }
 
-        return new PromptItem(
-            text: $this->buildText($category),
+        $prompt = $this->getPrompt($category);
+        if ($prompt === null) {
+            return null;
+        }
+
+        return new KindlepreneurPromptItem(
+            modelId: $prompt->id,
+            header: 'Kindlepreneur Prompts',
+            subHeader: 'Prompt',
+            title: $category->title,
+            sectionDescription: 'Description',
+            description: $category->description,
+            text: $prompt->text,
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
+            modifiers: $this->library->getModifier(),
         );
     }
 
-    private function buildText(KindlepreneurSection $category): string
-    {
-        $prompt = $this->getPromptText($category);
-        if (blank($prompt)) {
-            return '';
-        }
-
-        $text = str("**$category->title:** ")
-            ->append(PHP_EOL)
-            ->append("<p><small>$category->description</small></p>")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($prompt)
-            ->append(PHP_EOL);
-
-        return $text->prepend(PHP_EOL.PHP_EOL)
-            ->prepend("## Prompt")
-            ->prepend(PHP_EOL.PHP_EOL)
-            ->prepend("# Kindlepreneur Prompts")
-            ->append($this->library->getModifier())
-            ->trim()
-            ->append(PHP_EOL)
-            ->toString();
-    }
-
-    private function getPromptText(KindlepreneurSection $section): string
+    private function getPrompt(KindlepreneurSection $category): ?KindlepreneurItem
     {
         $runs = 0;
         $maxRuns = Config::integer('constants.prompts_max_usages');
-        $text = null;
+        $item = null;
 
-        while (blank($text)) {
+        while (blank($item)) {
             if ($runs >= $maxRuns) {
-                $this->error("KindlepreneurPromptService@getPromptText $section->title Maximum number of runs reached");
+                $this->error("KindlepreneurPromptService@getPromptText $category->title Maximum number of runs reached");
 
                 break;
             }
 
-            $text = KindlepreneurItem::where('kindlepreneur_section_id', $section->id)
+            $item = KindlepreneurItem::where('kindlepreneur_section_id', $category->id)
                 ->where('active', true)
                 ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
                 ->inRandomOrder()
-                ->first()
-                ->text;
+                ->first();
 
             $runs++;
         }
 
-        return ucwords($text) ?? '';
+        return $item;
     }
 }

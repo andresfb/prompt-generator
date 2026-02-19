@@ -56,7 +56,7 @@ class StoryMachinePromptItem extends BasePromptItem
             ->append("**$this->sectionMustAlsoFeature:** ")
             ->append($this->mustAlsoFeature)
             ->append(PHP_EOL)
-            ->append($this->modifiers->toMarkdown())
+            ->append($this->modifiers?->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();

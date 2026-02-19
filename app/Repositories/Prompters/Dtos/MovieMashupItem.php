@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Prompters\Dtos;
 
-use Spatie\LaravelData\Data;
+use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class MovieMashupItem extends Data
+class MovieMashupItem extends BasePromptItem
 {
     public function __construct(
         public string $id,
@@ -13,6 +13,31 @@ class MovieMashupItem extends Data
         public string $image_type,
         public string $image_tag,
         public string $overview,
-        public array $genres = [],
+        public string $url,
+        public string $image,
+        public ?array $genres = null,
     ) {}
+
+    public function toMarkdown(): string
+    {
+        $genres = str('');
+        if (! blank($this->genres)) {
+            $genres = str(collect($this->genres)->implode(', '))
+                ->trim()
+                ->append(PHP_EOL);
+        }
+
+        return str("**[$this->title ($this->year)]($this->url)**")
+            ->append(PHP_EOL.PHP_EOL)
+            ->append($this->overview)
+            ->append(PHP_EOL.PHP_EOL)
+            ->append($genres->trim()->toString())
+            ->trim()
+            ->append(PHP_EOL.PHP_EOL)
+            ->append("![$this->image_type]($this->image)")
+            ->append(PHP_EOL)
+            ->append('***')
+            ->append(PHP_EOL)
+            ->toString();
+    }
 }

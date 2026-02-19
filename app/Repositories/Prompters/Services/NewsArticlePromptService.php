@@ -3,8 +3,10 @@
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\NewsArticlePrompt;
+use App\Repositories\Prompters\Dtos\NewsArticlePromptItem;
 use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
@@ -19,7 +21,7 @@ class NewsArticlePromptService implements PrompterServiceInterface
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItem
+    public function execute(): ?PromptItemInterface
     {
         $prompt = NewsArticlePrompt::query()
             ->where('active', true)
@@ -31,32 +33,18 @@ class NewsArticlePromptService implements PrompterServiceInterface
             return null;
         }
 
-        return new PromptItem(
-            text: $this->buildText($prompt),
+        return new NewsArticlePromptItem(
+            modelId: $prompt->id,
+            header: 'News Article',
+            sectionSource: 'Source',
+            source: ucfirst($prompt->source),
+            sectionTitle: 'Title',
+            title: $prompt->title,
+            permalink: $prompt->permalink,
+            content: $prompt->content,
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
-            image: $prompt->thumbnail ?? '',
+            modifiers: $this->library->getModifier(),
         );
-    }
-
-    private function buildText(NewsArticlePrompt $prompt): string
-    {
-        return str("# News Article")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append("## Source")
-            ->append(PHP_EOL)
-            ->append(sprintf("**%s**", ucfirst($prompt->source)))
-            ->append(PHP_EOL.PHP_EOL)
-            ->append("**Title**")
-            ->append(PHP_EOL)
-            ->append($prompt->title)
-            ->append(PHP_EOL)
-            ->append("![Perma Link]($prompt->permalink)")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($prompt->content)
-            ->append(PHP_EOL)
-            ->append($this->library->getModifier())
-            ->trim()
-            ->append(PHP_EOL);
     }
 }

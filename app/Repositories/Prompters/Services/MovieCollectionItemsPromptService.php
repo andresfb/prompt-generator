@@ -4,8 +4,9 @@ namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\MovieCollection;
 use App\Models\Prompter\MovieCollectionItem;
-use App\Repositories\Prompters\Dtos\PromptItem;
+use App\Repositories\Prompters\Dtos\MovieCollectionPromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
@@ -18,13 +19,9 @@ class MovieCollectionItemsPromptService implements PrompterServiceInterface
 
     private Const string API_RESOURCE = '';
 
-    private string $image = '';
-
-    private array $trailers = [];
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItem
+    public function execute(): ?PromptItemInterface
     {
         $collection = MovieCollection::query()
             ->withActiveItems()
@@ -35,90 +32,52 @@ class MovieCollectionItemsPromptService implements PrompterServiceInterface
             return null;
         }
 
-        return new PromptItem(
-            text: $this->buildText($collection),
-            view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
-            image: $this->image,
-            trailers: $this->trailers,
-        );
-    }
-
-    private function buildText(MovieCollection $collection): string
-    {
-        return str("# Movie Collection")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append("### Collection: $collection->name")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($this->loadItem($collection))
-            ->append(PHP_EOL)
-            ->append($this->library->getModifier())
-            ->trim()
-            ->append(PHP_EOL);
-    }
-
-    private function loadItem(MovieCollection $collection): string
-    {
         $item = MovieCollectionItem::query()
             ->where('movie_collection_id', $collection->id)
             ->inRandomOrder()
             ->first();
 
         if ($item === null) {
-            return '';
+            return null;
         }
 
-        $tagLines = str('');
-        if (! blank($item->tag_lines)) {
-            $tagLines = $tagLines->append('**Tag Lines**')
-                ->append(PHP_EOL);
-
-            foreach ($item->tag_lines as $tagLine) {
-                $tagLines = $tagLines->append($tagLine)
-                    ->append(PHP_EOL);
-            }
-        }
-
-        $genres = str('');
-        if (! blank($item->genres)) {
-            $genres = $genres->append('**Genres**')
-                ->append(PHP_EOL);
-
-            foreach ($item->genres as $genre) {
-                $genres = $genres->append($genre)
-                    ->append(PHP_EOL);
-            }
-        }
-
-        if (! blank($item->trailers)) {
-            foreach ($item->trailers as $trailer) {
-                $this->trailers[] = $trailer['Url'];
-            }
-        }
-
-        $this->image = sprintf(
-            Config::string('emby.image_url'),
-            $item->movie_id,
-            $item->image_type,
-            $item->image_tag
+        return new MovieCollectionPromptItem(
+            modelId: $item->id,
+            header: 'Movie Collection',
+            subHeader: "Collection: $collection->name",
+            sectionTitle: 'Title',
+            title: $item->title,
+            year: $item->year,
+            url: sprintf(Config::string('emby.item_url'), $item->movie_id),
+            sectionOverview: 'Overview',
+            overview: $item->overview,
+            sectionImage: "$item->image_type Image",
+            image: sprintf(
+                Config::string('emby.image_url'),
+                $item->movie_id,
+                $item->image_type,
+                $item->image_tag
+            ),
+            sectionTagLines: ! blank($item->tag_lines) ? 'Tag Lines' : null,
+            tagLines: $item->tag_lines,
+            sectionGenres: ! blank($item->genres) ? 'Genres' : null,
+            genres: $item->genres,
+            sectionTrailers: 'Trailers',
+            trailers: blank($item->trailers) ? null : $this->getTrailers($item),
+            view: self::VIEW_NAME,
+            resource: self::API_RESOURCE,
+            modifiers: $this->library->getModifier(),
         );
+    }
 
-        $url = sprintf(
-            Config::string('emby.item_url'),
-            $item->movie_id,
-        );
+    private function getTrailers(MovieCollectionItem $item): array
+    {
+        $trailers = [];
 
-        return str("**Title:** ")
-            ->append("[$item->title ($item->year)]($url)")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append("**Overview:** ")
-            ->append(PHP_EOL)
-            ->append($item->overview)
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($tagLines->trim()->toString())
-            ->trim()
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($genres->trim()->toString())
-            ->trim();
+        foreach ($item->trailers as $trailer) {
+            $trailers[] = $trailer['Url'];
+        }
+
+        return $trailers;
     }
 }

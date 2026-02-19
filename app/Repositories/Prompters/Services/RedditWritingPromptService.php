@@ -3,8 +3,9 @@
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\RedditWritingPrompt;
-use App\Repositories\Prompters\Dtos\PromptItem;
+use App\Repositories\Prompters\Dtos\RedditPromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
@@ -19,7 +20,7 @@ class RedditWritingPromptService implements PrompterServiceInterface
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItem
+    public function execute(): ?PromptItemInterface
     {
         $prompt = RedditWritingPrompt::query()
             ->where('active', true)
@@ -32,23 +33,14 @@ class RedditWritingPromptService implements PrompterServiceInterface
             return null;
         }
 
-        return new PromptItem(
-            text: $this->buildText($prompt),
+        return new RedditPromptItem(
+            modelId: $prompt->id,
+            header: "Reddit {$prompt->parent->title}",
+            title: $prompt->title,
+            permalink: $prompt->permalink,
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
+            modifiers: $this->library->getModifier(),
         );
-    }
-
-    private function buildText(RedditWritingPrompt $prompt): string
-    {
-        return str("# Reddit {$prompt->parent->title}")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($prompt->title)
-            ->append(PHP_EOL.PHP_EOL)
-            ->append("![Perma Link]({$prompt->permalink})")
-            ->append(PHP_EOL)
-            ->append($this->library->getModifier())
-            ->trim()
-            ->append(PHP_EOL);
     }
 }

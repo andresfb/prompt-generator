@@ -4,13 +4,13 @@ namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class SimplePromptItem extends BasePromptItem
+class RedditPromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,
         public string $header,
-        public string $subHeader,
-        public string $text,
+        public string $title,
+        public string $permalink,
         public string $view = '',
         public string $resource = '',
         public ?ModifierPromptItem $modifiers,
@@ -18,11 +18,11 @@ class SimplePromptItem extends BasePromptItem
 
     public function toMarkdown(): string
     {
-        return str("# $this->header")
+        return str($this->header)
             ->append(PHP_EOL.PHP_EOL)
-            ->append("## $this->subHeader")
+            ->append($this->title)
             ->append(PHP_EOL.PHP_EOL)
-            ->append($this->text)
+            ->append("![Perma Link]({$this->permalink})")
             ->append(PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()

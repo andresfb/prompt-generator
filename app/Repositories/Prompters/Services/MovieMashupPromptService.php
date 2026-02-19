@@ -5,11 +5,11 @@ namespace App\Repositories\Prompters\Services;
 use App\Models\Prompter\MovieMashupPrompt;
 use App\Repositories\Prompters\Dtos\MovieMashupItem;
 use App\Repositories\Prompters\Dtos\MovieMashupPromptItem;
-use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 class MovieMashupPromptService implements PrompterServiceInterface
@@ -20,13 +20,9 @@ class MovieMashupPromptService implements PrompterServiceInterface
 
     private Const string API_RESOURCE = '';
 
-    private string $image = '';
-
-    private array $trailers = [];
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItem
+    public function execute(): ?PromptItemInterface
     {
         $mashup = MovieMashupPrompt::query()
             ->where('active', true)
@@ -40,24 +36,35 @@ class MovieMashupPromptService implements PrompterServiceInterface
             return null;
         }
 
-        return new PromptItem(
-            text: '',
+        return new MovieMashupPromptItem(
+            modelId: $mashup->id,
+            header: 'Movie Mashups',
+            subHeader: 'Prompt',
+            content: $mashup->content,
+            provider: $mashup->provider,
+            movies: $this->getMovieItem($mashup),
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
-            item: $this->getMovieItem($mashup),
+            modifiers: $this->library->getModifier(),
         );
     }
 
-    private function getMovieItem(MovieMashupPrompt $mashup): PromptItemInterface
+    private function getMovieItem(MovieMashupPrompt $mashup): Collection
     {
         $movies = collect();
-        $mashup->items()->each(function ($item) use ($movies) {
-            $movies->push(MovieMashupItem::from($item));
+        $mashup->items->each(function ($item) use ($movies) {
+            $data = $item->toArray();
+            $data['url'] = sprintf(Config::string('emby.item_url'), $item->movie_id);
+            $data['image'] = sprintf(
+                Config::string('emby.image_url'),
+                $item->movie_id,
+                $item->image_type,
+                $item->image_tag
+            );
+
+            $movies->push(MovieMashupItem::from($data));
         });
 
-        $data = $mashup->toArray();
-        $data['movies'] = $movies;
-
-        return MovieMashupPromptItem::from($data);
+        return $movies;
     }
 }

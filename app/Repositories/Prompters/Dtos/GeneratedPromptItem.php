@@ -67,7 +67,7 @@ class GeneratedPromptItem extends BasePromptItem
             ->append("**$this->sectionEnd:** ")
             ->append($this->endText)
             ->append(PHP_EOL)
-            ->append($this->modifiers->toMarkdown())
+            ->append($this->modifiers?->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();
