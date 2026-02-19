@@ -2,10 +2,9 @@
 
 namespace App\Repositories\Prompters\Dtos;
 
-use App\Repositories\Prompters\Interfaces\PromptItemInterface;
-use Spatie\LaravelData\Data;
+use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class BookOfMatchesPromptItem extends Data implements PromptItemInterface
+class SimplePromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,

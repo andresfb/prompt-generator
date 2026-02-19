@@ -4,8 +4,9 @@ namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\StoryGeneratorItem;
 use App\Models\Prompter\StoryGeneratorSection;
-use App\Repositories\Prompters\Dtos\PromptItem;
+use App\Repositories\Prompters\Dtos\StoryGeneratorPromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Collection;
@@ -15,21 +16,34 @@ class StoryGeneratorPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const VIEW_NAME = '';
+    private const string VIEW_NAME = '';
 
-    private Const API_RESOURCE = '';
+    private Const string API_RESOURCE = '';
+
+    private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItem
+    public function execute(): ?PromptItemInterface
     {
         $sections = StoryGeneratorSection::orderBy('order')->get();
         if ($sections === null) {
             return null;
         }
 
-        return new PromptItem(
-            text: $this->buildText($sections),
+        $data = $this->getItem($sections);
+
+        return new StoryGeneratorPromptItem(
+            modelIds: $this->usedIds,
+            title: 'Story Machine Prompts',
+            header: 'Prompt',
+            sectionSituations: 'Situations',
+            situations: $data['situations'],
+            sectionCharacters: 'Characters',
+            characters: $data['characters'],
+            sectionActions: 'Actions',
+            actions: $data['actions'],
+            modifiers: $this->library->getModifier(),
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
         );
@@ -38,58 +52,47 @@ class StoryGeneratorPromptService implements PrompterServiceInterface
     /**
      * @param Collection<StoryGeneratorSection> $sections
      */
-    private function buildText(Collection $sections): string
+    private function getItem(Collection $sections): array
     {
-        $text = str('');
-
-        $sections->each(function (StoryGeneratorSection $section) use (&$text) {
-            $prompt = $this->getPromptText($section);
-            if (blank($prompt)) {
+        $list = [];
+        $sections->each(function (StoryGeneratorSection $section) use (&$list) {
+            $prompt = $this->getPrompt($section);
+            if ($prompt === null) {
                 return;
             }
 
-            $text = $text->append("**$section->name:** ")
-                ->append($this->getPromptText($section))
-                ->append(PHP_EOL);
+            $key = str($section->name)
+                ->snake()
+                ->trim()
+                ->toString();
+
+            $list[$key] = $prompt->text;
+            $this->usedIds[] = $prompt->id;
         });
 
-        if ($text->isEmpty()) {
-            return '';
-        }
-
-        return $text->prepend(PHP_EOL.PHP_EOL)
-            ->prepend("## Prompt")
-            ->prepend(PHP_EOL.PHP_EOL)
-            ->prepend("# Plot Machine Prompts")
-            ->append($this->library->getModifier())
-            ->trim()
-            ->append(PHP_EOL)
-            ->toString();
+        return $list;
     }
 
-    private function getPromptText(StoryGeneratorSection $section): string
+    private function getPrompt(StoryGeneratorSection $section): ?StoryGeneratorItem
     {
         $runs = 0;
         $maxRuns = Config::integer('constants.prompts_max_usages');
-        $text = null;
+        $item = null;
 
-        while (blank($text)) {
+        while (blank($item)) {
             if ($runs >= $maxRuns) {
-                $this->error("StoryGeneratorPromptService@getPromptText $section->name Maximum number of runs reached");
+                $this->error("StoryGeneratorPromptService@getPrompt $section->name Maximum number of runs reached");
 
                 break;
             }
 
-            $text = StoryGeneratorItem::where('story_generator_section_id', $section->id)
+            $item = StoryGeneratorItem::where('story_generator_section_id', $section->id)
                 ->where('active', true)
                 ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
                 ->inRandomOrder()
-                ->first()
-                ->text;
-
-            $runs++;
+                ->first();
         }
 
-        return ucwords($text) ?? '';
+        return $item;
     }
 }

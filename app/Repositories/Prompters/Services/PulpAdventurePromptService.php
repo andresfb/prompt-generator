@@ -4,8 +4,9 @@ namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\PulpAdventureItem;
 use App\Models\Prompter\PulpAdventureSection;
-use App\Repositories\Prompters\Dtos\PromptItem;
+use App\Repositories\Prompters\Dtos\PulpAdventurePromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Random\RandomException;
@@ -14,59 +15,38 @@ class PulpAdventurePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const VIEW_NAME = '';
+    private const string VIEW_NAME = '';
 
-    private Const API_RESOURCE = '';
+    private Const string API_RESOURCE = '';
+
+    private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItem
+    public function execute(): ?PromptItemInterface
     {
-        return new PromptItem(
-            text: $this->buildText(),
+        return new PulpAdventurePromptItem(
+            modelIds: $this->usedIds,
+            title: 'Pulp Adventure Prompts',
+            header: 'Prompt',
+            villan: $this->getVillain(),
+            plot: $this->getPlot(),
+            mainLocation: $this->getMainLocation(),
+            sectionAct1: '<u>Act 1</u>',
+            act1HockElements: $this->getHockElements(),
+            act1SupportCharacters: $this->getSupportCharacters(),
+            act1ActionSequence: $this->getActionSequence(),
+            act1PlotTwist: $this->getPlotTwist(),
+            sectionAct2: '<u>Act 2</u>',
+            act2ActionSequence: $this->getActionSequence(),
+            act2PlotTwist: $this->getPlotTwist(),
+            sectionAct3: '<u>Act 3</u>',
+            act3ActionSequence: $this->getActionSequence(),
+            act3PlotTwist: $this->getPlotTwist(),
+            modifiers: $this->library->getModifier(),
             view: self::VIEW_NAME,
             resource: self::API_RESOURCE,
         );
-    }
-
-    private function buildText(): string
-    {
-        return str("# Pulp Adventure Prompts")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append("## Prompt")
-            ->append(PHP_EOL)
-            ->append($this->getVillain())
-            ->append(PHP_EOL)
-            ->append($this->getPlot())
-            ->append(PHP_EOL)
-            ->append($this->getMainLocation())
-            ->append(PHP_EOL.PHP_EOL)
-            ->append("#### <u>Act 1</u>")
-            ->append(PHP_EOL)
-            ->append($this->getHockElements())
-            ->append(PHP_EOL)
-            ->append($this->getSupportCharacters())
-            ->append(PHP_EOL)
-            ->append($this->getActionSequence())
-            ->append(PHP_EOL)
-            ->append($this->getPlotTwist())
-            ->append(PHP_EOL)
-            ->append("#### <u>Act 2</u>")
-            ->append(PHP_EOL)
-            ->append($this->getActionSequence())
-            ->append(PHP_EOL)
-            ->append($this->getPlotTwist())
-            ->append(PHP_EOL)
-            ->append("#### <u>Act 3</u>")
-            ->append(PHP_EOL)
-            ->append($this->getActionSequence())
-            ->append(PHP_EOL)
-            ->append($this->getPlotTwist())
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($this->library->getModifier())
-            ->trim()
-            ->append(PHP_EOL)
-            ->toString();
     }
 
     private function getVillain(): string

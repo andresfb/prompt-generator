@@ -11,7 +11,7 @@ use function Laravel\Prompts\error;
 
 class GetPromptCommand extends Command
 {
-    protected $signature = 'get:prompt {--f|format= : Output data in JSON or Markdown (MD) format}';
+    protected $signature = 'get:prompt {--f|format= : Output data in JSON, HTML, or Markdown (MD) format}';
 
     protected $description = 'Selects a random Prompt using one of all the available Datasets';
 
@@ -31,6 +31,12 @@ class GetPromptCommand extends Command
 
             if ($format === 'json') {
                 echo $item->toJson();
+
+                return;
+            }
+
+            if ($format === 'html') {
+                echo $item->toHtml();
 
                 return;
             }

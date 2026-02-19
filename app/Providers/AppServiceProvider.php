@@ -83,14 +83,14 @@ final class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('prompters', fn ($app): Collection => collect());
         $this->app->resolving('prompters', function (Collection $prompters): void {
-            $prompters->push(GeneratedPromptService::class);
-            $prompters->push(BookOfMatchesPromptService::class);
+//            $prompters->push(GeneratedPromptService::class);
+//            $prompters->push(BookOfMatchesPromptService::class);
 //            $prompters->push(PlotMachinePromptService::class);
 //            $prompters->push(StoryMachinePromptService::class);
 //            $prompters->push(StoryGeneratorPromptService::class);
 //            $prompters->push(PulpAdventurePromptService::class);
 //            $prompters->push(HuggingFacePromptService::class);
-//            $prompters->push(NovelStarterPromptService::class);
+            $prompters->push(NovelStarterPromptService::class);
 //            $prompters->push(TheLinesPromptService::class);
 //            $prompters->push(MovieCollectionItemsPromptService::class);
 //            $prompters->push(MediaStudioPromptService::class);

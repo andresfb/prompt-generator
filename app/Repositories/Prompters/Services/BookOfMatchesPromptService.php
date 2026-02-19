@@ -3,8 +3,9 @@
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\BookOfMatches;
-use App\Repositories\Prompters\Dtos\BookOfMatchesPromptItem;
+use App\Repositories\Prompters\Dtos\SimplePromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
@@ -19,7 +20,7 @@ class BookOfMatchesPromptService implements PrompterServiceInterface
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?BookOfMatchesPromptItem
+    public function execute(): ?PromptItemInterface
     {
         $prompt = BookOfMatches::query()
             ->where('active', true)
@@ -31,7 +32,7 @@ class BookOfMatchesPromptService implements PrompterServiceInterface
             return null;
         }
 
-        return new BookOfMatchesPromptItem(
+        return new SimplePromptItem(
             modelId: $prompt->id,
             header: "Book of Matches",
             subHeader: "Prompt",
