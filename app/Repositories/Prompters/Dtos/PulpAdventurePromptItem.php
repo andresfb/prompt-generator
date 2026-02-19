@@ -24,7 +24,7 @@ class PulpAdventurePromptItem extends BasePromptItem
         public string $sectionAct3,
         public string $act3ActionSequence,
         public string $act3PlotTwist,
-        public string $modifiers,
+        public ?ModifierPromptItem $modifiers,
         public string $view = '',
         public string $resource = '',
     ) {}
@@ -70,7 +70,7 @@ class PulpAdventurePromptItem extends BasePromptItem
             ->append(PHP_EOL)
             ->append($this->act3PlotTwist)
             ->append(PHP_EOL.PHP_EOL)
-            ->append($this->modifiers)
+            ->append($this->modifiers->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();

@@ -32,6 +32,9 @@ class StoryMachinePromptService implements PrompterServiceInterface
         }
 
         $data = $this->getItems($sections);
+        if (blank($data)) {
+            return null;
+        }
 
         return new StoryMachinePromptItem(
             modelIds: $this->usedIds,

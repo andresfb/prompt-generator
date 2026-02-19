@@ -20,7 +20,7 @@ class PlotMachinePromptItem extends BasePromptItem
         public string $complicater,
         public string $sectionTwists,
         public string $twists,
-        public string $modifiers,
+        public ?ModifierPromptItem $modifiers,
         public string $view = '',
         public string $resource = '',
     ) {}
@@ -46,7 +46,7 @@ class PlotMachinePromptItem extends BasePromptItem
             ->append("**$this->sectionTwists:** ")
             ->append($this->twists)
             ->append(PHP_EOL)
-            ->append($this->modifiers)
+            ->append($this->modifiers->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();

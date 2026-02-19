@@ -4,13 +4,15 @@ namespace App\Repositories\Prompters\Libraries;
 
 use App\Models\Prompter\ModifierItem;
 use App\Models\Prompter\ModifierSection;
+use App\Repositories\Prompters\Dtos\ModifierPromptItem;
 use Exception;
+use Illuminate\Support\Collection;
 
 class ModifiersLibrary
 {
     private bool $anachronisable = false;
 
-    public function getModifier(): string
+    public function getModifier(): ?ModifierPromptItem
     {
         try {
             $skip = random_int(1, 5);
@@ -19,7 +21,7 @@ class ModifiersLibrary
         }
 
         if ($skip === 5) {
-            return '';
+            return null;
         }
 
         $sections = ModifierSection::query()
@@ -28,34 +30,54 @@ class ModifiersLibrary
             ->get();
 
         if ($sections->isEmpty()) {
-            return '';
+            return null;
         }
 
-        $text = str('');
-        $sections->each(function (ModifierSection $section) use (&$text) {
-            $modifier = $this->loadModifier($section->id);
-            if (blank($modifier)) {
+        $data = $this->getItems($sections);
+        if (blank($data)) {
+            return null;
+        }
+
+        return new ModifierPromptItem(
+            title: 'Modifiers',
+            sectionAge: 'Age',
+            age: $data['age'],
+            sectionDescendancy: 'Descendancy',
+            descendancy: $data['descendancy'],
+            sectionGender: 'Gender',
+            gender: $data['gender'],
+            sectionPointOfView: 'Point of View',
+            pointOfView: $data['point_of_view'],
+            sectionTimePeriods: 'Time Periods',
+            timePeriods: $data['time_periods'],
+            anachronise: $this->anachronise(),
+        );
+    }
+
+    /**
+     * @param Collection<ModifierSection> $sections
+     */
+    private function getItems(Collection $sections): array
+    {
+        $list = [];
+        $sections->each(function (ModifierSection $section) use (&$list) {
+            $prompt = $this->loadModifier($section->id);
+            if ($prompt === null) {
                 return;
             }
 
-            $text = $text->append("**$section->name:** ")
-                ->append($modifier)
-                ->append(PHP_EOL);
+            $key = str($section->name)
+                ->snake()
+                ->trim()
+                ->toString();
+
+            $list[$key] = ucwords($prompt->text);
         });
 
-        if ($text->isEmpty()) {
-            return '';
-        }
-
-        return $text->prepend("### Modifiers\n\n")
-            ->prepend(PHP_EOL.PHP_EOL)
-            ->append($this->anachronise())
-            ->trim()
-            ->prepend(PHP_EOL.PHP_EOL)
-            ->toString();
+        return $list;
     }
 
-    private function loadModifier(int $sectionId): string
+    private function loadModifier(int $sectionId): ?ModifierItem
     {
         $item = ModifierItem::query()
             ->where('modifier_section_id', $sectionId)
@@ -64,20 +86,20 @@ class ModifiersLibrary
             ->first();
 
         if ($item === null) {
-            return '';
+            return null;
         }
 
         if (! $this->anachronisable) {
             $this->anachronisable = $item->anachronisable;
         }
 
-        return ucwords($item->text);
+        return $item;
     }
 
-    private function anachronise(): string
+    private function anachronise(): bool
     {
         if (! $this->anachronisable) {
-            return '';
+            return false;
         }
 
         try {
@@ -86,10 +108,6 @@ class ModifiersLibrary
             $tag = 1;
         }
 
-        if ($tag !== 1) {
-            return '';
-        }
-
-        return "\n**USE ANACHRONISTIC LANGUAGE**";
+        return $tag === 1;
     }
 }

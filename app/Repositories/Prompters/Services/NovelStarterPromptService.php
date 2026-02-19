@@ -64,7 +64,7 @@ class NovelStarterPromptService implements PrompterServiceInterface
                 ->trim()
                 ->toString();
 
-            $list[$key] = $prompt->text;
+            $list[$key] = ucwords($prompt->text);
             $this->usedIds[] = $prompt->id;
         });
 

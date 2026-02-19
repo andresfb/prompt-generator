@@ -24,7 +24,7 @@ class StoryMachinePromptItem extends BasePromptItem
         public string $mustFeature,
         public string $sectionMustAlsoFeature,
         public string $mustAlsoFeature,
-        public string $modifiers,
+        public ?ModifierPromptItem $modifiers,
         public string $view = '',
         public string $resource = '',
     ) {}
@@ -56,7 +56,7 @@ class StoryMachinePromptItem extends BasePromptItem
             ->append("**$this->sectionMustAlsoFeature:** ")
             ->append($this->mustAlsoFeature)
             ->append(PHP_EOL)
-            ->append($this->modifiers)
+            ->append($this->modifiers->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();

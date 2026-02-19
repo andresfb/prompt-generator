@@ -14,7 +14,7 @@ class NovelStarterPromptItem extends BasePromptItem
         public string $hero,
         public string $sectionFlaws,
         public string $flaws,
-        public string $modifiers,
+        public ?ModifierPromptItem $modifiers,
         public string $view = '',
         public string $resource = '',
     ) {}
@@ -31,7 +31,7 @@ class NovelStarterPromptItem extends BasePromptItem
             ->append("**$this->sectionFlaws:** ")
             ->append($this->flaws)
             ->append(PHP_EOL)
-            ->append($this->modifiers)
+            ->append($this->modifiers->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();

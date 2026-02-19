@@ -16,7 +16,7 @@ class StoryGeneratorPromptItem extends BasePromptItem
         public string $characters,
         public string $sectionActions,
         public string $actions,
-        public string $modifiers,
+        public ?ModifierPromptItem $modifiers,
         public string $view = '',
         public string $resource = '',
     ) {}
@@ -36,7 +36,7 @@ class StoryGeneratorPromptItem extends BasePromptItem
             ->append("**$this->sectionActions:** ")
             ->append($this->actions)
             ->append(PHP_EOL)
-            ->append($this->modifiers)
+            ->append($this->modifiers->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();

@@ -11,7 +11,7 @@ class SimplePromptItem extends BasePromptItem
         public string $header,
         public string $subHeader,
         public string $text,
-        public string $modifiers,
+        public ?ModifierPromptItem $modifiers,
         public string $view = '',
         public string $resource = '',
     ) {}
@@ -24,7 +24,7 @@ class SimplePromptItem extends BasePromptItem
             ->append(PHP_EOL.PHP_EOL)
             ->append($this->text)
             ->append(PHP_EOL)
-            ->append($this->modifiers)
+            ->append($this->modifiers->toMarkdown())
             ->trim()
             ->append(PHP_EOL);
     }

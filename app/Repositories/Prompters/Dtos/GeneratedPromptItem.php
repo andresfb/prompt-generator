@@ -28,7 +28,7 @@ class GeneratedPromptItem extends BasePromptItem
         public string $period,
         public string $sectionEnd,
         public string $endText,
-        public string $modifiers,
+        public ?ModifierPromptItem $modifiers,
         public string $view = '',
         public string $resource = '',
     ) {}
@@ -67,7 +67,7 @@ class GeneratedPromptItem extends BasePromptItem
             ->append("**$this->sectionEnd:** ")
             ->append($this->endText)
             ->append(PHP_EOL)
-            ->append($this->modifiers)
+            ->append($this->modifiers->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
             ->toString();
