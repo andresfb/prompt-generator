@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repositories\Search\Services;
 
-use App\Jobs\AddMovieMashupImageJob;
 use App\Jobs\CreateMoviesMashupJob;
 use App\Models\Prompter\MovieInfo;
 use App\Models\Prompter\MovieMashupItem;
@@ -116,8 +115,6 @@ final class CreateMovieMashupService
 
                         MovieInfo::where('movie_id', $movie['id'])
                             ->increment('usages');
-
-                        AddMovieMashupImageJob::dispatch($item->id);
                     }
                 });
 

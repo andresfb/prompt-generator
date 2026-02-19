@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
-use App\Models\Prompter\Base\BaseImagedModel;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property ?string $overview
  * @property ?array $genres
  */
-final class MovieMashupItem extends BaseImagedModel
+final class MovieMashupItem extends Model
 {
     use SoftDeletes;
 
