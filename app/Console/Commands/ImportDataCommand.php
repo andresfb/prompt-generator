@@ -38,8 +38,7 @@ final class ImportDataCommand extends Command
                             {--p|rd : Import Reddit Endpoints}
                             {--r|wd : Import data from Writer\'s Digest prompts}
                             {--s|ke : Import data from Kindlepreneur prompts}
-                            {--t|sp : Import data from Self Publishing School prompts}
-                            {--u|ib : Import data from Image Based prompts}';
+                            {--t|sp : Import data from Self Publishing School prompts}';
 
     protected $description = 'Imports Prompt datasets';
 
@@ -85,7 +84,12 @@ final class ImportDataCommand extends Command
 
         $importers = ImportServiceFactory::getAll();
         foreach ($importers as $importerCode) {
-            $this->import($importerCode);
+            try {
+                $this->import($importerCode);
+            } catch (Exception $e) {
+                $this->error("\nError found on $importerCode: {$e->getMessage()}");
+                $this->newLine();
+            }
         }
 
         $this->newLine();

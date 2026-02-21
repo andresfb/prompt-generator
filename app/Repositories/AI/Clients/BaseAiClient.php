@@ -138,6 +138,7 @@ abstract class BaseAiClient implements AiClientInterface
             $response,
             $this->origin,
             $this->caller,
+            $this->model,
             static::class,
         );
     }

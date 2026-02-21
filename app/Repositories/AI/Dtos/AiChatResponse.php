@@ -24,7 +24,8 @@ final class AiChatResponse extends Data
         Response $response,
         string $origin,
         string $caller,
-        string $client
+        string $client,
+        string $model,
     ): self {
         $aiResponse = new self;
         $aiResponse->content = $response->text;
@@ -32,7 +33,7 @@ final class AiChatResponse extends Data
         try {
             $aiResponse->response = self::encodeResponse($response);
 
-            $aiResponse->notify($response, $origin, $caller, $client);
+            $aiResponse->notify($response, $origin, $caller, $client, $model);
         } catch (Throwable $e) {
             Log::error('Error loading data: '.$e->getMessage());
         } finally {

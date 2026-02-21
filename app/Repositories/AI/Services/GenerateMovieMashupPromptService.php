@@ -35,7 +35,7 @@ final class GenerateMovieMashupPromptService
             $this->info("Using {$client->getName()} AI client");
 
             $response = $client->setOrigin('Movie Mashups Prompts')
-                ->setCaller('From Random Emby Movies')
+                ->setCaller('Random Emby Movies')
                 ->setUserPrompt(
                     $this->buildPrompt($mashup)
                 )

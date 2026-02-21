@@ -24,7 +24,7 @@ final class RedditEndpointsImportService extends BaseImporterService
         $data = $this->readfile($dataFile);
 
         $this->info('Saving prompts');
-        DB::table('reddit_prompt_endpoints')->truncate();
+        DB::table('reddit_prompt_endpoints')->delete();
 
         $data->shift();
         $data->each(function (array $row) {

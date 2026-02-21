@@ -78,7 +78,6 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('wd', WritersDigestImportService::class);
             $services->insert('ke', KindlepreneurImportService::class);
             $services->insert('sp', SelfPublishingSchoolImportService::class);
-            $services->insert('ib', ImageBasedPromptsImportService::class);
         });
 
         $this->app->bind('prompters', fn ($app): Collection => collect());

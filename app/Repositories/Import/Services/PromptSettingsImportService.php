@@ -14,7 +14,7 @@ final class PromptSettingsImportService extends BaseImporterService
 
     public function execute(): void
     {
-        $dataFile = storage_path('app/public/promptgendata/prompt-settings/settings.csv');
+        $dataFile = storage_path('app/public/promptgendata/prompt-settings/Settings.csv');
         $data = $this->readfile($dataFile);
 
         $this->info("Importing {$data->count()} Prompt Settings");
