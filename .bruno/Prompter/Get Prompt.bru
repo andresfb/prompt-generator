@@ -1,0 +1,16 @@
+meta {
+  name: Get Prompt
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{process.env.API_URL}}/prompt
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
