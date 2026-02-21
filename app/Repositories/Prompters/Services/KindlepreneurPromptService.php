@@ -31,7 +31,7 @@ class KindlepreneurPromptService implements PrompterServiceInterface
         }
 
         $prompt = $this->getPrompt($category);
-        if ($prompt === null) {
+        if (!$prompt instanceof KindlepreneurItem) {
             return null;
         }
 

@@ -29,7 +29,7 @@ class GeneratedPromptItem extends BasePromptItem
         public string $sectionEnd,
         public string $endText,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

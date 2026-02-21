@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Config;
@@ -39,6 +40,7 @@ final class PlotMachineItem extends Model
         return $this->belongsTo(PlotMachineSection::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

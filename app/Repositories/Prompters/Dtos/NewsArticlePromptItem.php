@@ -16,7 +16,7 @@ class NewsArticlePromptItem extends BasePromptItem
         public string $permalink,
         public string $content,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

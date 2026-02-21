@@ -18,8 +18,6 @@ class StoryGeneratorPromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
@@ -56,7 +54,7 @@ class StoryGeneratorPromptService implements PrompterServiceInterface
         $list = [];
         $sections->each(function (StoryGeneratorSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if ($prompt === null) {
+            if (!$prompt instanceof StoryGeneratorItem) {
                 return;
             }
 

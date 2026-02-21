@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,6 +26,7 @@ final class KindlepreneurSection extends Model
         return $this->hasMany(KindlepreneurItem::class);
     }
 
+    #[Override]
     protected static function booted(): void
     {
         parent::booted();
@@ -33,6 +35,7 @@ final class KindlepreneurSection extends Model
         });
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

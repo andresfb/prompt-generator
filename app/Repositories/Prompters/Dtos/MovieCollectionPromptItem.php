@@ -25,7 +25,7 @@ class MovieCollectionPromptItem extends BasePromptItem
         public ?string $sectionTrailers = null,
         public ?array $trailers = null,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

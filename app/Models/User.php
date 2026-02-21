@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Notifications\AiUsedNotification;
 use Database\Factories\UserFactory;
 use Exception;
@@ -70,6 +71,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      *
      * @return array<string, string>
      */
+    #[Override]
     protected function casts(): array
     {
         return [

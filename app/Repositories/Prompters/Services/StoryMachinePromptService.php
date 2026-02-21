@@ -65,7 +65,7 @@ class StoryMachinePromptService implements PrompterServiceInterface
         $list = [];
         $sections->each(function (StoryMachineSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if ($prompt === null) {
+            if (!$prompt instanceof StoryMachineItem) {
                 return;
             }
 

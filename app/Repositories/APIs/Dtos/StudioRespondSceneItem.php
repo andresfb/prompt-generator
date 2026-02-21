@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\APIs\Dtos;
 
+use Override;
 use Carbon\CarbonInterface;
 use Spatie\LaravelData\Data;
 
@@ -20,6 +21,7 @@ final class StudioRespondSceneItem extends Data
         public ?CarbonInterface $published_at = null,
     ) {}
 
+    #[Override]
     public function toArray(): array
     {
         $info = parent::toArray();

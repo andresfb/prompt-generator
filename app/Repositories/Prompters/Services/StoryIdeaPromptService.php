@@ -39,7 +39,7 @@ class StoryIdeaPromptService implements PrompterServiceInterface
             tone: $prompt->tone,
             sectionIdea: 'Idea',
             idea: preg_replace('/^\s*(\d+[.)]|-)\s+/', '', $prompt->idea),
-            sectionSubGenre: ! blank($prompt->sub_genre) ? 'Sub Genre' : null,
+            sectionSubGenre: blank($prompt->sub_genre) ? null : 'Sub Genre',
             subGenre: $prompt->sub_genre,
             view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),

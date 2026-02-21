@@ -12,8 +12,7 @@ class SimplePromptItem extends BasePromptItem
         public string $subHeader,
         public string $text,
         public string $view = '',
-        public string $resource = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

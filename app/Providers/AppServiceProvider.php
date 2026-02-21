@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Override;
 use App\DataStructures\HashTable;
 use App\Repositories\AI\Clients\AnthropicClient;
 use App\Repositories\AI\Clients\OpenAiClient;
 use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
 use App\Repositories\Import\Services\HuggingFaceImportService;
-use App\Repositories\Import\Services\ImageBasedPromptsImportService;
 use App\Repositories\Import\Services\KindlepreneurImportService;
 use App\Repositories\Import\Services\MediaStudioImportService;
 use App\Repositories\Import\Services\ModifiersImportService;
@@ -51,6 +51,7 @@ final class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+    #[Override]
     public function register(): void
     {
         $this->app->bind('ai-clients', fn ($app): Collection => collect());

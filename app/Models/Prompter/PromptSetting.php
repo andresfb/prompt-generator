@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use App\Repositories\AI\Dtos\PromptSettingItem;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -58,6 +59,7 @@ final class PromptSetting extends Model
         return PromptSettingItem::from($data);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

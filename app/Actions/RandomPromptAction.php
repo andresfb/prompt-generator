@@ -14,7 +14,7 @@ final readonly class RandomPromptAction
     {
         $prompter = PrompterFactory::getPrompter();
         $item = $prompter->execute();
-        if ($item === null) {
+        if (!$item instanceof PromptItemInterface) {
             throw new RuntimeException('No prompter found');
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Prompters\Dtos;
 
+use Override;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 class PulpAdventurePromptItem extends BasePromptItem
@@ -25,11 +26,12 @@ class PulpAdventurePromptItem extends BasePromptItem
         public string $act3ActionSequence,
         public string $act3PlotTwist,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }
 
+    #[Override]
     public function toJson($options = 0): string
     {
         return strip_tags(

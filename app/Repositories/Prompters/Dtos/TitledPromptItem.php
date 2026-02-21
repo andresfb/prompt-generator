@@ -13,7 +13,7 @@ class TitledPromptItem extends BasePromptItem
         public string $title = '',
         public string $text = '',
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

@@ -12,7 +12,7 @@ class RedditPromptItem extends BasePromptItem
         public string $title,
         public string $permalink,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

@@ -21,7 +21,7 @@ class PlotMachinePromptItem extends BasePromptItem
         public string $sectionTwists,
         public string $twists,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

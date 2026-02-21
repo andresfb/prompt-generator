@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -24,6 +25,7 @@ final class PlotMachineSection extends Model
         return $this->hasMany(PlotMachineItem::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

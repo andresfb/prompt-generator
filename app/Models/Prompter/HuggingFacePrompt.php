@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,6 +19,7 @@ final class HuggingFacePrompt extends Model
 
     protected $guarded = ['id'];
 
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -17,7 +17,7 @@ class StoryGeneratorPromptItem extends BasePromptItem
         public string $sectionActions,
         public string $actions,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

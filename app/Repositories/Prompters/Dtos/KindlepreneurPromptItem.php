@@ -15,7 +15,7 @@ class KindlepreneurPromptItem extends BasePromptItem
         public string $description,
         public string $text,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

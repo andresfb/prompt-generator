@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use App\Libraries\MediaNamesLibrary;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,6 +36,7 @@ final class ImageBasedPrompt extends Model implements HasMedia
             ])->singleFile();
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

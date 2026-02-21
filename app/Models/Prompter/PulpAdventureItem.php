@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -26,6 +27,7 @@ final class PulpAdventureItem extends Model
         return $this->belongsTo(PulpAdventureSection::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

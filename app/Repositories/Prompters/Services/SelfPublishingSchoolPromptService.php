@@ -31,7 +31,7 @@ class SelfPublishingSchoolPromptService implements PrompterServiceInterface
         }
 
         $prompt = $this->getPrompt($category);
-        if ($prompt === null) {
+        if (!$prompt instanceof SelfPublishingSchoolItem) {
             return null;
         }
 
@@ -48,61 +48,6 @@ class SelfPublishingSchoolPromptService implements PrompterServiceInterface
             view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
-    }
-
-    private function buildText(SelfPublishingSchoolSection $category): string
-    {
-        $prompt = $this->getPromptText($category);
-        if (blank($prompt)) {
-            return '';
-        }
-
-        $hint = '';
-        if (! blank($category->hint)) {
-            $hint = "{{HINT}}";
-        }
-
-        $text = str("**$category->title:**$hint")
-            ->append(PHP_EOL)
-            ->append("<p><small>$category->description</small></p>")
-            ->append(PHP_EOL.PHP_EOL)
-            ->append($prompt)
-            ->append(PHP_EOL);
-
-        return $text->prepend(PHP_EOL.PHP_EOL)
-            ->prepend("## Prompt")
-            ->prepend(PHP_EOL.PHP_EOL)
-            ->prepend("# Self-Publishing School Prompts")
-            ->append($this->library->getModifier())
-            ->trim()
-            ->append(PHP_EOL)
-            ->toString();
-    }
-
-    private function getPromptText(SelfPublishingSchoolSection $section): string
-    {
-        $runs = 0;
-        $maxRuns = Config::integer('constants.prompts_max_usages');
-        $text = null;
-
-        while (blank($text)) {
-            if ($runs >= $maxRuns) {
-                $this->error("SelfPublishingSchoolPromptService@getPromptText $section->title Maximum number of runs reached");
-
-                break;
-            }
-
-            $text = SelfPublishingSchoolItem::where('self_publishing_school_section_id', $section->id)
-                ->where('active', true)
-                ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
-                ->inRandomOrder()
-                ->first()
-                ->text;
-
-            $runs++;
-        }
-
-        return ucwords($text) ?? '';
     }
 
     private function getPrompt(SelfPublishingSchoolSection $category): ?SelfPublishingSchoolItem

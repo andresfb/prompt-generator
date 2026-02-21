@@ -52,7 +52,7 @@ class NovelStarterPromptService implements PrompterServiceInterface
         $list = [];
         $sections->each(function (NovelStarterSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if ($prompt === null) {
+            if (!$prompt instanceof NovelStarterItem) {
                 return;
             }
 

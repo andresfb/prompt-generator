@@ -21,7 +21,7 @@ class MediaStudioPromptItem extends BasePromptItem
         public ?string $sectionTrailer = null,
         public ?string $trailer = null,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

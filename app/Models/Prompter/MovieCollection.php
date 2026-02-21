@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -58,6 +59,7 @@ final class MovieCollection extends Model
             ->where('movie_collection_items.usages', '<=', Config::integer('constants.prompts_max_usages'));
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -56,9 +56,9 @@ class MovieCollectionItemsPromptService implements PrompterServiceInterface
                 $item->image_type,
                 $item->image_tag
             ),
-            sectionTagLines: ! blank($item->tag_lines) ? 'Tag Lines' : null,
+            sectionTagLines: blank($item->tag_lines) ? null : 'Tag Lines',
             tagLines: $item->tag_lines,
-            sectionGenres: ! blank($item->genres) ? 'Genres' : null,
+            sectionGenres: blank($item->genres) ? null : 'Genres',
             genres: $item->genres,
             sectionTrailers: 'Trailers',
             trailers: blank($item->trailers) ? null : $this->getTrailers($item),

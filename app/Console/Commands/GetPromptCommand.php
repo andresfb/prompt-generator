@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Factories\PrompterFactory;
 use Exception;
 use Illuminate\Console\Command;
@@ -19,7 +20,7 @@ class GetPromptCommand extends Command
         try {
             $prompter = PrompterFactory::getPrompter();
             $item = $prompter->execute();
-            if ($item === null) {
+            if (!$item instanceof PromptItemInterface) {
                 error('No prompter found');
 
                 return;

@@ -25,7 +25,7 @@ class StoryMachinePromptItem extends BasePromptItem
         public string $sectionMustAlsoFeature,
         public string $mustAlsoFeature,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

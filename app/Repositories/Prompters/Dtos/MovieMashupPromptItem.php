@@ -18,7 +18,7 @@ class MovieMashupPromptItem extends BasePromptItem
         public string $provider,
         public Collection $movies,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

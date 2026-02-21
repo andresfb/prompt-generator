@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Prompters\Dtos\Base;
 
+use Override;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use Parsedown;
 use Spatie\LaravelData\Data;
@@ -25,6 +26,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
         return (new Parsedown())->text($this->toMarkdown());
     }
 
+    #[Override]
     public function toJson($options = 0): string
     {
         try {

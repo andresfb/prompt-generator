@@ -62,7 +62,7 @@ class ModifiersLibrary
         $list = [];
         $sections->each(function (ModifierSection $section) use (&$list) {
             $prompt = $this->loadModifier($section->id);
-            if ($prompt === null) {
+            if (!$prompt instanceof ModifierItem) {
                 return;
             }
 

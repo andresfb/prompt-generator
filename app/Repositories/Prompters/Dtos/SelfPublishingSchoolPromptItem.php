@@ -17,7 +17,7 @@ class SelfPublishingSchoolPromptItem extends BasePromptItem
         public string $hint,
         public string $text,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

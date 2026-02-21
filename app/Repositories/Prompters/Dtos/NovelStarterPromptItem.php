@@ -15,7 +15,7 @@ class NovelStarterPromptItem extends BasePromptItem
         public string $sectionFlaws,
         public string $flaws,
         public string $view = '',
-        public ?ModifierPromptItem $modifiers,
+        public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct($view);
     }

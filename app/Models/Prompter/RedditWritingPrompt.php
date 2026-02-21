@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,6 +34,7 @@ final class RedditWritingPrompt extends Model
         return $this->belongsTo(RedditPromptEndpoint::class, 'reddit_prompt_endpoint_id');
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

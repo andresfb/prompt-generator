@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -27,6 +28,7 @@ final class SelfPublishingSchoolItem extends Model
         return $this->belongsTo(SelfPublishingSchoolSection::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

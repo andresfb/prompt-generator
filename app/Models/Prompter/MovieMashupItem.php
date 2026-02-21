@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,6 +32,7 @@ final class MovieMashupItem extends Model
         return $this->belongsTo(MovieInfo::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
-use App\Libraries\MediaNamesLibrary;
+use Override;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,6 +44,7 @@ final class MediaStudioItem extends Model
         return $this->belongsTo(MediaStudio::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

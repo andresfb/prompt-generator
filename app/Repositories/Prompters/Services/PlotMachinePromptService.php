@@ -58,7 +58,7 @@ class PlotMachinePromptService implements PrompterServiceInterface
         $list = [];
         $sections->each(function (PlotMachineSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if ($prompt === null) {
+            if (!$prompt instanceof PlotMachineItem) {
                 return;
             }
 
