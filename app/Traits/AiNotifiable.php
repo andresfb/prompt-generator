@@ -22,7 +22,7 @@ trait AiNotifiable
         $cost = sprintf('Total tokens %d', $totalTokens);
 
         $message = sprintf(
-            '%s used %s, to generated %s. %s',
+            '%s used %s to generate %s. %s',
             str($caller)
                 ->replace('_', ' ')
                 ->lower()

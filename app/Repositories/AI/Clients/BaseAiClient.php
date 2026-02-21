@@ -34,7 +34,7 @@ abstract class BaseAiClient implements AiClientInterface
 
     abstract public function getProvider(): string|ProviderEnum;
 
-    final public function setCaller(string $caller): AiClientInterface
+    final public function setCaller(string $caller): self
     {
         $this->caller = $caller;
 

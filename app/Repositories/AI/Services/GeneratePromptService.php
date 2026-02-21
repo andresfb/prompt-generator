@@ -27,7 +27,7 @@ final class GeneratePromptService
 
             $promptItem = PromptSetting::getRandom();
             $response = $client->setOrigin('Prompts')
-                ->setCaller('From Random DB Values')
+                ->setCaller('Random DB Values')
                 ->setUserPrompt(
                     $this->buildPrompt($promptItem)
                 )

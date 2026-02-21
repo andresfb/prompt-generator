@@ -32,7 +32,7 @@ final class MediaStudioItem extends Model
 
     protected $guarded = ['id'];
 
-    public static function getCount(string $studioId): int
+    public static function getCount(int $studioId): int
     {
         return self::query()
             ->where('media_studio_id', $studioId)

@@ -27,14 +27,12 @@ final class GenerateMovieMashupPromptCommand extends Command
             intro('Generating a Movie Mashup Prompt');
 
             $promptId = $service->setToScreen(true)->execute();
-
             if ($promptId === 0) {
                 return;
             }
 
             $prompt = MovieMashupPrompt::findOrFail($promptId);
 
-            /** @noinspection ForgottenDebugOutputInspection */
             dump($prompt);
 
             $this->newLine();

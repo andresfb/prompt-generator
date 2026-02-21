@@ -30,12 +30,12 @@ final class MediaStudioImportService extends BaseImporterService
         $data->shift();
         $data->each(function (array $row) {
             MediaStudio::create([
-                'uuid' => $row[0],
-                'name' => $row[1],
-                'short_name' => $row[2],
-                'description' => $row[3],
-                'endpoint' => $row[4],
-                'per_page' => $row[6],
+                'uuid' => trim($row[0]),
+                'name' => trim($row[1]),
+                'short_name' => trim($row[2]),
+                'description' => trim($row[3]),
+                'endpoint' => trim($row[4]),
+                'per_page' => trim($row[6]),
             ]);
 
             $this->character('.');

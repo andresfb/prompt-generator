@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Search\Services;
 
-use App\Jobs\CreateMoviesMashupJob;
+use App\Jobs\CreateMovieMashupJob;
 use App\Models\Prompter\MovieInfo;
 use App\Models\Prompter\MovieMashupItem;
 use App\Models\Prompter\MovieMashupPrompt;
@@ -42,7 +42,7 @@ final class CreateMovieMashupService
         }
 
         $this->warning('No Movie Mashup Prompts Saved. Re-queuing the job');
-        CreateMoviesMashupJob::dispatch();
+        CreateMovieMashupJob::dispatch();
     }
 
     private function getMovies(): array

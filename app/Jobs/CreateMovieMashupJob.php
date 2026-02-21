@@ -14,7 +14,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-final class CreateMoviesMashupJob implements ShouldQueue
+final class CreateMovieMashupJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
