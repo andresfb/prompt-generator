@@ -19,9 +19,10 @@ class StoryIdeaPromptItem extends BasePromptItem
         public ?string $sectionSubGenre = null,
         public ?string $subGenre = null,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

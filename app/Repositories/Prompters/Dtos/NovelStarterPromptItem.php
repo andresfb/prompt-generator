@@ -15,9 +15,10 @@ class NovelStarterPromptItem extends BasePromptItem
         public string $sectionFlaws,
         public string $flaws,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

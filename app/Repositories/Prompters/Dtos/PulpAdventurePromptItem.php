@@ -24,10 +24,11 @@ class PulpAdventurePromptItem extends BasePromptItem
         public string $sectionAct3,
         public string $act3ActionSequence,
         public string $act3PlotTwist,
-        public ?ModifierPromptItem $modifiers,
         public string $view = '',
-        public string $resource = '',
-    ) {}
+        public ?ModifierPromptItem $modifiers,
+    ) {
+        parent::__construct($view);
+    }
 
     public function toJson($options = 0): string
     {

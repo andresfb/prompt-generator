@@ -16,8 +16,6 @@ class HuggingFacePromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -38,7 +36,6 @@ class HuggingFacePromptService implements PrompterServiceInterface
             subHeader: "Prompt",
             text: $prompt->text,
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

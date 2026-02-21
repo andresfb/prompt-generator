@@ -16,8 +16,6 @@ class StoryIdeaPromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -44,7 +42,6 @@ class StoryIdeaPromptService implements PrompterServiceInterface
             sectionSubGenre: ! blank($prompt->sub_genre) ? 'Sub Genre' : null,
             subGenre: $prompt->sub_genre,
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

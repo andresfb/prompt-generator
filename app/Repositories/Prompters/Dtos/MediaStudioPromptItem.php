@@ -21,9 +21,10 @@ class MediaStudioPromptItem extends BasePromptItem
         public ?string $sectionTrailer = null,
         public ?string $trailer = null,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

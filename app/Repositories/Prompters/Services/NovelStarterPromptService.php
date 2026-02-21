@@ -18,8 +18,6 @@ class NovelStarterPromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
@@ -42,7 +40,6 @@ class NovelStarterPromptService implements PrompterServiceInterface
             sectionFlaws: 'Flaws',
             flaws: $data['flaws'],
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

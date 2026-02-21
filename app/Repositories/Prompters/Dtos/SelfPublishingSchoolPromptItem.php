@@ -17,9 +17,10 @@ class SelfPublishingSchoolPromptItem extends BasePromptItem
         public string $hint,
         public string $text,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

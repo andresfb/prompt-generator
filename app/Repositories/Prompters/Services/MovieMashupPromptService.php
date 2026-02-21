@@ -18,8 +18,6 @@ class MovieMashupPromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -44,7 +42,6 @@ class MovieMashupPromptService implements PrompterServiceInterface
             provider: $mashup->provider,
             movies: $this->getMovieItem($mashup),
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

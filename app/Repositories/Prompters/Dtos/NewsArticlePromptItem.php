@@ -16,9 +16,10 @@ class NewsArticlePromptItem extends BasePromptItem
         public string $permalink,
         public string $content,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

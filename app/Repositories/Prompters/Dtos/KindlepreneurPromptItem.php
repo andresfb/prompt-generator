@@ -15,9 +15,10 @@ class KindlepreneurPromptItem extends BasePromptItem
         public string $description,
         public string $text,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

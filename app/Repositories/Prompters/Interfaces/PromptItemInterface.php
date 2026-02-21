@@ -6,6 +6,8 @@ interface PromptItemInterface
 {
     public static function from(mixed ...$payloads): static;
 
+    public function getView(): string;
+
     public function all(): array;
 
     public function toArray(): array;

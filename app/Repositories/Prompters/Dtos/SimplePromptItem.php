@@ -14,7 +14,9 @@ class SimplePromptItem extends BasePromptItem
         public string $view = '',
         public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

@@ -18,9 +18,10 @@ class MovieMashupPromptItem extends BasePromptItem
         public string $provider,
         public Collection $movies,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

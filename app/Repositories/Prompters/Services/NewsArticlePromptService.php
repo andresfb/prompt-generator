@@ -4,7 +4,6 @@ namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\NewsArticlePrompt;
 use App\Repositories\Prompters\Dtos\NewsArticlePromptItem;
-use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
@@ -16,8 +15,6 @@ class NewsArticlePromptService implements PrompterServiceInterface
     use Screenable;
 
     private const string VIEW_NAME = '';
-
-    private Const string API_RESOURCE = '';
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
@@ -43,7 +40,6 @@ class NewsArticlePromptService implements PrompterServiceInterface
             permalink: $prompt->permalink,
             content: $prompt->content,
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

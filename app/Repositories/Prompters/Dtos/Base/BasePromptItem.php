@@ -9,7 +9,16 @@ use Throwable;
 
 abstract class BasePromptItem extends Data implements PromptItemInterface
 {
+    public function __construct(
+        public string $view = '',
+    ) {}
+
     abstract public function toMarkdown(): string;
+
+    public function getView(): string
+    {
+        return $this->view;
+    }
 
     public function toHtml(): string
     {

@@ -18,8 +18,6 @@ class PlotMachinePromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
@@ -47,9 +45,8 @@ class PlotMachinePromptService implements PrompterServiceInterface
             complicater: $data['complicater'],
             sectionTwists: 'Twists',
             twists: $data['twists'],
-            modifiers: $this->library->getModifier(),
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
+            modifiers: $this->library->getModifier(),
         );
     }
 

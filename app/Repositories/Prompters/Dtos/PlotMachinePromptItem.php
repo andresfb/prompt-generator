@@ -20,10 +20,11 @@ class PlotMachinePromptItem extends BasePromptItem
         public string $complicater,
         public string $sectionTwists,
         public string $twists,
-        public ?ModifierPromptItem $modifiers,
         public string $view = '',
-        public string $resource = '',
-    ) {}
+        public ?ModifierPromptItem $modifiers,
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

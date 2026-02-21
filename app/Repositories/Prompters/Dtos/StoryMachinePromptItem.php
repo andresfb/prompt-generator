@@ -24,10 +24,11 @@ class StoryMachinePromptItem extends BasePromptItem
         public string $mustFeature,
         public string $sectionMustAlsoFeature,
         public string $mustAlsoFeature,
-        public ?ModifierPromptItem $modifiers,
         public string $view = '',
-        public string $resource = '',
-    ) {}
+        public ?ModifierPromptItem $modifiers,
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

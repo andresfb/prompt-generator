@@ -5,7 +5,6 @@ namespace App\Repositories\Prompters\Services;
 use App\Models\Prompter\KindlepreneurItem;
 use App\Models\Prompter\KindlepreneurSection;
 use App\Repositories\Prompters\Dtos\KindlepreneurPromptItem;
-use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
@@ -17,8 +16,6 @@ class KindlepreneurPromptService implements PrompterServiceInterface
     use Screenable;
 
     private const string VIEW_NAME = '';
-
-    private Const string API_RESOURCE = '';
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
@@ -47,7 +44,6 @@ class KindlepreneurPromptService implements PrompterServiceInterface
             description: $category->description,
             text: $prompt->text,
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

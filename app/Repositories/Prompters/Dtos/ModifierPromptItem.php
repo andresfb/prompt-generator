@@ -20,7 +20,9 @@ class ModifierPromptItem extends BasePromptItem
         public string $timePeriods = '',
         public bool $anachronise = false,
         public string $anachroniseText = 'USE ANACHRONISTIC LANGUAGE',
-    ) {}
+    ) {
+        parent::__construct();
+    }
 
     public function toMarkdown(): string
     {

@@ -4,7 +4,6 @@ namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\SelfPublishingSchoolItem;
 use App\Models\Prompter\SelfPublishingSchoolSection;
-use App\Repositories\Prompters\Dtos\PromptItem;
 use App\Repositories\Prompters\Dtos\SelfPublishingSchoolPromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
@@ -17,8 +16,6 @@ class SelfPublishingSchoolPromptService implements PrompterServiceInterface
     use Screenable;
 
     private const string VIEW_NAME = '';
-
-    private Const string API_RESOURCE = '';
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
@@ -49,7 +46,6 @@ class SelfPublishingSchoolPromptService implements PrompterServiceInterface
             hint: $category->hint,
             text: $prompt->text,
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

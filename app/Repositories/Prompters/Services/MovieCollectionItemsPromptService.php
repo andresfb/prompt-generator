@@ -17,8 +17,6 @@ class MovieCollectionItemsPromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -65,7 +63,6 @@ class MovieCollectionItemsPromptService implements PrompterServiceInterface
             sectionTrailers: 'Trailers',
             trailers: blank($item->trailers) ? null : $this->getTrailers($item),
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
             modifiers: $this->library->getModifier(),
         );
     }

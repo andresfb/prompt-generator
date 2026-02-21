@@ -16,10 +16,11 @@ class StoryGeneratorPromptItem extends BasePromptItem
         public string $characters,
         public string $sectionActions,
         public string $actions,
-        public ?ModifierPromptItem $modifiers,
         public string $view = '',
-        public string $resource = '',
-    ) {}
+        public ?ModifierPromptItem $modifiers,
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

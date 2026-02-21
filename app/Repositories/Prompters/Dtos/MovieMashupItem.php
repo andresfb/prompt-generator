@@ -16,7 +16,9 @@ class MovieMashupItem extends BasePromptItem
         public string $url,
         public string $image,
         public ?array $genres = null,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 
     public function toMarkdown(): string
     {

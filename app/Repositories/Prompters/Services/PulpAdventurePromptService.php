@@ -17,8 +17,6 @@ class PulpAdventurePromptService implements PrompterServiceInterface
 
     private const string VIEW_NAME = '';
 
-    private Const string API_RESOURCE = '';
-
     private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
@@ -43,9 +41,8 @@ class PulpAdventurePromptService implements PrompterServiceInterface
             sectionAct3: '<u>Act 3</u>',
             act3ActionSequence: $this->getActionSequence(),
             act3PlotTwist: $this->getPlotTwist(),
-            modifiers: $this->library->getModifier(),
             view: self::VIEW_NAME,
-            resource: self::API_RESOURCE,
+            modifiers: $this->library->getModifier(),
         );
     }
 

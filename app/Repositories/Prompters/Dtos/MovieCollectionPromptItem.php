@@ -25,9 +25,10 @@ class MovieCollectionPromptItem extends BasePromptItem
         public ?string $sectionTrailers = null,
         public ?array $trailers = null,
         public string $view = '',
-        public string $resource = '',
         public ?ModifierPromptItem $modifiers,
-    ) {}
+    ) {
+        parent::__construct($view);
+    }
 
     public function toMarkdown(): string
     {

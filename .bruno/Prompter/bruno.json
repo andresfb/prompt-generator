@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "name": "Prompter",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ],
+  "size": 0.00017547607421875,
+  "filesCount": 2,
+  "presets": {
+    "requestType": "http",
+    "requestUrl": "{{process.env.API_URL}}"
+  }
+}
