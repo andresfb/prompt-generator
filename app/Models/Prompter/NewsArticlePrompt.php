@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
-use Override;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
 /**
  * @property int $id

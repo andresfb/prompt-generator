@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
-use Override;
 use App\Libraries\MediaNamesLibrary;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Override;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 

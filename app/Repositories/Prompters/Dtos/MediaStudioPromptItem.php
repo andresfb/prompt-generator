@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class MediaStudioPromptItem extends BasePromptItem
+final class MediaStudioPromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,
@@ -42,7 +44,7 @@ class MediaStudioPromptItem extends BasePromptItem
             $tags = $tags->append(
                 collect($this->tags)->take(10)->implode(', ')
             )
-            ->append(PHP_EOL);
+                ->append(PHP_EOL);
         }
 
         $trailer = str('');
@@ -77,6 +79,7 @@ class MediaStudioPromptItem extends BasePromptItem
             ->append(PHP_EOL.PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()
-            ->append(PHP_EOL);
+            ->append(PHP_EOL)
+            ->toString();
     }
 }

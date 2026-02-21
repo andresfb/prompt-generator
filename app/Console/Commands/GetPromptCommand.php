@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
-use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Factories\PrompterFactory;
+use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use Exception;
 use Illuminate\Console\Command;
 
 use function Laravel\Prompts\error;
 
-class GetPromptCommand extends Command
+final class GetPromptCommand extends Command
 {
     protected $signature = 'get:prompt {--f|format= : Output data in JSON, HTML, or Markdown (MD) format}';
 
@@ -20,14 +22,14 @@ class GetPromptCommand extends Command
         try {
             $prompter = PrompterFactory::getPrompter();
             $item = $prompter->execute();
-            if (!$item instanceof PromptItemInterface) {
+            if (! $item instanceof PromptItemInterface) {
                 error('No prompter found');
 
                 return;
             }
 
             $format = $this->option('format') ?? 'json';
-            $format = strtolower(trim($format));
+            $format = mb_strtolower(trim($format));
 
             if ($format === 'json') {
                 echo $item->toJson();

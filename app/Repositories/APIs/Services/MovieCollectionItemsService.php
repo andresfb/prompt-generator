@@ -67,6 +67,7 @@ final class MovieCollectionItemsService
         foreach ($movies as $movie) {
             if (MovieCollectionItem::where('movie_id', $movie->Id)->exists()) {
                 $this->character('x');
+
                 continue;
             }
 

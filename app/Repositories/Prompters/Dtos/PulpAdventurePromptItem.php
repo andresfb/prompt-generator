@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
-use Override;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
+use Override;
 
-class PulpAdventurePromptItem extends BasePromptItem
+final class PulpAdventurePromptItem extends BasePromptItem
 {
     public function __construct(
         public array $modelIds,
@@ -41,9 +43,9 @@ class PulpAdventurePromptItem extends BasePromptItem
 
     public function toMarkdown(): string
     {
-        return str("# Pulp Adventure Prompts")
+        return str("# $this->title")
             ->append(PHP_EOL.PHP_EOL)
-            ->append("## Prompt")
+            ->append("## $this->header")
             ->append(PHP_EOL)
             ->append($this->villan)
             ->append(PHP_EOL)

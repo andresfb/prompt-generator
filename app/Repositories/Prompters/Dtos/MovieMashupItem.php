@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class MovieMashupItem extends BasePromptItem
+final class MovieMashupItem extends BasePromptItem
 {
     public function __construct(
         public string $id,

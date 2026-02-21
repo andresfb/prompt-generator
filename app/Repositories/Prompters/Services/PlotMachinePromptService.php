@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\PlotMachineItem;
@@ -12,7 +14,7 @@ use App\Traits\Screenable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Config;
 
-class PlotMachinePromptService implements PrompterServiceInterface
+final class PlotMachinePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -51,14 +53,14 @@ class PlotMachinePromptService implements PrompterServiceInterface
     }
 
     /**
-     * @param Collection<PlotMachineSection> $sections
+     * @param  Collection<PlotMachineSection>  $sections
      */
     private function getItem(Collection $sections): array
     {
         $list = [];
         $sections->each(function (PlotMachineSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if (!$prompt instanceof PlotMachineItem) {
+            if (! $prompt instanceof PlotMachineItem) {
                 return;
             }
 

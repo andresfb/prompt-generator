@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class RedditPromptItem extends BasePromptItem
+final class RedditPromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,
@@ -27,6 +29,7 @@ class RedditPromptItem extends BasePromptItem
             ->append(PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()
-            ->append(PHP_EOL);
+            ->append(PHP_EOL)
+            ->toString();
     }
 }

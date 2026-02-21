@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos\Base;
 
-use Override;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
+use Override;
 use Parsedown;
 use Spatie\LaravelData\Data;
 use Throwable;
@@ -16,12 +18,12 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
 
     abstract public function toMarkdown(): string;
 
-    public function getView(): string
+    final public function getView(): string
     {
         return $this->view;
     }
 
-    public function toHtml(): string
+    final public function toHtml(): string
     {
         return (new Parsedown())->text($this->toMarkdown());
     }

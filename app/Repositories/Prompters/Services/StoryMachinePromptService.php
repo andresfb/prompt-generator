@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\StoryMachineItem;
@@ -12,7 +14,7 @@ use App\Traits\Screenable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
-class StoryMachinePromptService implements PrompterServiceInterface
+final class StoryMachinePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -58,14 +60,14 @@ class StoryMachinePromptService implements PrompterServiceInterface
     }
 
     /**
-     * @param Collection<StoryMachineSection> $sections
+     * @param  Collection<StoryMachineSection>  $sections
      */
     private function getItems(Collection $sections): array
     {
         $list = [];
         $sections->each(function (StoryMachineSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if (!$prompt instanceof StoryMachineItem) {
+            if (! $prompt instanceof StoryMachineItem) {
                 return;
             }
 

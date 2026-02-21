@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\KindlepreneurItem;
@@ -11,7 +13,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class KindlepreneurPromptService implements PrompterServiceInterface
+final class KindlepreneurPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -31,7 +33,7 @@ class KindlepreneurPromptService implements PrompterServiceInterface
         }
 
         $prompt = $this->getPrompt($category);
-        if (!$prompt instanceof KindlepreneurItem) {
+        if (! $prompt instanceof KindlepreneurItem) {
             return null;
         }
 

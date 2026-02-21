@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class SimplePromptItem extends BasePromptItem
+final class SimplePromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,
@@ -27,6 +29,7 @@ class SimplePromptItem extends BasePromptItem
             ->append(PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()
-            ->append(PHP_EOL);
+            ->append(PHP_EOL)
+            ->toString();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Libraries;
 
 use App\Models\Prompter\ModifierItem;
@@ -8,7 +10,7 @@ use App\Repositories\Prompters\Dtos\ModifierPromptItem;
 use Exception;
 use Illuminate\Support\Collection;
 
-class ModifiersLibrary
+final class ModifiersLibrary
 {
     private bool $anachronisable = false;
 
@@ -55,14 +57,14 @@ class ModifiersLibrary
     }
 
     /**
-     * @param Collection<ModifierSection> $sections
+     * @param  Collection<ModifierSection>  $sections
      */
     private function getItems(Collection $sections): array
     {
         $list = [];
         $sections->each(function (ModifierSection $section) use (&$list) {
             $prompt = $this->loadModifier($section->id);
-            if (!$prompt instanceof ModifierItem) {
+            if (! $prompt instanceof ModifierItem) {
                 return;
             }
 

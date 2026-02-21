@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\MediaStudio;
@@ -11,7 +13,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Spatie\Tags\Tag;
 
-class MediaStudioPromptService implements PrompterServiceInterface
+final class MediaStudioPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -49,7 +51,7 @@ class MediaStudioPromptService implements PrompterServiceInterface
             sectionDescription: 'Description',
             description: $item->description,
             sectionTags: $item->tags?->count() > 0 ? 'Tags' : null,
-            tags: $item->tags?->map(fn(Tag $tag) => $tag->name)->toArray(),
+            tags: $item->tags?->map(fn (Tag $tag) => $tag->name)->toArray(),
             sectionImage: blank($item->image) ? null : 'Image',
             image: $item->image,
             sectionTrailer: blank($item->trailer) ? null : 'Trailers',

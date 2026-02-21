@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\PulpAdventureItem;
@@ -11,7 +13,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Random\RandomException;
 
-class PulpAdventurePromptService implements PrompterServiceInterface
+final class PulpAdventurePromptService implements PrompterServiceInterface
 {
     use Screenable;
 

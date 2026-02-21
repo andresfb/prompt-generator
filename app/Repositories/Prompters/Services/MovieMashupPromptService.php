@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\MovieMashupPrompt;
@@ -12,7 +14,7 @@ use App\Traits\Screenable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
-class MovieMashupPromptService implements PrompterServiceInterface
+final class MovieMashupPromptService implements PrompterServiceInterface
 {
     use Screenable;
 

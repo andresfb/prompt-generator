@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class StoryMachinePromptItem extends BasePromptItem
+final class StoryMachinePromptItem extends BasePromptItem
 {
     public function __construct(
         public array $modelIds,

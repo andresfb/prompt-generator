@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class SelfPublishingSchoolPromptItem extends BasePromptItem
+final class SelfPublishingSchoolPromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,
@@ -31,7 +33,7 @@ class SelfPublishingSchoolPromptItem extends BasePromptItem
             ->append("**$this->sectionDescription** ")
             ->append(PHP_EOL)
             ->append(sprintf(
-                "<p><small>%s</small></p>", nl2br($this->description)
+                '<p><small>%s</small></p>', nl2br($this->description)
             ))
             ->append(PHP_EOL.PHP_EOL)
             ->append("**$this->sectionHint** ")
@@ -44,6 +46,7 @@ class SelfPublishingSchoolPromptItem extends BasePromptItem
             ->append(PHP_EOL.PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()
-            ->append(PHP_EOL);
+            ->append(PHP_EOL)
+            ->toString();
     }
 }

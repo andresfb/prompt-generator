@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class GeneratedPromptItem extends BasePromptItem
+final class GeneratedPromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,

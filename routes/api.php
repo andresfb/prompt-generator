@@ -12,4 +12,4 @@ Route::middleware('auth:sanctum')
         Route::get('/prompt', RandomPromptController::class)
             ->name('prompt');
 
-});
+    });

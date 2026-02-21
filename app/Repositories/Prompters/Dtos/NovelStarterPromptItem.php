@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class NovelStarterPromptItem extends BasePromptItem
+final class NovelStarterPromptItem extends BasePromptItem
 {
     public function __construct(
         public array $modelIds,

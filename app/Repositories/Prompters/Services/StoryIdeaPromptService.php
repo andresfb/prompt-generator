@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Boogie\StoryIdea;
@@ -10,7 +12,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class StoryIdeaPromptService implements PrompterServiceInterface
+final class StoryIdeaPromptService implements PrompterServiceInterface
 {
     use Screenable;
 

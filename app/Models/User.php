@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Override;
 use App\Notifications\AiUsedNotification;
 use Database\Factories\UserFactory;
 use Exception;
@@ -15,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
+use Override;
 
 final class User extends Authenticatable implements MustVerifyEmail
 {

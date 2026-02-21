@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\APIs\Dtos;
 
-use Override;
 use Carbon\CarbonInterface;
+use Override;
 use Spatie\LaravelData\Data;
 
 final class StudioRespondSceneItem extends Data

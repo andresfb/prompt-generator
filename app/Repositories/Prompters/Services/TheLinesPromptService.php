@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\TheLinesPrompt;
@@ -10,7 +12,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class TheLinesPromptService implements PrompterServiceInterface
+final class TheLinesPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -32,8 +34,8 @@ class TheLinesPromptService implements PrompterServiceInterface
 
         return new TitledPromptItem(
             modelId: $prompt->id,
-            header: "The Lines",
-            subHeader: "Prompt",
+            header: 'The Lines',
+            subHeader: 'Prompt',
             title: $prompt->title,
             text: $prompt->text,
             view: self::VIEW_NAME,

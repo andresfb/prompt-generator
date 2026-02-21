@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
-use Override;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
 /**
  * @property int $id

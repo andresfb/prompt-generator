@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\HuggingFacePrompt;
@@ -10,7 +12,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class HuggingFacePromptService implements PrompterServiceInterface
+final class HuggingFacePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -32,8 +34,8 @@ class HuggingFacePromptService implements PrompterServiceInterface
 
         return new SimplePromptItem(
             modelId: $prompt->id,
-            header: "Hugging Face",
-            subHeader: "Prompt",
+            header: 'Hugging Face',
+            subHeader: 'Prompt',
             text: $prompt->text,
             view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),

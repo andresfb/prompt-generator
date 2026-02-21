@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\StoryGeneratorItem;
@@ -12,7 +14,7 @@ use App\Traits\Screenable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
-class StoryGeneratorPromptService implements PrompterServiceInterface
+final class StoryGeneratorPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -47,14 +49,14 @@ class StoryGeneratorPromptService implements PrompterServiceInterface
     }
 
     /**
-     * @param Collection<StoryGeneratorSection> $sections
+     * @param  Collection<StoryGeneratorSection>  $sections
      */
     private function getItem(Collection $sections): array
     {
         $list = [];
         $sections->each(function (StoryGeneratorSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if (!$prompt instanceof StoryGeneratorItem) {
+            if (! $prompt instanceof StoryGeneratorItem) {
                 return;
             }
 

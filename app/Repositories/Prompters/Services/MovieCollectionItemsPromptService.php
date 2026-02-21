@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\MovieCollection;
@@ -11,7 +13,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class MovieCollectionItemsPromptService implements PrompterServiceInterface
+final class MovieCollectionItemsPromptService implements PrompterServiceInterface
 {
     use Screenable;
 

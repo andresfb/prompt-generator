@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Override;
 use App\DataStructures\HashTable;
 use App\Repositories\AI\Clients\AnthropicClient;
 use App\Repositories\AI\Clients\OpenAiClient;
@@ -45,6 +44,7 @@ use App\Repositories\Prompters\Services\TheLinesPromptService;
 use App\Repositories\Prompters\Services\WritersDigestPromptService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Override;
 
 final class AppServiceProvider extends ServiceProvider
 {

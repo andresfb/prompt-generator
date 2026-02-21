@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models\Prompter;
 
-use Override;
 use App\Repositories\AI\Dtos\PromptSettingItem;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Override;
 
 /**
  * @property int $id

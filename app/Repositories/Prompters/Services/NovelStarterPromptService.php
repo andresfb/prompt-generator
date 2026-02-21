@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\NovelStarterItem;
@@ -12,7 +14,7 @@ use App\Traits\Screenable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Config;
 
-class NovelStarterPromptService implements PrompterServiceInterface
+final class NovelStarterPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
@@ -45,14 +47,14 @@ class NovelStarterPromptService implements PrompterServiceInterface
     }
 
     /**
-     * @param Collection<NovelStarterSection> $sections
+     * @param  Collection<NovelStarterSection>  $sections
      */
     private function getItems(Collection $sections): array
     {
         $list = [];
         $sections->each(function (NovelStarterSection $section) use (&$list) {
             $prompt = $this->getPrompt($section);
-            if (!$prompt instanceof NovelStarterItem) {
+            if (! $prompt instanceof NovelStarterItem) {
                 return;
             }
 

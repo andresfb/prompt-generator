@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class PlotMachinePromptItem extends BasePromptItem
+final class PlotMachinePromptItem extends BasePromptItem
 {
     public function __construct(
         public array $modelIds,

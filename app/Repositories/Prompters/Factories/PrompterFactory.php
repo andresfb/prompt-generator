@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Factories;
 
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use Illuminate\Support\Collection;
 use RuntimeException;
 
-class PrompterFactory
+final class PrompterFactory
 {
     public static function getPrompter(): PrompterServiceInterface
     {

@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 use Illuminate\Support\Collection;
 
-class MovieMashupPromptItem extends BasePromptItem
+final class MovieMashupPromptItem extends BasePromptItem
 {
     /**
-     * @param Collection<MovieMashupItem> $movies
+     * @param  Collection<MovieMashupItem>  $movies
      */
     public function __construct(
-        public string $modelId,
+        public int $modelId,
         public string $header,
         public string $subHeader,
         public string $content,

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
-class StoryGeneratorPromptItem extends BasePromptItem
+final class StoryGeneratorPromptItem extends BasePromptItem
 {
     public function __construct(
         public array $modelIds,
