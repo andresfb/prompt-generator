@@ -15,7 +15,7 @@ final class HomeController extends Controller
 
         return view(
             'home',
-            ['text' => $prompt->toHtml()],
+            ['prompt' => $prompt],
         );
     }
 }

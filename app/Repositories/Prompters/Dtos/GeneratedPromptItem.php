@@ -30,10 +30,9 @@ final class GeneratedPromptItem extends BasePromptItem
         public string $period,
         public string $sectionEnd,
         public string $endText,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($view);
+        parent::__construct('generated-prompt-view');
     }
 
     public function toMarkdown(): string

@@ -16,8 +16,6 @@ final class GeneratedPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -54,7 +52,6 @@ final class GeneratedPromptService implements PrompterServiceInterface
             period: $prompt->period,
             sectionEnd: 'AI Generated using',
             endText: $prompt->provider,
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
     }

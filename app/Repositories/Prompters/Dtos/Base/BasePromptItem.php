@@ -12,6 +12,8 @@ use Throwable;
 
 abstract class BasePromptItem extends Data implements PromptItemInterface
 {
+    private array $skipProperties = ['view', 'modelIds', 'modelId'];
+
     public function __construct(
         public string $view = '',
     ) {}
@@ -36,6 +38,10 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
             $data = $this->transform();
 
             foreach ($data as $key => $datum) {
+                if (in_array($key, $this->skipProperties, true)) {
+                    continue;
+                }
+
                 if ($datum === null) {
                     $cleaned[$key] = $datum;
 

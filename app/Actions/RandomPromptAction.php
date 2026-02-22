@@ -18,6 +18,7 @@ final readonly class RandomPromptAction
             throw new RuntimeException('No prompter found');
         }
 
+        // TODO: dispatch a job to increase the prompt usages
         return $item;
     }
 }

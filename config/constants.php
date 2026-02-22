@@ -18,4 +18,8 @@ return [
 
     'disabled_prompters' => explode(',', (string) env('DISABLED_PROMPTERS', '')),
 
+    'override_prompter' => (bool) env('OVERRIDE_PROMPTER_ENABLED', false),
+
+    'prompter' => env('PROMPTER_CLASS', ''),
+
 ];

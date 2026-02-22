@@ -9,6 +9,7 @@ use App\Models\Prompter\ModifierSection;
 use App\Repositories\Prompters\Dtos\ModifierPromptItem;
 use Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 
 final class ModifiersLibrary
 {
@@ -19,6 +20,10 @@ final class ModifiersLibrary
         try {
             $skip = random_int(1, 5);
         } catch (Exception) {
+            $skip = 1;
+        }
+
+        if (Config::boolean('constants.override_prompter') && app()->isLocal()) {
             $skip = 1;
         }
 

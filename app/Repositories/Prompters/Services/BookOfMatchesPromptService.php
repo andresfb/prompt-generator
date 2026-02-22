@@ -16,8 +16,6 @@ final class BookOfMatchesPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -37,7 +35,6 @@ final class BookOfMatchesPromptService implements PrompterServiceInterface
             header: 'Book of Matches',
             subHeader: 'Prompt',
             text: $prompt->text,
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
     }
