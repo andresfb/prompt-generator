@@ -12,29 +12,26 @@ trait AiNotifiable
 {
     public function notify(
         Response $response,
-        string $origin,
-        string $caller,
+        string $service,
         string $client,
         string $model,
+        string $title,
     ): void {
 
         $totalTokens = $response->usage->completionTokens + $response->usage->promptTokens;
         $cost = sprintf('Total tokens %d', $totalTokens);
+        $serviceClass = str($service)->classBasename()->toString();
 
         $message = sprintf(
-            '%s used %s to generate %s. %s',
-            str($caller)
-                ->replace('_', ' ')
-                ->lower()
-                ->title()
-                ->trim()
-                ->value(),
+            '%s used %s with model %s to generate %s. %s',
+            $serviceClass,
+            $client,
             $model,
-            $origin,
+            $title,
             $cost,
         );
 
-        User::notification($message, $client);
+        User::notification($message, $service);
         PushoverLibrary::notify($message);
     }
 }

@@ -22,10 +22,10 @@ final class AiChatResponse extends Data
 
     public static function fromResponse(
         Response $response,
-        string $origin,
-        string $caller,
+        string $service,
         string $client,
         string $model,
+        string $title,
     ): self {
         $aiResponse = new self;
         $aiResponse->content = $response->text;
@@ -33,7 +33,7 @@ final class AiChatResponse extends Data
         try {
             $aiResponse->response = self::encodeResponse($response);
 
-            $aiResponse->notify($response, $origin, $caller, $client, $model);
+            $aiResponse->notify($response, $service, $client, $model, $title);
         } catch (Throwable $e) {
             Log::error('Error loading data: '.$e->getMessage());
         } finally {

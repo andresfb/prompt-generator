@@ -8,9 +8,9 @@ use App\Repositories\AI\Dtos\AiChatResponse;
 
 interface AiClientInterface
 {
-    public function setCaller(string $caller): self;
+    public function setTitle(string $title): self;
 
-    public function setOrigin(string $origin): self;
+    public function setService(string $service): self;
 
     public function setAgentPrompt(string $agentPrompt): self;
 
@@ -23,6 +23,10 @@ interface AiClientInterface
     public function setProviderConfig(array $providerConfig): self;
 
     public function setClientOptions(array $clientOptions): self;
+
+    public function setClientName(string $client);
+
+    public function getClientName();
 
     public function setModel(string $model): self;
 

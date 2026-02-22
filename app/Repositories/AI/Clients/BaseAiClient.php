@@ -14,15 +14,17 @@ use RuntimeException;
 
 abstract class BaseAiClient implements AiClientInterface
 {
-    protected string $caller = '';
+    protected string $title = '';
 
-    protected string $origin = '';
+    protected string $service = '';
 
     protected int $maxTokens;
 
     protected string $agentPrompt = '';
 
     protected string $userPrompt = '';
+
+    protected string $clientName = '';
 
     protected string $model;
 
@@ -34,16 +36,16 @@ abstract class BaseAiClient implements AiClientInterface
 
     abstract public function getProvider(): string|ProviderEnum;
 
-    final public function setCaller(string $caller): self
+    final public function setTitle(string $title): self
     {
-        $this->caller = $caller;
+        $this->title = $title;
 
         return $this;
     }
 
-    final public function setOrigin(string $origin): self
+    final public function setService(string $service): self
     {
-        $this->origin = $origin;
+        $this->service = $service;
 
         return $this;
     }
@@ -97,6 +99,17 @@ abstract class BaseAiClient implements AiClientInterface
         return $this;
     }
 
+    public function setClientName(string $client): self
+    {
+        $this->clientName = $client;
+        return $this;
+    }
+
+    public function getClientName(): string
+    {
+        return $this->clientName;
+    }
+
     final public function setModel(string $model): self
     {
         $this->model = $model;
@@ -136,10 +149,10 @@ abstract class BaseAiClient implements AiClientInterface
 
         return AiChatResponse::fromResponse(
             $response,
-            $this->origin,
-            $this->caller,
+            $this->service,
+            $this->clientName,
             $this->model,
-            static::class,
+            $this->title,
         );
     }
 

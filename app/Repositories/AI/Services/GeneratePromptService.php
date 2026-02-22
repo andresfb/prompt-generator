@@ -26,8 +26,9 @@ final class GeneratePromptService
             $this->info("Using {$client->getName()} AI client");
 
             $promptItem = PromptSetting::getRandom();
-            $response = $client->setOrigin('Prompts')
-                ->setCaller('Random DB Values')
+            $response = $client->setService(self::class)
+                ->setTitle('Writing Prompts')
+                ->setClientName($client->getName())
                 ->setUserPrompt(
                     $this->buildPrompt($promptItem)
                 )

@@ -34,8 +34,9 @@ final class GenerateMovieMashupPromptService
 
             $this->info("Using {$client->getName()} AI client");
 
-            $response = $client->setOrigin('Movie Mashups Prompts')
-                ->setCaller('Random Emby Movies')
+            $response = $client->setService(self::class)
+                ->setTitle('Movie Mashups Prompts')
+                ->setClientName($client->getName())
                 ->setUserPrompt(
                     $this->buildPrompt($mashup)
                 )
