@@ -35,4 +35,14 @@ final class PrompterFactory
 
         return $prompter;
     }
+
+    public static function servicesCount(): int
+    {
+        $prompters = app('prompters');
+        if (! $prompters instanceof Collection || $prompters->isEmpty()) {
+            throw new RuntimeException('No Prompters found');
+        }
+
+        return $prompters->count();
+    }
 }

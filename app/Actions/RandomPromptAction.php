@@ -12,13 +12,21 @@ final readonly class RandomPromptAction
 {
     public function handle(): PromptItemInterface
     {
-        $prompter = PrompterFactory::getPrompter();
-        $item = $prompter->execute();
-        if (! $item instanceof PromptItemInterface) {
-            throw new RuntimeException('No prompter found');
+        $runs = 0;
+        $item = null;
+        $maxRuns = PrompterFactory::servicesCount() * 2;
+
+        while ($item === null && $runs++ <= $maxRuns) {
+            $prompter = PrompterFactory::getPrompter();
+
+            $item = $prompter->execute();
+            if (! $item instanceof PromptItemInterface) {
+                continue;
+            }
+
+            return $item;
         }
 
-        // TODO: dispatch a job to increase the prompt usages
-        return $item;
+        throw new RuntimeException('No Prompts found');
     }
 }
