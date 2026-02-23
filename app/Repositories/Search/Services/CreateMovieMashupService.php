@@ -97,7 +97,7 @@ final class CreateMovieMashupService
                     foreach ($movies as $movie) {
                         [$image, $imageType] = $this->getImage($movie['content']);
 
-                        $item = MovieMashupItem::create([
+                        MovieMashupItem::create([
                             'movie_mashup_prompt_id' => $promptId,
                             'movie_info_id' => $movie['id'],
                             'movie_id' => $movie['content']['Id'],

@@ -12,7 +12,7 @@ use Throwable;
 
 abstract class BasePromptItem extends Data implements PromptItemInterface
 {
-    private array $skipProperties = ['view', 'modelIds', 'modelId'];
+    protected array $skipProperties = ['view', 'modelIds', 'modelId'];
 
     public function __construct(
         public string $view = '',

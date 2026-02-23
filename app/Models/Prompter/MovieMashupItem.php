@@ -15,6 +15,7 @@ use Override;
  * @property ?string $year
  * @property ?string $overview
  * @property ?array $genres
+ * @property ?string $used_for
  */
 final class MovieMashupItem extends Model
 {
@@ -30,6 +31,18 @@ final class MovieMashupItem extends Model
     public function info(): BelongsTo
     {
         return $this->belongsTo(MovieInfo::class);
+    }
+
+    public static function updateUsedFor(int $mashupItemId, string $usedFor): void
+    {
+        self::query()
+            ->where('id', $mashupItemId)
+            ->update([
+                'used_for' => str($usedFor)
+                    ->trim()
+                    ->lower()
+                    ->title(),
+            ]);
     }
 
     #[Override]

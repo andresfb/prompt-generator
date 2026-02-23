@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\AI\Services;
 
+use App\Models\Prompter\MovieMashupItem;
 use App\Models\Prompter\MovieMashupPrompt;
 use App\Repositories\AI\Factories\AiClientFactory;
 use App\Traits\Screenable;
@@ -56,13 +57,19 @@ final class GenerateMovieMashupPromptService
 
     private function buildPrompt(MovieMashupPrompt $mashup): string
     {
-        $settings = Config::array('movie-mashups.mashup_settings');
+        $ids = [];
         $values = [];
+        $settings = Config::array('movie-mashups.mashup_settings');
 
         foreach ($settings as $i => $setting) {
-            $values[] = sprintf('%s (%s)',
-                $mashup->items[$i]->title,
-                $mashup->items[$i]->year ?? '',
+            /** @var MovieMashupItem $item */
+            $item = $mashup->items[$i];
+
+            $ids[] = $item->id;
+            $values[] = sprintf(
+                '%s (%s)',
+                $item->title,
+                $item->year ?? '',
             );
         }
 
@@ -70,6 +77,8 @@ final class GenerateMovieMashupPromptService
         for ($i = 0, $iMax = count($settings); $i < $iMax; $i++) {
             $prompt = $prompt->replace("[<$settings[$i]>]", $values[$i])
                 ->trim();
+
+            MovieMashupItem::updateUsedFor($ids[$i], $settings[$i]);
         }
 
         return $prompt->replace('()', '')

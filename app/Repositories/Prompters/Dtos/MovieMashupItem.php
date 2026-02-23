@@ -18,6 +18,7 @@ final class MovieMashupItem extends BasePromptItem
         public string $url,
         public string $image,
         public ?array $genres = null,
+        public ?string $used_for = null,
     ) {
         parent::__construct();
     }
@@ -31,7 +32,18 @@ final class MovieMashupItem extends BasePromptItem
                 ->append(PHP_EOL);
         }
 
+        $usedFor = str('');
+        if (! blank($this->used_for)) {
+            $usedFor = $usedFor->append('**Used For**')
+                ->append(PHP_EOL)
+                ->append($this->used_for)
+                ->append(PHP_EOL);
+        }
+
         return str("**[$this->title ($this->year)]($this->url)**")
+            ->append(PHP_EOL.PHP_EOL)
+            ->append($usedFor->trim()->toString())
+            ->trim()
             ->append(PHP_EOL.PHP_EOL)
             ->append($this->overview)
             ->append(PHP_EOL.PHP_EOL)
