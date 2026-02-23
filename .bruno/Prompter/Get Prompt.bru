@@ -5,12 +5,15 @@ meta {
 }
 
 get {
-  url: {{process.env.API_URL}}/prompt
+  url: {{process.env.API_URL}}/prompt?format=md
   body: none
   auth: inherit
 }
 
+params:query {
+  format: md
+}
+
 settings {
   encodeUrl: true
-  timeout: 0
 }

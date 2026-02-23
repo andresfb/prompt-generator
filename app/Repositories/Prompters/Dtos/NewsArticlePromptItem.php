@@ -35,7 +35,7 @@ final class NewsArticlePromptItem extends BasePromptItem
             ->append(PHP_EOL)
             ->append($this->title)
             ->append(PHP_EOL)
-            ->append("![Perma Link]($this->permalink)")
+            ->append("[Perma Link]($this->permalink)")
             ->append(PHP_EOL.PHP_EOL)
             ->append($this->content)
             ->append(PHP_EOL)

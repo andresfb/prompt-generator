@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
-            $table->string('image')->nullable();
-            $table->string('trailer')->nullable();
+            $table->text('image')->nullable();
+            $table->text('trailer')->nullable();
             $table->boolean('active')->default(true);
             $table->unsignedSmallInteger('usages')->default(0);
             $table->timestamp('published_at')->nullable();
