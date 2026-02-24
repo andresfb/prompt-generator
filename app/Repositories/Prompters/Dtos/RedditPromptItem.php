@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\RedditWritingPrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class RedditPromptItem extends BasePromptItem
@@ -16,7 +17,10 @@ final class RedditPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            RedditWritingPrompt::class,
+        );
     }
 
     public function toMarkdown(): string

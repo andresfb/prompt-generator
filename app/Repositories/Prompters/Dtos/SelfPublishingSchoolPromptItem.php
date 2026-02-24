@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\SelfPublishingSchoolItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class SelfPublishingSchoolPromptItem extends BasePromptItem
@@ -21,7 +22,10 @@ final class SelfPublishingSchoolPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            SelfPublishingSchoolItem::class,
+        );
     }
 
     public function toMarkdown(): string

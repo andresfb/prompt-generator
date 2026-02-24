@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\GeneratedPrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class GeneratedPromptItem extends BasePromptItem
@@ -32,7 +33,10 @@ final class GeneratedPromptItem extends BasePromptItem
         public string $endText,
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct('generated-prompt-view');
+        parent::__construct(
+            'generated-prompt-view',
+            GeneratedPrompt::class,
+        );
     }
 
     public function toMarkdown(): string

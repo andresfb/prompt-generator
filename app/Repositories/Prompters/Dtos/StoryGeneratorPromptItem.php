@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\StoryGeneratorItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class StoryGeneratorPromptItem extends BasePromptItem
@@ -21,7 +22,10 @@ final class StoryGeneratorPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            StoryGeneratorItem::class,
+        );
     }
 
     public function toMarkdown(): string

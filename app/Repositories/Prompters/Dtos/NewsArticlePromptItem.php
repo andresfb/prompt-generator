@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\NewsArticlePrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class NewsArticlePromptItem extends BasePromptItem
@@ -20,7 +21,10 @@ final class NewsArticlePromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            NewsArticlePrompt::class,
+        );
     }
 
     public function toMarkdown(): string

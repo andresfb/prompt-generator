@@ -39,6 +39,7 @@ final class TheLinesPromptService implements PrompterServiceInterface
             title: $prompt->title,
             text: $prompt->text,
             view: self::VIEW_NAME,
+            model: TheLinesPrompt::class,
             modifiers: $this->library->getModifier(),
         );
     }

@@ -37,6 +37,7 @@ final class HuggingFacePromptService implements PrompterServiceInterface
             header: 'Hugging Face',
             subHeader: 'Prompt',
             text: $prompt->text,
+            model: HuggingFacePrompt::class,
             modifiers: $this->library->getModifier(),
         );
     }

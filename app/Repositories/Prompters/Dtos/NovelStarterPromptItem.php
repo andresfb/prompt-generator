@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\NovelStarterItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class NovelStarterPromptItem extends BasePromptItem
@@ -19,7 +20,10 @@ final class NovelStarterPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            NovelStarterItem::class,
+        );
     }
 
     public function toMarkdown(): string

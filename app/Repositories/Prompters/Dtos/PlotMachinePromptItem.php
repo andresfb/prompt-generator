@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\PlotMachineItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class PlotMachinePromptItem extends BasePromptItem
@@ -25,7 +26,10 @@ final class PlotMachinePromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            PlotMachineItem::class,
+        );
     }
 
     public function toMarkdown(): string

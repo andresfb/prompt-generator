@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\KindlepreneurItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class KindlepreneurPromptItem extends BasePromptItem
@@ -19,7 +20,10 @@ final class KindlepreneurPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            KindlepreneurItem::class,
+        );
     }
 
     public function toMarkdown(): string

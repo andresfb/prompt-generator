@@ -18,8 +18,6 @@ final class StoryMachinePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
@@ -40,21 +38,20 @@ final class StoryMachinePromptService implements PrompterServiceInterface
             modelIds: $this->usedIds,
             title: 'Story Machine Prompts',
             header: 'Prompt',
-            sectionConflicts: 'Conflicts',
-            conflicts: $data['conflicts'],
-            sectionSettings: 'Settings',
-            settings: $data['settings'],
-            sectionSubgenres: 'Subgenres',
-            subgenres: $data['subgenres'],
-            sectionRandomItems: 'Random Items',
-            randomItems: $data['random_items'],
-            sectionRandomWords: 'Random Words',
-            randomWords: $data['random_words'],
+            sectionConflict: 'Conflict',
+            conflict: $data['conflict'],
+            sectionSetting: 'Setting',
+            setting: $data['setting'],
+            sectionSubgenre: 'Subgenre',
+            subgenre: $data['subgenre'],
+            sectionRandomItem: 'Random Item',
+            randomItem: $data['random_item'],
+            sectionRandomWord: 'Random Word',
+            randomWord: $data['random_word'],
             sectionMustFeature: 'Must Feature',
             mustFeature: $data['must_feature'],
             sectionMustAlsoFeature: 'Must Also Feature',
             mustAlsoFeature: $data['must_also_feature'],
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\MediaStudioItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class MediaStudioPromptItem extends BasePromptItem
@@ -25,7 +26,10 @@ final class MediaStudioPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            MediaStudioItem::class,
+        );
     }
 
     public function toMarkdown(): string

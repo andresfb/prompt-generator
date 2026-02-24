@@ -15,9 +15,13 @@ final class TitledPromptItem extends BasePromptItem
         public string $title = '',
         public string $text = '',
         public string $view = '',
+        public string $model,
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            $this->model,
+        );
     }
 
     public function toMarkdown(): string

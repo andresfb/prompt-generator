@@ -4,32 +4,35 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\StoryMachineItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class StoryMachinePromptItem extends BasePromptItem
 {
     public function __construct(
-        public array $modelIds,
+        public array  $modelIds,
         public string $title,
         public string $header,
-        public string $sectionConflicts,
-        public string $conflicts,
-        public string $sectionSettings,
-        public string $settings,
-        public string $sectionSubgenres,
-        public string $subgenres,
-        public string $sectionRandomItems,
-        public string $randomItems,
-        public string $sectionRandomWords,
-        public string $randomWords,
+        public string $sectionConflict,
+        public string $conflict,
+        public string $sectionSetting,
+        public string $setting,
+        public string $sectionSubgenre,
+        public string $subgenre,
+        public string $sectionRandomItem,
+        public string $randomItem,
+        public string $sectionRandomWord,
+        public string $randomWord,
         public string $sectionMustFeature,
         public string $mustFeature,
         public string $sectionMustAlsoFeature,
         public string $mustAlsoFeature,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            'story-machine-prompt-view',
+            StoryMachineItem::class,
+        );
     }
 
     public function toMarkdown(): string
@@ -38,20 +41,20 @@ final class StoryMachinePromptItem extends BasePromptItem
             ->append(PHP_EOL.PHP_EOL)
             ->append("## $this->header")
             ->append(PHP_EOL.PHP_EOL)
-            ->append("**$this->sectionConflicts:** ")
-            ->append($this->conflicts)
+            ->append("**$this->sectionConflict:** ")
+            ->append($this->conflict)
             ->append(PHP_EOL)
-            ->append("**$this->sectionSettings:** ")
-            ->append($this->settings)
+            ->append("**$this->sectionSetting:** ")
+            ->append($this->setting)
             ->append(PHP_EOL)
-            ->append("**$this->sectionSubgenres:** ")
-            ->append($this->subgenres)
+            ->append("**$this->sectionSubgenre:** ")
+            ->append($this->subgenre)
             ->append(PHP_EOL)
-            ->append("**$this->sectionRandomItems:** ")
-            ->append($this->randomItems)
+            ->append("**$this->sectionRandomItem:** ")
+            ->append($this->randomItem)
             ->append(PHP_EOL)
-            ->append("**$this->sectionRandomWords:** ")
-            ->append($this->randomWords)
+            ->append("**$this->sectionRandomWord:** ")
+            ->append($this->randomWord)
             ->append(PHP_EOL)
             ->append("**$this->sectionMustFeature:** ")
             ->append($this->mustFeature)

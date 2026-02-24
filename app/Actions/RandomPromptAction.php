@@ -6,6 +6,7 @@ namespace App\Actions;
 
 use App\Repositories\Prompters\Factories\PrompterFactory;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
+use Illuminate\Support\Facades\Cache;
 use RuntimeException;
 
 final readonly class RandomPromptAction
@@ -23,6 +24,9 @@ final readonly class RandomPromptAction
             if (! $item instanceof PromptItemInterface) {
                 continue;
             }
+
+            Cache::tags('prompters')
+                ->put($item->hash(), $item, now()->addHour());
 
             return $item;
         }

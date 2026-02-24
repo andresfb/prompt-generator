@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Boogie\StoryIdea;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class StoryIdeaPromptItem extends BasePromptItem
@@ -23,7 +24,10 @@ final class StoryIdeaPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            StoryIdea::class,
+        );
     }
 
     public function toMarkdown(): string

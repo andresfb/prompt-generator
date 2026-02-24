@@ -16,6 +16,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
 
     public function __construct(
         public string $view = '',
+        public string $model = '',
     ) {}
 
     abstract public function toMarkdown(): string;
@@ -25,9 +26,19 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
         return $this->view;
     }
 
+    final public function getModel(): string
+    {
+        return $this->model;
+    }
+
     final public function toHtml(): string
     {
         return (new Parsedown())->text($this->toMarkdown());
+    }
+
+    public function hash(): string
+    {
+        return hash('md5', print_r($this->toArray(), true));
     }
 
     #[Override]

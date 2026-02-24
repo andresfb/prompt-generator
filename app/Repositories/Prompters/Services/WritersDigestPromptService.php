@@ -39,6 +39,7 @@ final class WritersDigestPromptService implements PrompterServiceInterface
             title: $prompt->title,
             text: $prompt->text,
             view: self::VIEW_NAME,
+            model: WritersDigestPrompt::class,
             modifiers: $this->library->getModifier(),
         );
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use App\Models\Prompter\MovieMashupPrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 use Illuminate\Support\Collection;
 
@@ -22,7 +23,10 @@ final class MovieMashupPromptItem extends BasePromptItem
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct($this->view);
+        parent::__construct(
+            $this->view,
+            MovieMashupPrompt::class
+        );
     }
 
     public function toMarkdown(): string

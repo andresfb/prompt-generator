@@ -13,9 +13,13 @@ final class SimplePromptItem extends BasePromptItem
         public string $header,
         public string $subHeader,
         public string $text,
+        public string $model,
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct('simple-prompt-view');
+        parent::__construct(
+            'simple-prompt-view',
+            $this->model,
+        );
     }
 
     public function toMarkdown(): string
