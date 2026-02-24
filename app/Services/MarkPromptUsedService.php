@@ -44,6 +44,11 @@ class MarkPromptUsedService
     private function getTable(PromptItemInterface $item): void
     {
         /** @var Model $model */
+        $modelClass = $item->getModel();
+        if (blank($modelClass)) {
+            return;
+        }
+
         $model = app($item->getModel());
         if ($model instanceof Model) {
             return;

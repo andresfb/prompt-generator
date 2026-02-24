@@ -13,6 +13,7 @@ use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 use Random\RandomException;
 
+// TODO: Reorganize the Pulp Adventure Prompt Service. Separate the prompt parts into new Item properties.
 final class PulpAdventurePromptService implements PrompterServiceInterface
 {
     use Screenable;
@@ -27,20 +28,21 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
     {
         return new PulpAdventurePromptItem(
             modelIds: $this->usedIds,
-            title: 'Pulp Adventure Prompts',
+            title: 'Pulp Adventure Prompt',
             header: 'Prompt',
+            villanTitle: 'Villain',
             villan: $this->getVillain(),
             plot: $this->getPlot(),
             mainLocation: $this->getMainLocation(),
-            sectionAct1: '<u>Act 1</u>',
+            sectionAct1: 'Act 1',
             act1HockElements: $this->getHockElements(),
             act1SupportCharacters: $this->getSupportCharacters(),
             act1ActionSequence: $this->getActionSequence(),
             act1PlotTwist: $this->getPlotTwist(),
-            sectionAct2: '<u>Act 2</u>',
+            sectionAct2: 'Act 2',
             act2ActionSequence: $this->getActionSequence(),
             act2PlotTwist: $this->getPlotTwist(),
-            sectionAct3: '<u>Act 3</u>',
+            sectionAct3: 'Act 3',
             act3ActionSequence: $this->getActionSequence(),
             act3PlotTwist: $this->getPlotTwist(),
             view: self::VIEW_NAME,
@@ -60,7 +62,7 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             $count = 1;
         }
 
-        $promptText = "\n**{$villain->name}**\n";
+        $promptText = "\n**$villain->name**\n";
         for ($i = 0; $i < $count; $i++) {
             $promptRecord = PulpAdventureItem::query()
                 ->where('pulp_adventure_section_id', $villain->id)
@@ -69,7 +71,7 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
 
             $promptText .= ucwords($promptRecord->text).PHP_EOL;
             if (! empty($promptRecord->description)) {
-                $promptText .= "<sup>{$promptRecord->description}</sup>";
+                $promptText .= "<sup>$promptRecord->description</sup>";
             }
         }
 

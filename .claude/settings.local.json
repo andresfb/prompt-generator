@@ -12,7 +12,8 @@
       "Bash(npm run build:*)",
       "Bash(vendor/bin/pint:*)",
       "mcp__laravel-boost__search-docs",
-      "mcp__laravel-boost__get-config"
+      "mcp__laravel-boost__get-config",
+      "Bash(npm install:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

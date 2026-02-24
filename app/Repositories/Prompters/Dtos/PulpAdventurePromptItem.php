@@ -13,6 +13,7 @@ final class PulpAdventurePromptItem extends BasePromptItem
         public array $modelIds,
         public string $title,
         public string $header,
+        public string $villanTitle,
         public string $villan,
         public string $plot,
         public string $mainLocation,
@@ -53,7 +54,7 @@ final class PulpAdventurePromptItem extends BasePromptItem
             ->append(PHP_EOL)
             ->append($this->mainLocation)
             ->append(PHP_EOL.PHP_EOL)
-            ->append("#### $this->sectionAct1")
+            ->append("#### <u>$this->sectionAct1</u>")
             ->append(PHP_EOL)
             ->append($this->act1HockElements)
             ->append(PHP_EOL)
@@ -63,13 +64,13 @@ final class PulpAdventurePromptItem extends BasePromptItem
             ->append(PHP_EOL)
             ->append($this->act1PlotTwist)
             ->append(PHP_EOL.PHP_EOL)
-            ->append("#### $this->sectionAct2")
+            ->append("#### <u>$this->sectionAct2</u>")
             ->append(PHP_EOL)
             ->append($this->act2ActionSequence)
             ->append(PHP_EOL)
             ->append($this->act2PlotTwist)
             ->append(PHP_EOL.PHP_EOL)
-            ->append("#### $this->sectionAct3")
+            ->append("#### <u>$this->sectionAct3</u>")
             ->append(PHP_EOL)
             ->append($this->act3ActionSequence)
             ->append(PHP_EOL)

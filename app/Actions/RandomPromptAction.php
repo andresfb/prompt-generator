@@ -25,8 +25,7 @@ final readonly class RandomPromptAction
                 continue;
             }
 
-            Cache::tags('prompters')
-                ->put($item->hash(), $item, now()->addHour());
+            Cache::put($item->hash(), $item, now()->addHour());
 
             return $item;
         }

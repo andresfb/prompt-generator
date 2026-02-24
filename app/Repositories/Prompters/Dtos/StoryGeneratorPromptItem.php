@@ -10,20 +10,19 @@ use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 final class StoryGeneratorPromptItem extends BasePromptItem
 {
     public function __construct(
-        public array $modelIds,
-        public string $title,
-        public string $header,
-        public string $sectionSituations,
-        public string $situations,
-        public string $sectionCharacters,
-        public string $characters,
-        public string $sectionActions,
-        public string $actions,
-        public string $view = '',
+        public array               $modelIds,
+        public string              $title,
+        public string              $header,
+        public string              $sectionSituation,
+        public string              $situation,
+        public string              $sectionCharacter,
+        public string              $character,
+        public string              $sectionAction,
+        public string              $action,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'story-generator-prompt-view',
             StoryGeneratorItem::class,
         );
     }
@@ -34,14 +33,14 @@ final class StoryGeneratorPromptItem extends BasePromptItem
             ->append(PHP_EOL.PHP_EOL)
             ->append("## $this->header")
             ->append(PHP_EOL.PHP_EOL)
-            ->append("**$this->sectionSituations:** ")
-            ->append($this->situations)
+            ->append("**$this->sectionSituation:** ")
+            ->append($this->situation)
             ->append(PHP_EOL)
-            ->append("**$this->sectionCharacters:** ")
-            ->append($this->characters)
+            ->append("**$this->sectionCharacter:** ")
+            ->append($this->character)
             ->append(PHP_EOL)
-            ->append("**$this->sectionActions:** ")
-            ->append($this->actions)
+            ->append("**$this->sectionAction:** ")
+            ->append($this->action)
             ->append(PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()

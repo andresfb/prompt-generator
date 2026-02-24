@@ -18,8 +18,6 @@ final class StoryGeneratorPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
@@ -37,13 +35,12 @@ final class StoryGeneratorPromptService implements PrompterServiceInterface
             modelIds: $this->usedIds,
             title: 'Story Machine Prompts',
             header: 'Prompt',
-            sectionSituations: 'Situations',
-            situations: $data['situations'],
-            sectionCharacters: 'Characters',
-            characters: $data['characters'],
-            sectionActions: 'Actions',
-            actions: $data['actions'],
-            view: self::VIEW_NAME,
+            sectionSituation: 'Situation',
+            situation: $data['situation'],
+            sectionCharacter: 'Character',
+            character: $data['character'],
+            sectionAction: 'Action',
+            action: $data['action'],
             modifiers: $this->library->getModifier(),
         );
     }

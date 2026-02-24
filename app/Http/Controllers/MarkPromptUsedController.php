@@ -14,5 +14,7 @@ class MarkPromptUsedController extends Controller
         ]);
 
         MarkPromptUsedJob::dispatch($values['hash']);
+
+        return response()->noContent();
     }
 }

@@ -71,6 +71,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
                     ->replace('    ', ' ')
                     ->replace('   ', ' ')
                     ->replace('  ', ' ')
+                    ->replace('*', '')
                     ->trim()
                     ->toString();
             }
