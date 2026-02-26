@@ -108,28 +108,95 @@
                             </div>
 
                             <div class="grow">
-                                <div class="flex flex-col w-full mb-5">
-                                    <h5 class="title-font sm:text-xl text-base font-medium text-gray-900">
-                                        {{
-                                            str($prompt->act1ActionSequenceTitle)
-                                                ->plural($prompt->act1ActionSequenceCount)
-                                                ->toString()
-                                        }}
-                                        <span class="text-base font-normal ms-1">
-                                            ({{ $prompt->act1ActionSequenceCount }})
-                                        </span>
-                                    </h5>
-                                </div>
-                                <div class="flex flex-col w-full mb-10">
-                                    <x-pulp-adventure-sequences-view :sequences="$prompt->act1ActionSequences"/>
-                                </div>
-
+                                <x-pulp-adventure-sequences-view
+                                    :title="$prompt->act1ActionSequenceTitle"
+                                    :count="$prompt->act1ActionSequenceCount"
+                                    :sequences="$prompt->act1ActionSequences"
+                                />
                             </div>
 
                         </div>
 
                     </div>
 
+                </div>
+            </div>
+
+            <div class="flex flex-wrap">
+                <div class="w-full mb-6">
+                    <div @class([
+                        'h-full',
+                        'bg-gray-100',
+                        'bg-opacity-75',
+                        'px-8',
+                        'pt-4',
+                        'pb-4',
+                        'rounded-lg',
+                        'overflow-hidden',
+                        'relative',
+                    ])>
+                        <h1 class="title-font sm:text-2xl text-xl text-center font-medium text-gray-900 mb-8">
+                            {{ $prompt->sectionAct2 }}
+                        </h1>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-8">
+
+                            <div class="grow">
+                                <x-pulp-adventure-sequences-view
+                                    :title="$prompt->act2ActionSequenceTitle"
+                                    :count="$prompt->act2ActionSequenceCount"
+                                    :sequences="$prompt->act2ActionSequences"
+                                />
+                            </div>
+
+                            <div class="grow">
+                                <x-pulp-adventure-twist-view
+                                    :title="$prompt->act2PlotTwistTitle"
+                                    :twist="$prompt->act2PlotTwist"
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap">
+                <div class="w-full mb-6">
+                    <div @class([
+                        'h-full',
+                        'bg-gray-100',
+                        'bg-opacity-75',
+                        'px-8',
+                        'pt-4',
+                        'pb-4',
+                        'rounded-lg',
+                        'overflow-hidden',
+                        'relative',
+                    ])>
+                        <h1 class="title-font sm:text-2xl text-xl text-center font-medium text-gray-900 mb-8">
+                            {{ $prompt->sectionAct3 }}
+                        </h1>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-8">
+
+                            <div class="grow">
+                                <x-pulp-adventure-sequences-view
+                                    :title="$prompt->act3ActionSequenceTitle"
+                                    :count="$prompt->act3ActionSequenceCount"
+                                    :sequences="$prompt->act3ActionSequences"
+                                />
+                            </div>
+
+                            <div class="grow">
+                                <x-pulp-adventure-twist-view
+                                    :title="$prompt->act3PlotTwistTitle"
+                                    :twist="$prompt->act3PlotTwist"
+                                />
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
