@@ -55,7 +55,7 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             sectionAct1: 'Act 1',
             hockTitle: $hock->name,
             hockElements: $this->getHockElements(),
-            supportCharactersTitle: 'Supporting Characters',
+            supportCharactersTitle: 'Supporting Character',
             supportCharactersCount: $characterCount,
             supportCharacters: $this->getSupportCharacters($characterCount),
             act1ActionSequenceTitle: 'Action Sequence',
@@ -75,7 +75,6 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             act3ActionSequences: $actionSequences[2]['items'],
             act3PlotTwistTitle: 'Plot Twist',
             act3PlotTwist: $this->getPlotTwist(),
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
     }
@@ -198,7 +197,8 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             $count = 1;
         }
 
-        for ($i = 0; $i < $count; $i++) {
+        $used = [];
+        while (count($used) < $count) {
             $plot = PulpAdventureSection::query()
                 ->where('code', 'TH')
                 ->firstOrFail();
@@ -208,6 +208,11 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
                 ->inRandomOrder()
                 ->firstOrFail();
 
+            if (in_array($promptRecord->id, $used, true)) {
+                continue;
+            }
+
+            $used[] = $promptRecord->id;
             $list->push(new SectionItem(
                 text: ucwords($promptRecord->text),
                 description: $promptRecord->description ?? '',

@@ -89,6 +89,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - pestphp/pest (PEST) - v4
 - phpunit/phpunit (PHPUNIT) - v12
 - rector/rector (RECTOR) - v2
+- alpinejs (ALPINEJS) - v3
 - tailwindcss (TAILWINDCSS) - v4
 
 ## Skills Activation
@@ -286,7 +287,7 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 # Laravel Pint Code Formatter
 
-- You must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
+- If you have modified any PHP files, you must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
 - Do not run `vendor/bin/pint --test --format agent`, simply run `vendor/bin/pint --format agent` to fix any formatting issues.
 
 === pest/core rules ===
