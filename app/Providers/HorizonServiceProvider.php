@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 use Override;
@@ -31,10 +32,8 @@ final class HorizonServiceProvider extends HorizonApplicationServiceProvider
     #[Override]
     protected function gate(): void
     {
-        Gate::define('viewHorizon', function ($user = null): bool {
-            return in_array(optional($user)->email, [
-                //
-            ]);
+        Gate::define('viewHorizon', static function (): bool {
+            return auth()->check() && auth()->user()->email === Config::string('constants.admin_email');
         });
     }
 }

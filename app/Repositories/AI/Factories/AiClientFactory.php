@@ -13,9 +13,9 @@ final class AiClientFactory
     /**
      * Get an AI Client at random from the container
      */
-    public static function getClient(): AiClientInterface
+    public static function getClient(string $clientKey = 'ai-clients'): AiClientInterface
     {
-        $clients = app('ai-clients');
+        $clients = app($clientKey);
         if (! $clients instanceof Collection) {
             throw new RuntimeException('No AI Clients available');
         }

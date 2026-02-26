@@ -31,7 +31,7 @@ final class GenerateMovieMashupPromptService
                 return 0;
             }
 
-            $client = AiClientFactory::getClient();
+            $client = AiClientFactory::getClient('ai-heavy-clients');
 
             $this->info("Using {$client->getName()} AI client");
 

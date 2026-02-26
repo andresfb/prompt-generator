@@ -6,14 +6,17 @@ namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\PulpAdventureItem;
 use App\Models\Prompter\PulpAdventureSection;
+use App\Repositories\Prompters\Dtos\PlotTwistItem;
 use App\Repositories\Prompters\Dtos\PulpAdventurePromptItem;
+use App\Repositories\Prompters\Dtos\PulpSequenceItem;
+use App\Repositories\Prompters\Dtos\SectionItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
+use Illuminate\Support\Collection;
 use Random\RandomException;
 
-// TODO: Reorganize the Pulp Adventure Prompt Service. Separate the prompt parts into new Item properties.
 final class PulpAdventurePromptService implements PrompterServiceInterface
 {
     use Screenable;
@@ -26,35 +29,67 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
 
     public function execute(): ?PromptItemInterface
     {
+        $villan = $this->getVillainSection();
+        $hock = $this->getHock();
+        $characterCount = $this->getCharacterCount();
+
+        $actionSequences = [];
+        for ($i = 0; $i < 3; $i++) {
+            $sequenceCount = $this->getSequenceCount();
+            $actionSequences[] = [
+                'count' => $sequenceCount,
+                'items' => $this->getActionSequence($sequenceCount)
+            ];
+        }
+
         return new PulpAdventurePromptItem(
             modelIds: $this->usedIds,
             title: 'Pulp Adventure Prompt',
             header: 'Prompt',
-            villanTitle: 'Villain',
-            villan: $this->getVillain(),
-            plot: $this->getPlot(),
+            villanTitle: $villan->name,
+            villans: $this->getVillains($villan->id),
+            plotTitle: 'Fiendish Plot',
+            plots: $this->getPlot(),
+            mainLocationTitle: 'Main Location',
             mainLocation: $this->getMainLocation(),
             sectionAct1: 'Act 1',
-            act1HockElements: $this->getHockElements(),
-            act1SupportCharacters: $this->getSupportCharacters(),
-            act1ActionSequence: $this->getActionSequence(),
+            hockTitle: $hock->name,
+            hockElements: $this->getHockElements(),
+            supportCharactersTitle: 'Supporting Characters',
+            supportCharactersCount: $characterCount,
+            supportCharacters: $this->getSupportCharacters($characterCount),
+            act1ActionSequenceTitle: 'Action Sequence',
+            act1ActionSequenceCount: $actionSequences[0]['count'],
+            act1ActionSequences: $actionSequences[0]['items'],
+            act1PlotTwistTitle: 'Plot Twist',
             act1PlotTwist: $this->getPlotTwist(),
             sectionAct2: 'Act 2',
-            act2ActionSequence: $this->getActionSequence(),
+            act2ActionSequenceTitle: 'Action Sequence',
+            act2ActionSequenceCount: $actionSequences[1]['count'],
+            act2ActionSequences: $actionSequences[1]['items'],
+            act2PlotTwistTitle: 'Plot Twist',
             act2PlotTwist: $this->getPlotTwist(),
             sectionAct3: 'Act 3',
-            act3ActionSequence: $this->getActionSequence(),
+            act3ActionSequenceTitle: 'Action Sequence',
+            act3ActionSequenceCount: $actionSequences[2]['count'],
+            act3ActionSequences: $actionSequences[2]['items'],
+            act3PlotTwistTitle: 'Plot Twist',
             act3PlotTwist: $this->getPlotTwist(),
             view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
     }
 
-    private function getVillain(): string
+    private function getVillainSection(): PulpAdventureSection
     {
-        $villain = PulpAdventureSection::query()
+        return PulpAdventureSection::query()
             ->where('code', 'VL')
             ->firstOrFail();
+    }
+
+    private function getVillains(int $sectionId): Collection
+    {
+        $list = collect();
 
         try {
             $count = random_int(1, 2);
@@ -62,31 +97,31 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             $count = 1;
         }
 
-        $promptText = "\n**$villain->name**\n";
         for ($i = 0; $i < $count; $i++) {
             $promptRecord = PulpAdventureItem::query()
-                ->where('pulp_adventure_section_id', $villain->id)
+                ->where('pulp_adventure_section_id', $sectionId)
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ucwords($promptRecord->text).PHP_EOL;
-            if (! empty($promptRecord->description)) {
-                $promptText .= "<sup>$promptRecord->description</sup>";
-            }
+            $list->push(new SectionItem(
+                text: ucwords($promptRecord->text),
+                description: $promptRecord->description ?? '',
+            ));
         }
 
-        return $promptText;
+        return $list;
     }
 
-    private function getPlot(): string
+    private function getPlot(): Collection
     {
+        $list = collect();
+
         try {
             $count = random_int(1, 2);
         } catch (RandomException) {
             $count = 1;
         }
 
-        $promptText = "\n**Fiendish Plot**\n";
         for ($i = 0; $i < $count; $i++) {
             $plot = PulpAdventureSection::query()
                 ->where('code', 'FP1')
@@ -97,7 +132,10 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ucwords($promptRecord->text);
+            $item = new SectionItem(
+                text: ucwords($promptRecord->text),
+            );
+
             $plot = PulpAdventureSection::query()
                 ->where('code', 'FP2')
                 ->firstOrFail();
@@ -107,10 +145,12 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ' '.ucwords($promptRecord->text).PHP_EOL;
+            $list->push(
+                $item->withDescription(ucwords($promptRecord->text))
+            );
         }
 
-        return $promptText;
+        return $list;
     }
 
     private function getMainLocation(): string
@@ -121,7 +161,7 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             $count = 1;
         }
 
-        $promptText = "\n**Main Location**\n";
+        $promptText = str('');
         for ($i = 0; $i < $count; $i++) {
             $location = PulpAdventureSection::query()
                 ->where('code', 'ML')
@@ -132,21 +172,32 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ucwords($promptRecord->text);
+            $promptText = $promptText
+                ->append($promptRecord->text)
+                ->title()
+                ->append(' ');
         }
 
-        return $promptText;
+        return $promptText->trim()->toString();
     }
 
-    private function getHockElements(): string
+    private function getHock(): PulpAdventureSection
     {
+        return PulpAdventureSection::query()
+            ->where('code', 'TH')
+            ->firstOrFail();
+    }
+
+    private function getHockElements(): Collection
+    {
+        $list = collect();
+
         try {
             $count = random_int(1, 2);
         } catch (RandomException) {
             $count = 1;
         }
 
-        $promptText = "\n**The Hook**\n";
         for ($i = 0; $i < $count; $i++) {
             $plot = PulpAdventureSection::query()
                 ->where('code', 'TH')
@@ -157,63 +208,85 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ucwords($promptRecord->text);
-            if (! empty($promptRecord->description)) {
-                $promptText .= "\n<sup>{$promptRecord->description}</sup>";
-            }
+            $list->push(new SectionItem(
+                text: ucwords($promptRecord->text),
+                description: $promptRecord->description ?? '',
+            ));
         }
 
-        return $promptText;
+        return $list;
     }
 
-    private function getSupportCharacters(): string
+    private function getCharacterCount(): int
     {
         try {
-            $char_count = random_int(1, 4);
+            $characterCount = random_int(1, 4);
         } catch (RandomException) {
-            $char_count = 1;
+            $characterCount = 1;
         }
 
-        $promptText = "\n**Supporting Characters: $char_count**\n";
-        for ($i = 0; $i < $char_count; $i++) {
-            $char = PulpAdventureSection::query()
+        return $characterCount;
+    }
+
+    private function getSupportCharacters(int $characterCount): Collection
+    {
+        $list = collect();
+
+        for ($i = 0; $i < $characterCount; $i++) {
+            $promptText = str('');
+
+            $character = PulpAdventureSection::query()
                 ->where('code', 'SCD1')
                 ->firstOrFail();
 
             $promptRecord = PulpAdventureItem::query()
-                ->where('pulp_adventure_section_id', $char->id)
+                ->where('pulp_adventure_section_id', $character->id)
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ucwords($promptRecord->text);
+            $promptText = $promptText
+                ->append($promptRecord->text)
+                ->title()
+                ->append(' ');
 
-            $char = PulpAdventureSection::query()
+            $character = PulpAdventureSection::query()
                 ->where('code', 'SCD2')
                 ->firstOrFail();
 
             $promptRecord = PulpAdventureItem::query()
-                ->where('pulp_adventure_section_id', $char->id)
+                ->where('pulp_adventure_section_id', $character->id)
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ' '.ucwords($promptRecord->text);
+            $promptText = $promptText
+                ->append($promptRecord->text)
+                ->title()
+                ->append(' ');
 
-            $char = PulpAdventureSection::query()
+            $character = PulpAdventureSection::query()
                 ->where('code', 'SCT')
                 ->firstOrFail();
 
             $promptRecord = PulpAdventureItem::query()
-                ->where('pulp_adventure_section_id', $char->id)
+                ->where('pulp_adventure_section_id', $character->id)
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= ' '.ucwords($promptRecord->text).PHP_EOL;
+            $promptText = $promptText
+                ->append($promptRecord->text)
+                ->title();
+
+            $list->push(
+                new SectionItem(
+                    text: $promptText->trim()->toString(),
+                )
+            );
         }
 
-        return $promptText;
+        return $list;
     }
 
-    private function getActionSequence(): string
+    private function getSequenceCount(): int
     {
         try {
             $count = random_int(1, 2);
@@ -221,16 +294,12 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             $count = 1;
         }
 
-        $title = "\n**Action %s %s** %s";
-        $sequence = 'Sequence:';
-        $newline = PHP_EOL;
+        return $count;
+    }
 
-        if ($count > 1) {
-            $sequence = 'Sequences:';
-            $newline = PHP_EOL.PHP_EOL;
-        }
-
-        $promptText = sprintf($title, $sequence, $count, $newline);
+    private function getActionSequence(int $count): Collection
+    {
+        $list = collect();
 
         for ($i = 0; $i < $count; $i++) {
             // Action Sequence Type
@@ -238,69 +307,66 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
                 ->where('code', 'AST')
                 ->firstOrFail();
 
-            $promptRecord = PulpAdventureItem::query()
+            $type = PulpAdventureItem::query()
                 ->where('pulp_adventure_section_id', $action->id)
                 ->inRandomOrder()
                 ->firstOrFail();
-
-            $promptText .= '<u>Type</u>: '.ucwords($promptRecord->text).PHP_EOL;
 
             // Action Sequence Participants
             $action = PulpAdventureSection::query()
                 ->where('code', 'ASP')
                 ->firstOrFail();
 
-            $promptRecord = PulpAdventureItem::query()
+            $participants = PulpAdventureItem::query()
                 ->where('pulp_adventure_section_id', $action->id)
                 ->inRandomOrder()
                 ->firstOrFail();
-
-            $promptText .= '<u>Participants</u>: '.ucwords($promptRecord->text).PHP_EOL;
 
             // Action Sequence Setting
             $action = PulpAdventureSection::query()
                 ->where('code', 'ASS')
                 ->firstOrFail();
 
-            $promptRecord = PulpAdventureItem::query()
+            $setting = PulpAdventureItem::query()
                 ->where('pulp_adventure_section_id', $action->id)
                 ->inRandomOrder()
                 ->firstOrFail();
-
-            $promptText .= '<u>Setting</u>: '.ucwords($promptRecord->text).PHP_EOL;
 
             // Action Sequence Complications
             $action = PulpAdventureSection::query()
                 ->where('code', 'ASC')
                 ->firstOrFail();
 
-            $promptRecord = PulpAdventureItem::query()
+            $complications = PulpAdventureItem::query()
                 ->where('pulp_adventure_section_id', $action->id)
                 ->inRandomOrder()
                 ->firstOrFail();
 
-            $promptText .= '<u>Complications</u>: '.ucwords($promptRecord->text).PHP_EOL;
-            if (! empty($promptRecord->description)) {
-                $promptText .= "<sup>{$promptRecord->description}</sup>";
-            }
-
-            if ($count > 1) {
-                $promptText .= PHP_EOL;
-            }
+            $list->push(
+                new PulpSequenceItem(
+                    typeTitle: 'Type',
+                    type: ucwords($type->text),
+                    participantsTitle: 'Participants',
+                    participants: ucwords($participants->text),
+                    settingTitle: 'Settings',
+                    setting: ucwords($setting->text),
+                    complicationsTitle: 'Complications',
+                    complications: ucwords($complications->text),
+                    complicationsDescription: $complications->description,
+                )
+            );
         }
 
-        return $promptText;
+        return $list;
     }
 
-    private function getPlotTwist(): string
+    private function getPlotTwist(): PlotTwistItem
     {
         $rerolls = [
             'VL' => 'getVillain',
             'FP' => 'getPlot',
             'ML' => 'getMainLocation',
         ];
-
-        $promptText = "\n**Plot Twist**\n";
 
         $plot = PulpAdventureSection::query()
             ->where('code', 'PT')
@@ -311,15 +377,25 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             ->inRandomOrder()
             ->firstOrFail();
 
-        $promptText .= ucwords($promptRecord->text).PHP_EOL;
-        if (! empty($promptRecord->description)) {
-            $promptText .= "<sup>{$promptRecord->description}</sup>";
-        }
+        $item = new PlotTwistItem(
+            text: ucwords($promptRecord->text),
+            description: $promptRecord->description,
+        );
 
         if (! empty($promptRecord->reroll)) {
-            $promptText .= self::{$rerolls[$promptRecord->reroll]}();
+            return $item->withRoll(
+                $promptRecord->reroll,
+                self::{$rerolls[$promptRecord->reroll]}()
+            );
         }
 
-        return $promptText;
+        return $item;
+    }
+
+    private function getVillain(): Collection
+    {
+        $villan = $this->getVillainSection();
+
+        return $this->getVillains($villan->id);
     }
 }

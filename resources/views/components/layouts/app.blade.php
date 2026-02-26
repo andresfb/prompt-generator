@@ -16,7 +16,7 @@
     </head>
     <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
         <header class="bg-white border-b border-gray-200">
-            <nav class="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
+            <nav class="mx-auto max-w-7xl flex items-center justify-between py-4">
                 <a href="{{ url('/') }}" class="text-lg font-semibold">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -35,7 +35,7 @@
         </header>
 
         <main class="flex-1">
-            <div class="mx-auto max-w-7xl px-6 py-8 md:py-12">
+            <div class="mx-auto max-w-7xl py-8 md:py-12">
                 {{ $slot }}
             </div>
         </main>

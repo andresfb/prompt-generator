@@ -33,7 +33,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
 
     final public function toHtml(): string
     {
-        return (new Parsedown())->text($this->toMarkdown());
+        return (new Parsedown())->text(nl2br($this->toMarkdown()));
     }
 
     public function hash(): string

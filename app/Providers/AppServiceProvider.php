@@ -61,6 +61,12 @@ final class AppServiceProvider extends ServiceProvider
             $clients->push(AnthropicClient::class);
         });
 
+        $this->app->bind('ai-heavy-clients', fn ($app): Collection => collect());
+        $this->app->resolving('ai-heavy-clients', function (Collection $clients): void {
+            $clients->push(OpenAiClient::class);
+            $clients->push(AnthropicClient::class);
+        });
+
         $this->app->bind('importers', fn ($app): HashTable => new HashTable);
         $this->app->resolving('importers', function (HashTable $services): void {
             $services->insert('ps', PromptSettingsImportService::class);
