@@ -17,8 +17,6 @@ final class MovieCollectionItemsPromptService implements PrompterServiceInterfac
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -44,7 +42,7 @@ final class MovieCollectionItemsPromptService implements PrompterServiceInterfac
         return new MovieCollectionPromptItem(
             modelId: $item->id,
             header: 'Movie Collection',
-            subHeader: "Collection: $collection->name",
+            subHeader: $collection->name,
             sectionTitle: 'Title',
             title: $item->title,
             year: $item->year,
@@ -58,13 +56,12 @@ final class MovieCollectionItemsPromptService implements PrompterServiceInterfac
                 $item->image_type,
                 $item->image_tag
             ),
-            sectionTagLines: blank($item->tag_lines) ? null : 'Tag Lines',
+            sectionTagLines: blank($item->tag_lines) ? null : 'Tag Line',
             tagLines: $item->tag_lines,
             sectionGenres: blank($item->genres) ? null : 'Genres',
             genres: $item->genres,
             sectionTrailers: 'Trailers',
             trailers: blank($item->trailers) ? null : $this->getTrailers($item),
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
     }

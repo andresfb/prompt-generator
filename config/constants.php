@@ -22,4 +22,8 @@ return [
 
     'prompter' => env('PROMPTER_CLASS', ''),
 
+    'youtube_si' => env('YOUTUBE_SI', ''),
+
+    'youtube_embed_url' => env('YOUTUBE_EMBED_URL', 'https://www.youtube.com/embed/%s?si=%s'),
+
 ];

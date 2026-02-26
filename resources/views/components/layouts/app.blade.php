@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-        <header class="bg-white border-b border-gray-200">
+        <header class="bg-white border-b border-gray-200 px-3 md:px-0">
             <nav class="mx-auto max-w-7xl flex items-center justify-between py-4">
                 <a href="{{ url('/') }}" class="text-lg font-semibold">
                     {{ config('app.name', 'Laravel') }}

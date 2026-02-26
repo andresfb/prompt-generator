@@ -6,6 +6,7 @@ namespace App\Repositories\Prompters\Dtos;
 
 use App\Models\Prompter\MovieCollectionItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
+use Illuminate\Support\Facades\Config;
 
 final class MovieCollectionPromptItem extends BasePromptItem
 {
@@ -27,11 +28,10 @@ final class MovieCollectionPromptItem extends BasePromptItem
         public ?array $genres = null,
         public ?string $sectionTrailers = null,
         public ?array $trailers = null,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'movie-collection-prompt-view',
             MovieCollectionItem::class,
         );
     }
@@ -101,5 +101,38 @@ final class MovieCollectionPromptItem extends BasePromptItem
             ->trim()
             ->append(PHP_EOL)
             ->toString();
+    }
+
+    public function embeddedTrailer(string $url): string
+    {
+        $videoId = '';
+        $youtubeSI = Config::string('constants.youtube_si');
+        $embeddedUrl = Config::string('constants.youtube_embed_url');
+
+        $parsedUrl = parse_url($url);
+        if (!isset($parsedUrl['host'])) {
+            return '';
+        }
+
+        // Short URL format: youtu.be/{id}
+        if ($parsedUrl['host'] === 'youtu.be') {
+            $videoId = ltrim($parsedUrl['path'], '/');
+        }
+
+        // Standard YouTube URL
+        if (blank($videoId) && str_contains($parsedUrl['host'], 'youtube.com')) {
+            parse_str($parsedUrl['query'] ?? '', $queryParams);
+            $videoId = $queryParams['v'] ?? '';
+        }
+
+        if (blank($videoId)) {
+            return '';
+        }
+
+        return sprintf(
+            $embeddedUrl,
+            $videoId,
+            $youtubeSI,
+        );
     }
 }

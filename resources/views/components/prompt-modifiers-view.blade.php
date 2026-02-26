@@ -21,7 +21,7 @@
         </div>
         <div class="grow">
             <h4 class="text-gray-900 text-lg title-font font-medium">{{ $modifiers->sectionPointOfView }}</h4>
-            <p class="leading-relaxed text-base">{{ $modifiers->pointOfView }}</p>
+            <p class="leading-relaxed text-sm">{{ $modifiers->pointOfView }}</p>
         </div>
         <div class="grow">
             <h4 class="text-gray-900 text-lg title-font font-medium">{{ $modifiers->sectionTimePeriods }}</h4>
@@ -29,7 +29,7 @@
         </div>
         <div class="grow">
         @if($modifiers->anachronise)
-            <p class="leading-relaxed text-base font-semibold">{{ $modifiers->anachroniseText }}</p>
+            <p class="leading-relaxed text-base font-semibold"><br>{{ $modifiers->anachroniseText }}</p>
         @else
              
         @endif

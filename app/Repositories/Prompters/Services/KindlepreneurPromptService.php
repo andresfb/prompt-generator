@@ -17,8 +17,6 @@ final class KindlepreneurPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -45,7 +43,6 @@ final class KindlepreneurPromptService implements PrompterServiceInterface
             sectionDescription: 'Description',
             description: $category->description,
             text: $prompt->text,
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifier(),
         );
     }
