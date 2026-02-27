@@ -21,8 +21,7 @@ final class GeneratePromptService
         try {
             $this->info('Starting prompt generation');
 
-            $client = AiClientFactory::getClient();
-
+            $client = AiClientFactory::getWeightedClient();
             $this->info("Using {$client->getName()} AI client");
 
             $promptItem = PromptSetting::getRandom();

@@ -25,9 +25,10 @@ final class GeneratePromptCommand extends Command
             clear();
             intro('Generating a Creative Writing Prompt');
 
-            $prompt = $service->execute();
-            $response = $prompt->toArray();
+            $prompt = $service->setToScreen(true)
+                ->execute();
 
+            $response = $prompt->toArray();
             $skipFields = [
                 'id',
                 'prompt',

@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\DataStructures\HashTable;
 use App\Repositories\AI\Clients\AnthropicClient;
+use App\Repositories\AI\Clients\GeminiClient;
+use App\Repositories\AI\Clients\OllamaClient;
 use App\Repositories\AI\Clients\OpenAiClient;
 use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
@@ -56,15 +58,42 @@ final class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('ai-clients', fn ($app): Collection => collect());
         $this->app->resolving('ai-clients', function (Collection $clients): void {
+            $clients->push(OllamaClient::class);
             $clients->push(OpenRouterClient::class);
             $clients->push(OpenAiClient::class);
             $clients->push(AnthropicClient::class);
+            $clients->push(GeminiClient::class);
+        });
+
+        $this->app->bind('ai-weighted-clients', fn ($app): Collection => collect());
+        $this->app->resolving('ai-weighted-clients', function (Collection $clients): void {
+            $clients->push([
+                'class' => OllamaClient::class,
+                'weight' => 800,
+            ]);
+            $clients->push([
+                'class' => OpenRouterClient::class,
+                'weight' => 700,
+            ]);
+            $clients->push([
+                'class' => GeminiClient::class,
+                'weight' => 400,
+            ]);
+            $clients->push([
+                'class' => OpenAiClient::class,
+                'weight' => 300,
+            ]);
+            $clients->push([
+                'class' => AnthropicClient::class,
+                'weight' => 100,
+            ]);
         });
 
         $this->app->bind('ai-heavy-clients', fn ($app): Collection => collect());
         $this->app->resolving('ai-heavy-clients', function (Collection $clients): void {
             $clients->push(OpenAiClient::class);
             $clients->push(AnthropicClient::class);
+            $clients->push(GeminiClient::class);
         });
 
         $this->app->bind('importers', fn ($app): HashTable => new HashTable);

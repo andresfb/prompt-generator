@@ -37,7 +37,7 @@ final class ShortStoryOutlineService
                 $fileTitle,
             ));
 
-            $client = AiClientFactory::getClient('ai-heavy-clients');
+            $client = AiClientFactory::getHeavyLoadClient();
             $this->info("Using {$client->getName()} AI client");
 
             $response = $client->setService(self::class)
