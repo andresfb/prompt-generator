@@ -8,6 +8,7 @@ use App\Repositories\AI\Dtos\AiChatResponse;
 use App\Repositories\AI\Interfaces\AiClientInterface;
 use Prism\Prism\Enums\Provider as ProviderEnum;
 use Prism\Prism\Facades\Prism;
+use Prism\Prism\ValueObjects\Media\Document;
 use Prism\Prism\ValueObjects\Messages\SystemMessage;
 use Prism\Prism\ValueObjects\Messages\UserMessage;
 use RuntimeException;
@@ -28,13 +29,24 @@ abstract class BaseAiClient implements AiClientInterface
 
     protected string $model;
 
-    protected array $providerConfig = [];
+    protected string $fileTitle = '';
 
-    protected array $clientOptions = [];
+    protected string $filePath = '';
+
+    protected array $clientOptions;
+
+    protected array $providerConfig = [];
 
     abstract public function getName(): string;
 
     abstract public function getProvider(): string|ProviderEnum;
+
+    public function __construct()
+    {
+        $this->clientOptions = [
+            'timeout' => 60, // 1 minute
+        ];
+    }
 
     final public function setTitle(string $title): self
     {
@@ -78,6 +90,29 @@ abstract class BaseAiClient implements AiClientInterface
         return $this->userPrompt;
     }
 
+    public function setFileTitle(string $fileTitle): self
+    {
+        $this->fileTitle = $fileTitle;
+        return $this;
+    }
+
+    public function getFileTitle(): string
+    {
+        return $this->fileTitle;
+    }
+
+    public function setFilePath(string $filePath): self
+    {
+        $this->filePath = $filePath;
+
+        return $this;
+    }
+
+    public function getFilePath(): string
+    {
+        return $this->filePath;
+    }
+
     final public function setMaxTokens(int $maxTokens): self
     {
         $this->maxTokens = $maxTokens;
@@ -102,6 +137,7 @@ abstract class BaseAiClient implements AiClientInterface
     public function setClientName(string $client): self
     {
         $this->clientName = $client;
+
         return $this;
     }
 
@@ -137,6 +173,51 @@ abstract class BaseAiClient implements AiClientInterface
             ->withMessages([
                 new UserMessage($this->userPrompt),
             ]);
+
+        if (! blank($this->agentPrompt)) {
+            $prism->withSystemPrompt(
+                (new SystemMessage($this->getAgentPrompt()))
+                    ->withProviderOptions($this->getMessageOptions()),
+            );
+        }
+
+        $response = $prism->asText();
+
+        return AiChatResponse::fromResponse(
+            $response,
+            $this->service,
+            $this->clientName,
+            $this->model,
+            $this->title,
+        );
+    }
+
+    public function askWithFile(): AiChatResponse
+    {
+        if (blank($this->filePath)) {
+            throw new RuntimeException('Cannot use File Prompt without a File');
+        }
+
+        if (! file_exists($this->filePath)) {
+            throw new RuntimeException("File not found: $this->filePath");
+        }
+
+        $prism = Prism::text()
+            ->using(
+                $this->getProvider(),
+                $this->getModel(),
+                $this->providerConfig,
+            )
+            ->withClientOptions(
+                $this->clientOptions
+            )
+            ->withPrompt(
+                $this->userPrompt,
+                [Document::fromLocalPath(
+                    path: $this->filePath,
+                    title: $this->fileTitle,
+                )],
+            );
 
         if (! blank($this->agentPrompt)) {
             $prism->withSystemPrompt(

@@ -24,9 +24,9 @@ interface AiClientInterface
 
     public function setClientOptions(array $clientOptions): self;
 
-    public function setClientName(string $client);
+    public function setClientName(string $client): self;
 
-    public function getClientName();
+    public function getClientName(): string;
 
     public function setModel(string $model): self;
 
@@ -34,5 +34,15 @@ interface AiClientInterface
 
     public function getName(): string;
 
+    public function setFileTitle(string $fileTitle): self;
+
+    public function getFileTitle(): string;
+
+    public function setFilePath(string $filePath): self;
+
+    public function getFilePath(): string;
+
     public function ask(): AiChatResponse;
+
+    public function askWithFile(): AiChatResponse;
 }

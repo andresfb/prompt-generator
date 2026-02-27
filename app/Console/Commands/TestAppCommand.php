@@ -12,6 +12,7 @@ use function Laravel\Prompts\clear;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
+use function Laravel\Prompts\warning;
 
 final class TestAppCommand extends Command
 {
@@ -27,7 +28,9 @@ final class TestAppCommand extends Command
             Log::notice('Running tests');
 
         } catch (Exception $e) {
+            warning($e->getTraceAsString());
             error($e->getMessage());
+            Log::error($e->getMessage());
         } finally {
             $this->newLine();
             outro('Done');
