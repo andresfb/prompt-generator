@@ -33,20 +33,15 @@ abstract class BaseAiClient implements AiClientInterface
 
     protected string $filePath = '';
 
-    protected array $clientOptions;
+    protected array $clientOptions = [
+        'timeout' => 60, // 1 minute
+    ];
 
     protected array $providerConfig = [];
 
     abstract public function getName(): string;
 
     abstract public function getProvider(): string|ProviderEnum;
-
-    public function __construct()
-    {
-        $this->clientOptions = [
-            'timeout' => 60, // 1 minute
-        ];
-    }
 
     final public function setTitle(string $title): self
     {

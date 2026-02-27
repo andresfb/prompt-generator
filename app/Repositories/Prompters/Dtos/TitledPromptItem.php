@@ -15,7 +15,7 @@ final class TitledPromptItem extends BasePromptItem
         public string $title = '',
         public string $text = '',
         public string $view = '',
-        public string $model,
+        public string $model = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(

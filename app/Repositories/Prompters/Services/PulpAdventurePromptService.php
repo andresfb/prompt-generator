@@ -21,13 +21,11 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     private array $usedIds = [];
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
-    public function execute(): ?PromptItemInterface
+    public function execute(): PromptItemInterface
     {
         $villan = $this->getVillainSection();
         $hock = $this->getHock();

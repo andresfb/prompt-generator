@@ -16,8 +16,6 @@ final class HuggingFacePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface

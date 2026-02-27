@@ -2,6 +2,7 @@
 
 namespace App\Models\Prompter;
 
+use Override;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +25,7 @@ class ShortStoryOutline extends Model
 
     protected $guarded = ['id'];
 
+    #[Override]
     protected function casts(): array
     {
         return [

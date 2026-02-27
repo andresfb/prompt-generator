@@ -229,8 +229,8 @@ return [
                 'autoScalingStrategy' => 'size',
                 'balance' => 'auto',
                 'minProcesses' => 1,
-                'maxProcesses' => 2,
-                'timeout' => 180, // 3 Minutes
+                'maxProcesses' => 3,
+                'timeout' => 300, // 5 Minutes
                 'tries' => 1,
             ],
 

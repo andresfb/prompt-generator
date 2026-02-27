@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
@@ -33,7 +35,7 @@ final class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Fortify::loginView(static fn () => view('auth.login'));
+        Fortify::loginView(static fn (): Factory|View => view('auth.login'));
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
