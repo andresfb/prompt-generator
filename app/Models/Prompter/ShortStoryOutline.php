@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
-use Override;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Override;
 
 /**
  * @property int $id
@@ -19,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-class ShortStoryOutline extends Model
+final class ShortStoryOutline extends Model
 {
     use SoftDeletes;
 

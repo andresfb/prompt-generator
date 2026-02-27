@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Repositories\AI\Services\ShortStoryOutlineService;
@@ -11,7 +13,7 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class GenerateShortStoryOutlineCommand extends Command
+final class GenerateShortStoryOutlineCommand extends Command
 {
     protected $signature = 'generate:outline';
 

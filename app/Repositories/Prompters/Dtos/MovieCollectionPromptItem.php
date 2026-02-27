@@ -110,7 +110,7 @@ final class MovieCollectionPromptItem extends BasePromptItem
         $embeddedUrl = Config::string('constants.youtube_embed_url');
 
         $parsedUrl = parse_url($url);
-        if (!isset($parsedUrl['host'])) {
+        if (! isset($parsedUrl['host'])) {
             return '';
         }
 

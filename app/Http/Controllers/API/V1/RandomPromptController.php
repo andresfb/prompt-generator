@@ -32,7 +32,7 @@ final class RandomPromptController extends Controller
                     'format' => $format,
                     'hash' => $prompt->hash(),
                     'prompt' => $prompt->toMarkdown(),
-                ]
+                ],
             ]);
         }
 
@@ -41,7 +41,7 @@ final class RandomPromptController extends Controller
                 'format' => $format,
                 'hash' => $prompt->hash(),
                 'prompt' => $prompt->toHtml(),
-            ]
+            ],
         ]);
     }
 
@@ -52,7 +52,7 @@ final class RandomPromptController extends Controller
                 'format' => 'json',
                 'hash' => $prompt->hash(),
                 'prompt' => $prompt->toHtml(),
-            ]
+            ],
         ]);
     }
 }

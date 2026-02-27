@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\Prompter\MediaStudio;
@@ -15,7 +17,7 @@ use function Laravel\Prompts\outro;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\warning;
 
-class GetMediaStudioItemsCommand extends Command
+final class GetMediaStudioItemsCommand extends Command
 {
     protected $signature = 'studio:items';
 

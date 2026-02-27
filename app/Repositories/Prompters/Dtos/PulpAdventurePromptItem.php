@@ -11,16 +11,16 @@ use Override;
 final class PulpAdventurePromptItem extends BasePromptItem
 {
     /**
-     * @param Collection<SectionItem> $villans
-     * @param Collection<SectionItem> $plots
-     * @param Collection<SectionItem> $hockElements
-     * @param Collection<SectionItem> $supportCharacters
-     * @param Collection<PulpSequenceItem> $act1ActionSequences
-     * @param Collection<PulpSequenceItem> $act2ActionSequences
-     * @param Collection<PulpSequenceItem> $act3ActionSequences
+     * @param  Collection<SectionItem>  $villans
+     * @param  Collection<SectionItem>  $plots
+     * @param  Collection<SectionItem>  $hockElements
+     * @param  Collection<SectionItem>  $supportCharacters
+     * @param  Collection<PulpSequenceItem>  $act1ActionSequences
+     * @param  Collection<PulpSequenceItem>  $act2ActionSequences
+     * @param  Collection<PulpSequenceItem>  $act3ActionSequences
      */
     public function __construct(
-        public array  $modelIds,
+        public array $modelIds,
         public string $title,
         public string $header,
         public string $villanTitle,
@@ -72,7 +72,7 @@ final class PulpAdventurePromptItem extends BasePromptItem
             ->append("## $this->header")
             ->append(PHP_EOL.PHP_EOL)
             ->append(sprintf(
-                "**%s**",
+                '**%s**',
                 str($this->villanTitle)
                     ->plural($this->villans->count())
                     ->toString(),
@@ -81,7 +81,7 @@ final class PulpAdventurePromptItem extends BasePromptItem
             ->append($this->getVillans($this->villans))
             ->append(PHP_EOL)
             ->append(sprintf(
-                "**%s**",
+                '**%s**',
                 str($this->plotTitle)
                     ->plural($this->plots->count())
                     ->toString(),
@@ -96,7 +96,7 @@ final class PulpAdventurePromptItem extends BasePromptItem
             ->append("### <u>$this->sectionAct1</u>")
             ->append(PHP_EOL.PHP_EOL)
             ->append(sprintf(
-                "**%s**",
+                '**%s**',
                 str($this->hockTitle)
                     ->plural($this->hockElements->count())
                     ->toString(),
@@ -225,6 +225,7 @@ final class PulpAdventurePromptItem extends BasePromptItem
         }
 
         $text = $text->append("$item->text: ");
+
         return match ($item->rollType) {
             'ML' => $text->append($item->roll)
                 ->append(PHP_EOL)

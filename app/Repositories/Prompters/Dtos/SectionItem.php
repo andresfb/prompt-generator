@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use Spatie\LaravelData\Data;
 
-class SectionItem extends Data
+final class SectionItem extends Data
 {
     public function __construct(
         public string $text,
@@ -13,6 +15,6 @@ class SectionItem extends Data
 
     public function withDescription(string $description): self
     {
-        return new static($this->text, $description);
+        return new self($this->text, $description);
     }
 }

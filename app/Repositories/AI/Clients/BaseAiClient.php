@@ -85,25 +85,26 @@ abstract class BaseAiClient implements AiClientInterface
         return $this->userPrompt;
     }
 
-    public function setFileTitle(string $fileTitle): self
+    final public function setFileTitle(string $fileTitle): self
     {
         $this->fileTitle = $fileTitle;
+
         return $this;
     }
 
-    public function getFileTitle(): string
+    final public function getFileTitle(): string
     {
         return $this->fileTitle;
     }
 
-    public function setFilePath(string $filePath): self
+    final public function setFilePath(string $filePath): self
     {
         $this->filePath = $filePath;
 
         return $this;
     }
 
-    public function getFilePath(): string
+    final public function getFilePath(): string
     {
         return $this->filePath;
     }
@@ -129,14 +130,14 @@ abstract class BaseAiClient implements AiClientInterface
         return $this;
     }
 
-    public function setClientName(string $client): self
+    final public function setClientName(string $client): self
     {
         $this->clientName = $client;
 
         return $this;
     }
 
-    public function getClientName(): string
+    final public function getClientName(): string
     {
         return $this->clientName;
     }
@@ -187,7 +188,7 @@ abstract class BaseAiClient implements AiClientInterface
         );
     }
 
-    public function askWithFile(): AiChatResponse
+    final public function askWithFile(): AiChatResponse
     {
         if (blank($this->filePath)) {
             throw new RuntimeException('Cannot use File Prompt without a File');

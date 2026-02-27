@@ -23,16 +23,6 @@ final class MovieMashupItem extends Model
 
     protected $guarded = [];
 
-    public function prompt(): BelongsTo
-    {
-        return $this->belongsTo(MovieMashupPrompt::class);
-    }
-
-    public function info(): BelongsTo
-    {
-        return $this->belongsTo(MovieInfo::class);
-    }
-
     public static function updateUsedFor(int $mashupItemId, string $usedFor): void
     {
         self::query()
@@ -43,6 +33,16 @@ final class MovieMashupItem extends Model
                     ->lower()
                     ->title(),
             ]);
+    }
+
+    public function prompt(): BelongsTo
+    {
+        return $this->belongsTo(MovieMashupPrompt::class);
+    }
+
+    public function info(): BelongsTo
+    {
+        return $this->belongsTo(MovieInfo::class);
     }
 
     #[Override]

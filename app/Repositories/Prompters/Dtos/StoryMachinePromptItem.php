@@ -10,7 +10,7 @@ use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 final class StoryMachinePromptItem extends BasePromptItem
 {
     public function __construct(
-        public array  $modelIds,
+        public array $modelIds,
         public string $title,
         public string $header,
         public string $sectionConflict,

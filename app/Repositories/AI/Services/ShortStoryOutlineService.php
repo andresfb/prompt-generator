@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Services;
 
 use App\Models\Boogie\Genre;
@@ -9,7 +11,7 @@ use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
-class ShortStoryOutlineService
+final class ShortStoryOutlineService
 {
     use Screenable;
 

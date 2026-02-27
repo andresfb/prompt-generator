@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components;
 
 use App\Repositories\Prompters\Dtos\StoryGeneratorPromptItem;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class StoryGeneratorPromptView extends Component
+final class StoryGeneratorPromptView extends Component
 {
     public function __construct(
         public StoryGeneratorPromptItem $prompt,

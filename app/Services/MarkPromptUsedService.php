@@ -1,4 +1,7 @@
-<?php /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+<?php
+
+declare(strict_types=1);
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
 
 namespace App\Services;
 
@@ -8,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class MarkPromptUsedService
+final class MarkPromptUsedService
 {
     private string $table = '';
 
@@ -16,7 +19,7 @@ class MarkPromptUsedService
     {
         try {
             $item = Cache::get($hash);
-            if (!$item instanceof PromptItemInterface) {
+            if (! $item instanceof PromptItemInterface) {
                 return;
             }
 
@@ -75,7 +78,7 @@ class MarkPromptUsedService
 
     private function updateModel($modelId): void
     {
-        if (! Schema::hasColumn($this->table, 'usages')){
+        if (! Schema::hasColumn($this->table, 'usages')) {
             return;
         }
 

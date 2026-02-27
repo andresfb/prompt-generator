@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Boogie;
 
 use Carbon\CarbonInterface;
@@ -13,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read CarbonInterface|null $created_at
  * @property-read CarbonInterface|null $updated_at
  */
-class Genre extends Model
+final class Genre extends Model
 {
     protected $guarded = ['id'];
 

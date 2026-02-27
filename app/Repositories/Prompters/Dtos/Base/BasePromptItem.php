@@ -36,13 +36,13 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
         return (new Parsedown())->text(nl2br($this->toMarkdown()));
     }
 
-    public function hash(): string
+    final public function hash(): string
     {
         return hash('md5', print_r($this->toArray(), true));
     }
 
     #[Override]
-    public function toJson($options = 0): string
+    final public function toJson($options = 0): string
     {
         try {
             $cleaned = [];

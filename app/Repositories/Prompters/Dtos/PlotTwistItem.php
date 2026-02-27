@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 
 /**
- * @param Collection<SectionItem>|string|null $roll
+ * @param  Collection<SectionItem>|string|null  $roll
  */
-class PlotTwistItem extends Data
+final class PlotTwistItem extends Data
 {
     public function __construct(
         public string $text,

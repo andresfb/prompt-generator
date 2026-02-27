@@ -10,15 +10,15 @@ use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 final class StoryGeneratorPromptItem extends BasePromptItem
 {
     public function __construct(
-        public array               $modelIds,
-        public string              $title,
-        public string              $header,
-        public string              $sectionSituation,
-        public string              $situation,
-        public string              $sectionCharacter,
-        public string              $character,
-        public string              $sectionAction,
-        public string              $action,
+        public array $modelIds,
+        public string $title,
+        public string $header,
+        public string $sectionSituation,
+        public string $situation,
+        public string $sectionCharacter,
+        public string $character,
+        public string $sectionAction,
+        public string $action,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(

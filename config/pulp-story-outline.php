@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'male_coded_story_file' => env('MALE_CODED_STORY_FILE', 'info.md'),

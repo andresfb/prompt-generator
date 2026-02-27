@@ -36,7 +36,7 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             $sequenceCount = $this->getSequenceCount();
             $actionSequences[] = [
                 'count' => $sequenceCount,
-                'items' => $this->getActionSequence($sequenceCount)
+                'items' => $this->getActionSequence($sequenceCount),
             ];
         }
 

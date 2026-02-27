@@ -17,7 +17,7 @@ final readonly class RandomPromptAction
         $item = null;
         $maxRuns = PrompterFactory::servicesCount() * 2;
 
-        while (!$item instanceof PromptItemInterface && $runs++ <= $maxRuns) {
+        while (! $item instanceof PromptItemInterface && $runs++ <= $maxRuns) {
             $prompter = PrompterFactory::getPrompter();
 
             $item = $prompter->execute();

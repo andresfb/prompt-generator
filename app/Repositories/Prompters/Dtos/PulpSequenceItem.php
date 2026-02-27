@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Dtos;
 
 use Spatie\LaravelData\Data;
 
-class PulpSequenceItem extends Data
+final class PulpSequenceItem extends Data
 {
     public function __construct(
         public string $typeTitle,
