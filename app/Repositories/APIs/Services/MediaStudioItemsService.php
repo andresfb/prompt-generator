@@ -27,17 +27,17 @@ final class MediaStudioItemsService
                 ->where('uuid', $requestItem->uuid)
                 ->firstOrFail();
 
-            $this->notice('Loading data from API');
+            $this->notice("Loading $studio->name data from API");
 
             $response = $this->studioApi->getStudioScenes($requestItem);
             if ($response->scenes->isEmpty()) {
-                $this->error('No Studio Scenes found');
+                $this->error("No Studio Scenes found for: $studio->name");
 
                 return;
             }
 
             if ($response->total === MediaStudioItem::getCount($studio->id)) {
-                $this->error('No new Studio Scenes found');
+                $this->error("No new Studio Scenes found for: $studio->name");
 
                 return;
             }
