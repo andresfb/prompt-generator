@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\DataStructures\HashTable;
 use App\Repositories\AI\Clients\AnthropicClient;
+use App\Repositories\AI\Clients\DeepSeekClient;
 use App\Repositories\AI\Clients\GeminiClient;
 use App\Repositories\AI\Clients\OllamaClient;
 use App\Repositories\AI\Clients\OpenAiClient;
@@ -56,37 +57,39 @@ final class AppServiceProvider extends ServiceProvider
     #[Override]
     public function register(): void
     {
-        $this->app->bind('ai-clients', fn ($app): Collection => collect());
-        $this->app->resolving('ai-clients', function (Collection $clients): void {
-            $clients->push(OllamaClient::class);
-            $clients->push(OpenRouterClient::class);
-            $clients->push(OpenAiClient::class);
-            $clients->push(AnthropicClient::class);
-            $clients->push(GeminiClient::class);
-        });
-
         $this->app->bind('ai-weighted-clients', fn ($app): Collection => collect());
         $this->app->resolving('ai-weighted-clients', function (Collection $clients): void {
             $clients->push([
                 'class' => OllamaClient::class,
-                'weight' => 800,
-            ]);
-            $clients->push([
-                'class' => OpenRouterClient::class,
-                'weight' => 700,
+                'weight' => 900,
             ]);
             $clients->push([
                 'class' => GeminiClient::class,
-                'weight' => 400,
+                'weight' => 700,
+            ]);
+            $clients->push([
+                'class' => OpenRouterClient::class,
+                'weight' => 500,
             ]);
             $clients->push([
                 'class' => OpenAiClient::class,
-                'weight' => 300,
+                'weight' => 400,
             ]);
             $clients->push([
                 'class' => AnthropicClient::class,
+                'weight' => 200,
+            ]);
+            $clients->push([
+                'class' => DeepSeekClient::class,
                 'weight' => 100,
             ]);
+        });
+
+        $this->app->bind('ai-document-clients', fn ($app): Collection => collect());
+        $this->app->resolving('ai-document-clients', function (Collection $clients): void {
+            $clients->push(OpenAiClient::class);
+            $clients->push(AnthropicClient::class);
+            $clients->push(GeminiClient::class);
         });
 
         $this->app->bind('ai-heavy-clients', fn ($app): Collection => collect());
@@ -94,6 +97,8 @@ final class AppServiceProvider extends ServiceProvider
             $clients->push(OpenAiClient::class);
             $clients->push(AnthropicClient::class);
             $clients->push(GeminiClient::class);
+            $clients->push(DeepSeekClient::class);
+            $clients->push(OpenRouterClient::class);
         });
 
         $this->app->bind('importers', fn ($app): HashTable => new HashTable);

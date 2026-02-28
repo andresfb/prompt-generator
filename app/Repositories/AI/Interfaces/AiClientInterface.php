@@ -32,6 +32,8 @@ interface AiClientInterface
 
     public function getModel(): string;
 
+    public function setLightModel(): self;
+
     public function getName(): string;
 
     public function setFileTitle(string $fileTitle): self;

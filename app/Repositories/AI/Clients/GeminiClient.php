@@ -20,7 +20,7 @@ final class GeminiClient extends BaseAiClient
         return 'Gemini';
     }
 
-    public function getProvider(): string|ProviderEnum
+    public function getProvider(): ProviderEnum
     {
         return ProviderEnum::Gemini;
     }

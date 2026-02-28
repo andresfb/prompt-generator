@@ -28,6 +28,7 @@ final class GeneratePromptService
             $response = $client->setService(self::class)
                 ->setTitle('Writing Prompts')
                 ->setClientName($client->getName())
+                ->setLightModel()
                 ->setUserPrompt(
                     $this->buildPrompt($promptItem)
                 )

@@ -11,22 +11,6 @@ use RuntimeException;
 
 final class AiClientFactory
 {
-    public static function getClient(): AiClientInterface
-    {
-        $clients = app('ai-clients');
-        if (! $clients instanceof Collection) {
-            throw new RuntimeException('No AI Clients available');
-        }
-
-        $clientClass = $clients->random();
-        $client = app($clientClass);
-        if (! $client instanceof AiClientInterface) {
-            throw new RuntimeException('No AI Client found');
-        }
-
-        return $client;
-    }
-
     public static function getWeightedClient(): AiClientInterface
     {
         $clients = app('ai-weighted-clients');
@@ -46,10 +30,18 @@ final class AiClientFactory
         return $client;
     }
 
+    public static function getDocumentClient(): AiClientInterface
+    {
+        return self::getClient('ai-document-clients');
+    }
+
     public static function getHeavyLoadClient(): AiClientInterface
     {
-        $clientsKey = 'ai-heavy-clients';
+        return self::getClient('ai-heavy-clients');
+    }
 
+    private static function getClient(string $clientsKey): AiClientInterface
+    {
         $clients = app($clientsKey);
         if (! $clients instanceof Collection) {
             throw new RuntimeException('No AI Clients available');

@@ -27,21 +27,21 @@ abstract class BaseAiClient implements AiClientInterface
 
     protected string $clientName = '';
 
-    protected string $model;
+    protected string $model = '';
 
     protected string $fileTitle = '';
 
     protected string $filePath = '';
 
     protected array $clientOptions = [
-        'timeout' => 60, // 1 minute
+        'timeout' => 90, // 1.5 minutes
     ];
 
     protected array $providerConfig = [];
 
     abstract public function getName(): string;
 
-    abstract public function getProvider(): string|ProviderEnum;
+    abstract public function getProvider(): ProviderEnum;
 
     final public function setTitle(string $title): self
     {
@@ -154,6 +154,11 @@ abstract class BaseAiClient implements AiClientInterface
         return $this->model;
     }
 
+    final public function setLightModel(): self
+    {
+        return $this;
+    }
+
     final public function ask(): AiChatResponse
     {
         $prism = Prism::text()
@@ -197,6 +202,8 @@ abstract class BaseAiClient implements AiClientInterface
         if (! file_exists($this->filePath)) {
             throw new RuntimeException("File not found: $this->filePath");
         }
+
+        $this->clientOptions['timeout'] *= 2;
 
         $prism = Prism::text()
             ->using(

@@ -8,7 +8,7 @@ return [
 
     'api_key' => env('OLLAMA_API_KEY'),
 
-    'model' => env('OLLAMA_MODEL'),
+    'models' => explode(',', (string) env('OLLAMA_MODELS')),
 
     'max_tokens' => (int) env('OLLAMA_MAX_TOKENS'),
 

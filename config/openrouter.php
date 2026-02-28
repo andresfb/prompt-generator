@@ -8,7 +8,9 @@ return [
 
     'api_url' => env('OPENROUTER_URL', ''),
 
-    'model' => env('OPENROUTER_MODEL'),
+    'models' => explode(',', (string) env('OPENROUTER_MODELS')),
+
+    'light_model' => env('OPENROUTER_LIGHT_MODEL'),
 
     'max_tokens' => (int) env('OPENROUTER_MAX_TOKENS', 1024),
 
