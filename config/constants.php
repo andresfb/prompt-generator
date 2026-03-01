@@ -12,6 +12,8 @@ return [
 
     'source_image_based_path' => env('SOURCE_IMAGE_BASED_PATH', ''),
 
+    'elegant_literature_base_path' => env('ELEGANT_LIT_BASED_PATH', 'elegant-literature-magazine'),
+
     'prompts_max_usages' => (int) env('PROMPTS_MAX_USAGES', 20),
 
     'disabled_importers' => explode(',', (string) env('DISABLED_IMPORTERS', '')),

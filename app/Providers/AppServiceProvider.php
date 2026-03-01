@@ -12,6 +12,7 @@ use App\Repositories\AI\Clients\OllamaClient;
 use App\Repositories\AI\Clients\OpenAiClient;
 use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
+use App\Repositories\Import\Services\ElegantLiteraturePromptService;
 use App\Repositories\Import\Services\HuggingFaceImportService;
 use App\Repositories\Import\Services\KindlepreneurImportService;
 use App\Repositories\Import\Services\MediaStudioImportService;
@@ -119,6 +120,7 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('wd', WritersDigestImportService::class);
             $services->insert('ke', KindlepreneurImportService::class);
             $services->insert('sp', SelfPublishingSchoolImportService::class);
+            $services->insert('el', ElegantLiteraturePromptService::class);
         });
 
         $this->app->bind('prompters', fn ($app): Collection => collect());

@@ -38,7 +38,8 @@ final class ImportDataCommand extends Command
                             {--p|rd : Import Reddit Endpoints}
                             {--r|wd : Import data from Writer\'s Digest prompts}
                             {--s|ke : Import data from Kindlepreneur prompts}
-                            {--t|sp : Import data from Self Publishing School prompts}';
+                            {--t|sp : Import data from Self Publishing School prompts}
+                            {--u|el : Import data from Elegant Literature Magazine}';
 
     protected $description = 'Imports Prompt datasets';
 
