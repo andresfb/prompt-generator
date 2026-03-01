@@ -66,7 +66,7 @@ final class CreateUserCommand extends Command
 
             $user = $action->create($results);
 
-            $user->email_verified_at = now();
+            $user->email_verified_at = now()->toDateTimeString();
             $user->save();
         } catch (Exception $e) {
             error($e->getMessage());

@@ -53,7 +53,7 @@ final class MediaStudioApiLibrary
     }
 
     /**
-     * @return Collection<int, StudioRespondSceneItem|null>
+     * @return Collection<int, StudioRespondSceneItem>
      */
     private function loadScenes(array $data): Collection
     {
@@ -83,6 +83,7 @@ final class MediaStudioApiLibrary
                     : null,
             );
         })
-            ->reject(fn (?StudioRespondSceneItem $sceneItem): bool => ! $sceneItem instanceof StudioRespondSceneItem);
+            ->filter()
+            ->values();
     }
 }

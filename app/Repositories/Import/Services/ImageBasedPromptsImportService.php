@@ -8,6 +8,7 @@ use App\Libraries\MediaNamesLibrary;
 use App\Models\Prompter\ImageBasedPrompt;
 use App\Repositories\Import\Services\Base\BaseImporterService;
 use Exception;
+use Illuminate\Filesystem\AwsS3V3Adapter;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
@@ -67,8 +68,9 @@ final class ImageBasedPromptsImportService extends BaseImporterService
 
     private function listS3FilesLazy(): LazyCollection
     {
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
-        $s3 = Storage::disk(self::S3_LOCAL_DISK)->getClient();
+        /** @var AwsS3V3Adapter $adapter */
+        $adapter = Storage::disk(self::S3_LOCAL_DISK);
+        $s3 = $adapter->getClient();
         $bucket = Config::string(sprintf(
             'filesystems.disks.%s.bucket',
             self::S3_LOCAL_DISK

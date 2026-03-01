@@ -42,7 +42,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
     }
 
     #[Override]
-    final public function toJson($options = 0): string
+    public function toJson($options = 0): string
     {
         try {
             $cleaned = [];

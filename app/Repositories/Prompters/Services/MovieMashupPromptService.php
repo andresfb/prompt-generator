@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Services;
 
+use App\Models\Prompter\MovieMashupItem as MovieMashupItemModel;
 use App\Models\Prompter\MovieMashupPrompt;
 use App\Repositories\Prompters\Dtos\MovieMashupItem;
 use App\Repositories\Prompters\Dtos\MovieMashupPromptItem;
@@ -51,7 +52,7 @@ final class MovieMashupPromptService implements PrompterServiceInterface
     private function getMovieItem(MovieMashupPrompt $mashup): Collection
     {
         $movies = collect();
-        $mashup->items->each(function ($item) use ($movies) {
+        $mashup->items->each(function (MovieMashupItemModel $item) use ($movies) {
             $data = $item->toArray();
             $data['url'] = sprintf(Config::string('emby.item_url'), $item->movie_id);
             $data['image'] = sprintf(

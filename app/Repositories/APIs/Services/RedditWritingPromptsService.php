@@ -73,11 +73,17 @@ final class RedditWritingPromptsService
             return collect();
         }
 
-        /** @var list<array{data: array{id: string, title: string, permalink: string, created_utc: float}}> $children */
+        /** @var list<array{data: array{id: string, title: string, permalink: string, link_flair_text: string, url: string, created_utc: float}}> $children */
         $children = $response->json('data.children', []);
 
         return collect($children)
-            ->filter(fn (array $child): bool => ($child['data']['link_flair_text'] ?? '') === 'Writing Prompt')
+            ->filter(function (array $child): bool {
+                if (blank($child['data']['link_flair_text'])) {
+                    return false;
+                }
+
+                return $child['data']['link_flair_text'] === 'Writing Prompt';
+            })
             ->map(fn (array $child): RedditResponseItem => new RedditResponseItem(
                 id: 0,
                 hash: md5($child['data']['title']),

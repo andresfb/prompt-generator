@@ -11,7 +11,7 @@ use Override;
 
 /**
  * @property int $id
- * @property string $name
+ * @property string $title
  * @property string $url
  * @property bool $active
  * @property-read CarbonInterface|null $deleted_at

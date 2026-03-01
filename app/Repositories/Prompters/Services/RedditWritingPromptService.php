@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Services;
 
+use App\Models\Prompter\RedditPromptEndpoint;
 use App\Models\Prompter\RedditWritingPrompt;
 use App\Repositories\Prompters\Dtos\RedditPromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
@@ -22,6 +23,7 @@ final class RedditWritingPromptService implements PrompterServiceInterface
 
     public function execute(): ?PromptItemInterface
     {
+        /** @var RedditWritingPrompt|null $prompt */
         $prompt = RedditWritingPrompt::query()
             ->where('active', true)
             ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
@@ -33,9 +35,12 @@ final class RedditWritingPromptService implements PrompterServiceInterface
             return null;
         }
 
+        /** @var RedditPromptEndpoint $parent */
+        $parent = $prompt->parent;
+
         return new RedditPromptItem(
             modelId: $prompt->id,
-            header: "Reddit {$prompt->parent->title}",
+            header: "Reddit $parent->title",
             title: $prompt->title,
             permalink: $prompt->permalink,
             view: self::VIEW_NAME,

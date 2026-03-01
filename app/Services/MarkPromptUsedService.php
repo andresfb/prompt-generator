@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection PhpPossiblePolymorphicInvocationInspection */
 
 namespace App\Services;
 
@@ -46,7 +45,6 @@ final class MarkPromptUsedService
 
     private function getTable(PromptItemInterface $item): void
     {
-        /** @var Model $model */
         $modelClass = $item->getModel();
         if (blank($modelClass)) {
             return;
@@ -60,18 +58,24 @@ final class MarkPromptUsedService
         $this->table = $model->getTable();
     }
 
+    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     private function markModelId(PromptItemInterface $item): void
     {
-        $this->updateModel($item->modelId);
+        /** @var int|string $modelId */
+        $modelId = $item->modelId; // @phpstan-ignore property.notFound
+        $this->updateModel($modelId);
     }
 
+    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     private function markModelIds(PromptItemInterface $item): void
     {
-        if (blank($item->modelIds)) {
+        /** @var array<int|string> $modelIds */
+        $modelIds = $item->modelIds; // @phpstan-ignore property.notFound
+        if (blank($modelIds)) {
             return;
         }
 
-        foreach ($item->modelIds as $modelId) {
+        foreach ($modelIds as $modelId) {
             $this->updateModel($modelId);
         }
     }

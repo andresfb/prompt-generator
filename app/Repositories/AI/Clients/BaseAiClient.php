@@ -149,12 +149,12 @@ abstract class BaseAiClient implements AiClientInterface
         return $this;
     }
 
-    final public function getModel(): string
+    public function getModel(): string
     {
         return $this->model;
     }
 
-    final public function setLightModel(): self
+    public function setLightModel(): self
     {
         return $this;
     }

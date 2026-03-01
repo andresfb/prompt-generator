@@ -238,6 +238,7 @@ final class PulpAdventurePromptItem extends BasePromptItem
                 ->append($this->getPlots($item->roll))
                 ->append(PHP_EOL)
                 ->toString(),
+            default => $text->toString(),
         };
     }
 }

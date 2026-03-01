@@ -6,9 +6,7 @@ namespace App\Models\Prompter;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Config;
 use Override;
-use RuntimeException;
 
 /**
  * @property int $id
@@ -22,19 +20,6 @@ final class NovelStarterItem extends Model
 
     protected $guarded = ['id'];
 
-    public static function getRandom(): string
-    {
-        $prompt = '';
-        $sections = NovelStarterSection::orderBy('order')->get();
-
-        foreach ($sections as $section) {
-            $text = self::getPromptText($section);
-            $prompt .= "**{$section->name}:**\n".ucwords($text)."\n\n";
-        }
-
-        return rtrim($prompt, "\n");
-    }
-
     public function section(): BelongsTo
     {
         return $this->belongsTo(NovelStarterSection::class);
@@ -46,29 +31,5 @@ final class NovelStarterItem extends Model
         return [
             'active' => 'boolean',
         ];
-    }
-
-    private static function getPromptText(NovelStarterSection $section): string
-    {
-        $runs = 0;
-        $maxRuns = Config::integer('constants.prompts_max_usages');
-        $text = null;
-
-        while (blank($text)) {
-            if ($runs >= $maxRuns) {
-                throw new RuntimeException('Maximum number of runs reached');
-            }
-
-            $text = self::where('novel_starter_section_id', $section->id)
-                ->where('active', true)
-                ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
-                ->inRandomOrder()
-                ->first()
-                ->text;
-
-            $runs++;
-        }
-
-        return $text ?? '';
     }
 }
