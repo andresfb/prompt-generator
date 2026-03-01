@@ -53,7 +53,7 @@ final class PlotMachinePromptService implements PrompterServiceInterface
     }
 
     /**
-     * @param  Collection<PlotMachineSection>  $sections
+     * @param  Collection<int, PlotMachineSection>  $sections
      */
     private function getItem(Collection $sections): array
     {

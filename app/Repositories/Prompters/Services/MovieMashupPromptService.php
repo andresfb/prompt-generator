@@ -12,6 +12,7 @@ use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
@@ -52,7 +53,10 @@ final class MovieMashupPromptService implements PrompterServiceInterface
     private function getMovieItem(MovieMashupPrompt $mashup): Collection
     {
         $movies = collect();
-        $mashup->items->each(function (MovieMashupItemModel $item) use ($movies) {
+
+        /** @var EloquentCollection<int, MovieMashupItemModel> $items */
+        $items = $mashup->items;
+        $items->each(function (MovieMashupItemModel $item) use ($movies) {
             $data = $item->toArray();
             $data['url'] = sprintf(Config::string('emby.item_url'), $item->movie_id);
             $data['image'] = sprintf(

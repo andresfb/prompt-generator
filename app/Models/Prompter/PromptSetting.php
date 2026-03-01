@@ -44,17 +44,18 @@ final class PromptSetting extends Model
     {
         $data = [];
 
-        self::typeList()
-            ->each(function (PromptSetting $item) use (&$data) {
-                $setting = self::query()
-                    ->select('value')
-                    ->where('type', $item->type)
-                    ->where('active', true)
-                    ->inRandomOrder()
-                    ->firstOrFail();
+        /** @var Collection<int, PromptSetting> $typeList */
+        $typeList = self::typeList();
+        $typeList->each(function (PromptSetting $item) use (&$data) {
+            $setting = self::query()
+                ->select('value')
+                ->where('type', $item->type)
+                ->where('active', true)
+                ->inRandomOrder()
+                ->firstOrFail();
 
-                $data[$item->type] = $setting->value;
-            });
+            $data[$item->type] = $setting->value;
+        });
 
         return PromptSettingItem::from($data);
     }

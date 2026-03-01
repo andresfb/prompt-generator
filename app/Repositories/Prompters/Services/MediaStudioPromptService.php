@@ -11,6 +11,7 @@ use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
+use Illuminate\Database\Eloquent\Collection;
 use Spatie\Tags\Tag;
 
 final class MediaStudioPromptService implements PrompterServiceInterface
@@ -42,6 +43,9 @@ final class MediaStudioPromptService implements PrompterServiceInterface
             return null;
         }
 
+        /** @var Collection<int, Tag> $tags */
+        $tags = $item->tags;
+
         return new MediaStudioPromptItem(
             modelId: $item->id,
             header: 'Media Studio',
@@ -50,8 +54,8 @@ final class MediaStudioPromptService implements PrompterServiceInterface
             title: $item->title,
             sectionDescription: 'Description',
             description: $item->description,
-            sectionTags: $item->tags->count() > 0 ? 'Tags' : null,
-            tags: $item->tags->map(fn (Tag $tag) => $tag->name)->toArray(),
+            sectionTags: $tags->count() > 0 ? 'Tags' : null,
+            tags: $tags->map(fn (Tag $tag): string => $tag->name)->toArray(),
             sectionImage: blank($item->image) ? null : 'Image',
             image: $item->image,
             sectionTrailer: blank($item->trailer) ? null : 'Trailers',

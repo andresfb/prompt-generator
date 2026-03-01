@@ -47,7 +47,7 @@ final class NovelStarterPromptService implements PrompterServiceInterface
     }
 
     /**
-     * @param  Collection<NovelStarterSection>  $sections
+     * @param  Collection<int, NovelStarterSection>  $sections
      */
     private function getItems(Collection $sections): array
     {

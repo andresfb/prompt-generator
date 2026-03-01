@@ -10,5 +10,5 @@ final readonly class UpdateMovieCollectionCountEvent
 {
     use Dispatchable;
 
-    public function __construct(public string $collectionId) {}
+    public function __construct(public int $collectionId) {}
 }
