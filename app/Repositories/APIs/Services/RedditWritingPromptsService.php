@@ -55,7 +55,7 @@ final class RedditWritingPromptsService
         }
 
         $this->line();
-        $this->info("Done with $endpoint");
+        $this->info("Done with $endpoint->title");
     }
 
     /**
