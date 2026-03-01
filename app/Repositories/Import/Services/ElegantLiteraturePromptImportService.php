@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 use RuntimeException;
 
-final class ElegantLiteraturePromptService extends BaseImporterService
+final class ElegantLiteraturePromptImportService extends BaseImporterService
 {
     private const string S3_DISK = 's3';
 

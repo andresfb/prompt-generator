@@ -32,12 +32,15 @@ final class ElegantLiteraturePrompt extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection(MediaNamesLibrary::image())
-            ->withResponsiveImages()
             ->acceptsMimeTypes([
                 'image/jpeg',
                 'image/png',
                 'image/avif',
             ])->singleFile();
+
+        $this->addMediaConversion(MediaNamesLibrary::thumbnail())
+            ->performOnCollections(MediaNamesLibrary::image())
+            ->withResponsiveImages();
     }
 
     #[Override]

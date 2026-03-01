@@ -14,21 +14,33 @@ final class SimplePromptItem extends BasePromptItem
         public string $subHeader,
         public string $text,
         public string $model,
+        public string $image = '',
+        public string $responsive = '',
+        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            'simple-prompt-view',
+            $this->view ?: 'simple-prompt-view',
             $this->model,
         );
     }
 
     public function toMarkdown(): string
     {
+        $image = str('');
+        if (! blank($this->image)) {
+            $image = $image->append("![Thumbnail]($this->image)");
+        }
+
         return str("# $this->header")
             ->append(PHP_EOL.PHP_EOL)
             ->append("## $this->subHeader")
             ->append(PHP_EOL.PHP_EOL)
             ->append($this->text)
+            ->append(PHP_EOL.PHP_EOL)
+            ->append($image->trim()->toString())
+            ->append(PHP_EOL.PHP_EOL)
+            ->trim()
             ->append(PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()

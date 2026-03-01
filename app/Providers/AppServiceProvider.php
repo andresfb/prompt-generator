@@ -12,7 +12,7 @@ use App\Repositories\AI\Clients\OllamaClient;
 use App\Repositories\AI\Clients\OpenAiClient;
 use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
-use App\Repositories\Import\Services\ElegantLiteraturePromptService;
+use App\Repositories\Import\Services\ElegantLiteraturePromptImportService;
 use App\Repositories\Import\Services\HuggingFaceImportService;
 use App\Repositories\Import\Services\KindlepreneurImportService;
 use App\Repositories\Import\Services\MediaStudioImportService;
@@ -29,6 +29,7 @@ use App\Repositories\Import\Services\StoryMachineImportService;
 use App\Repositories\Import\Services\TheLinesImportService;
 use App\Repositories\Import\Services\WritersDigestImportService;
 use App\Repositories\Prompters\Services\BookOfMatchesPromptService;
+use App\Repositories\Prompters\Services\ElegantLiteraturePromptService;
 use App\Repositories\Prompters\Services\GeneratedPromptService;
 use App\Repositories\Prompters\Services\HuggingFacePromptService;
 use App\Repositories\Prompters\Services\KindlepreneurPromptService;
@@ -120,12 +121,13 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('wd', WritersDigestImportService::class);
             $services->insert('ke', KindlepreneurImportService::class);
             $services->insert('sp', SelfPublishingSchoolImportService::class);
-            $services->insert('el', ElegantLiteraturePromptService::class);
+            $services->insert('el', ElegantLiteraturePromptImportService::class);
         });
 
         $this->app->bind('prompters', fn ($app): Collection => collect());
         $this->app->resolving('prompters', function (Collection $prompters): void {
             $prompters->push(BookOfMatchesPromptService::class);
+            $prompters->push(ElegantLiteraturePromptService::class);
             $prompters->push(GeneratedPromptService::class);
             $prompters->push(HuggingFacePromptService::class);
             $prompters->push(KindlepreneurPromptService::class);
