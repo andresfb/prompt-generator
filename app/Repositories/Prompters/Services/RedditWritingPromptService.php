@@ -44,7 +44,7 @@ final class RedditWritingPromptService implements PrompterServiceInterface
             title: $prompt->title,
             permalink: $prompt->permalink,
             view: self::VIEW_NAME,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 }

@@ -42,6 +42,7 @@ use App\Repositories\Prompters\Services\PlotMachinePromptService;
 use App\Repositories\Prompters\Services\PulpAdventurePromptService;
 use App\Repositories\Prompters\Services\RedditWritingPromptService;
 use App\Repositories\Prompters\Services\SelfPublishingSchoolPromptService;
+use App\Repositories\Prompters\Services\ShortStoryOutlinePromptService;
 use App\Repositories\Prompters\Services\StoryGeneratorPromptService;
 use App\Repositories\Prompters\Services\StoryIdeaPromptService;
 use App\Repositories\Prompters\Services\StoryMachinePromptService;
@@ -126,23 +127,24 @@ final class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('prompters', fn ($app): Collection => collect());
         $this->app->resolving('prompters', function (Collection $prompters): void {
-            $prompters->push(BookOfMatchesPromptService::class);
-            $prompters->push(ElegantLiteraturePromptService::class);
-            $prompters->push(GeneratedPromptService::class);
-            $prompters->push(HuggingFacePromptService::class);
-            $prompters->push(KindlepreneurPromptService::class);
+            $prompters->push(BookOfMatchesPromptService::class); // Done
+            $prompters->push(ElegantLiteraturePromptService::class); // Done
+            $prompters->push(GeneratedPromptService::class); // Done
+            $prompters->push(HuggingFacePromptService::class); // Done
+            $prompters->push(KindlepreneurPromptService::class); // Done
+            $prompters->push(MovieCollectionItemsPromptService::class);  // Done
+            $prompters->push(PulpAdventurePromptService::class); // Done
+            $prompters->push(SelfPublishingSchoolPromptService::class); // Done
+            $prompters->push(ShortStoryOutlinePromptService::class); // Done
+            $prompters->push(StoryGeneratorPromptService::class); // Done
+            $prompters->push(StoryMachinePromptService::class); // Done
             $prompters->push(MediaStudioPromptService::class);
-            $prompters->push(MovieCollectionItemsPromptService::class);
             $prompters->push(MovieMashupPromptService::class);
             $prompters->push(NewsArticlePromptService::class);
             $prompters->push(NovelStarterPromptService::class);
             $prompters->push(PlotMachinePromptService::class);
-            $prompters->push(PulpAdventurePromptService::class);
             $prompters->push(RedditWritingPromptService::class);
-            $prompters->push(SelfPublishingSchoolPromptService::class);
-            $prompters->push(StoryGeneratorPromptService::class);
             $prompters->push(StoryIdeaPromptService::class);
-            $prompters->push(StoryMachinePromptService::class);
             $prompters->push(TheLinesPromptService::class);
             $prompters->push(WritersDigestPromptService::class);
         });

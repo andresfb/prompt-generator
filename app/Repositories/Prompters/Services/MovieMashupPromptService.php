@@ -46,7 +46,7 @@ final class MovieMashupPromptService implements PrompterServiceInterface
             provider: $mashup->provider,
             movies: $this->getMovieItem($mashup),
             view: self::VIEW_NAME,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 

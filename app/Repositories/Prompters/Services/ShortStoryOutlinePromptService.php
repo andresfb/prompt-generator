@@ -1,30 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Repositories\Prompters\Services;
 
-use App\Models\Prompter\WritersDigestPrompt;
-use App\Repositories\Prompters\Dtos\TitledPromptItem;
+use App\Models\Prompter\ShortStoryOutline;
+use App\Repositories\Prompters\Dtos\ShortStoryOutlinePromptItem;
 use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
-use Illuminate\Support\Facades\Config;
 
-final class WritersDigestPromptService implements PrompterServiceInterface
+class ShortStoryOutlinePromptService implements PrompterServiceInterface
 {
     use Screenable;
-
-    private const string VIEW_NAME = '';
 
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
     {
-        $prompt = WritersDigestPrompt::query()
+        $prompt = ShortStoryOutline::query()
             ->where('active', true)
-            ->where('usages', '<=', Config::integer('constants.prompts_max_usages'))
             ->inRandomOrder()
             ->first();
 
@@ -32,14 +26,14 @@ final class WritersDigestPromptService implements PrompterServiceInterface
             return null;
         }
 
-        return new TitledPromptItem(
+        return new ShortStoryOutlinePromptItem(
             modelId: $prompt->id,
-            header: "Writer's Digest",
-            subHeader: 'Prompt',
-            title: $prompt->title,
-            text: $prompt->text,
-            view: self::VIEW_NAME,
-            model: WritersDigestPrompt::class,
+            header: 'Short Story Outline',
+            genreTitle: 'Genre',
+            genre: $prompt->genre,
+            outline: $prompt->outline,
+            provider: $prompt->provider,
+            model: ShortStoryOutline::class,
             modifiers: $this->library->getModifiers(),
         );
     }

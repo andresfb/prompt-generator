@@ -61,7 +61,7 @@ final class MediaStudioPromptService implements PrompterServiceInterface
             sectionTrailer: blank($item->trailer) ? null : 'Trailers',
             trailer: $item->trailer,
             view: self::VIEW_NAME,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 }

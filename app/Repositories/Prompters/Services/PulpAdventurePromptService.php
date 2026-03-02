@@ -73,7 +73,7 @@ final class PulpAdventurePromptService implements PrompterServiceInterface
             act3ActionSequences: $actionSequences[2]['items'],
             act3PlotTwistTitle: 'Plot Twist',
             act3PlotTwist: $this->getPlotTwist(),
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 

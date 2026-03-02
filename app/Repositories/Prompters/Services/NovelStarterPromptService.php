@@ -42,7 +42,7 @@ final class NovelStarterPromptService implements PrompterServiceInterface
             sectionFlaws: 'Flaws',
             flaws: $data['flaws'],
             view: self::VIEW_NAME,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 

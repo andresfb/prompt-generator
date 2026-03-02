@@ -43,7 +43,7 @@ final class KindlepreneurPromptService implements PrompterServiceInterface
             sectionDescription: 'Description',
             description: $category->description,
             text: $prompt->text,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 

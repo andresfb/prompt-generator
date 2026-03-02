@@ -52,7 +52,7 @@ final class GeneratedPromptService implements PrompterServiceInterface
             period: $prompt->period,
             sectionEnd: 'AI Generated using',
             endText: $prompt->provider,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 }

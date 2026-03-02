@@ -44,7 +44,7 @@ final class StoryIdeaPromptService implements PrompterServiceInterface
             sectionSubGenre: blank($prompt->sub_genre) ? null : 'Sub Genre',
             subGenre: $prompt->sub_genre,
             view: self::VIEW_NAME,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 }

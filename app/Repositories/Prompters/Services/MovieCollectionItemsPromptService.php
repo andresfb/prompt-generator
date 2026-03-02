@@ -62,7 +62,7 @@ final class MovieCollectionItemsPromptService implements PrompterServiceInterfac
             genres: $item->genres,
             sectionTrailers: 'Trailers',
             trailers: blank($item->trailers) ? null : $this->getTrailers($item),
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 

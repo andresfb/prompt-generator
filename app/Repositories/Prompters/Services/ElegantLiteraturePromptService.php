@@ -53,7 +53,7 @@ final class ElegantLiteraturePromptService implements PrompterServiceInterface
             image: $image,
             responsive: $responsive,
             view: 'elegant-literature-prompt-view',
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 }

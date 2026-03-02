@@ -48,7 +48,7 @@ final class PlotMachinePromptService implements PrompterServiceInterface
             sectionTwists: 'Twists',
             twists: $data['twists'],
             view: self::VIEW_NAME,
-            modifiers: $this->library->getModifier(),
+            modifiers: $this->library->getModifiers(),
         );
     }
 

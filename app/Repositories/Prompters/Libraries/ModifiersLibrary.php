@@ -15,7 +15,7 @@ final class ModifiersLibrary
 {
     private bool $anachronisable = false;
 
-    public function getModifier(): ?ModifierPromptItem
+    public function getModifiers(): ?ModifierPromptItem
     {
         try {
             $skip = random_int(1, 5);
