@@ -11,14 +11,14 @@ use RuntimeException;
 
 final readonly class RandomPromptAction
 {
-    public function handle(): PromptItemInterface
+    public function handle(string $prompterKey = ''): PromptItemInterface
     {
         $runs = 0;
         $item = null;
         $maxRuns = PrompterFactory::servicesCount() * 2;
 
         while (! $item instanceof PromptItemInterface && $runs++ <= $maxRuns) {
-            $prompter = PrompterFactory::getPrompter();
+            $prompter = PrompterFactory::getPrompter($prompterKey);
 
             $item = $prompter->execute();
             if (! $item instanceof PromptItemInterface) {

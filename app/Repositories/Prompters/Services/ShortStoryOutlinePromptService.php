@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Prompters\Services;
 
 use App\Models\Prompter\ShortStoryOutline;
@@ -9,7 +11,7 @@ use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use App\Repositories\Prompters\Libraries\ModifiersLibrary;
 use App\Traits\Screenable;
 
-class ShortStoryOutlinePromptService implements PrompterServiceInterface
+final class ShortStoryOutlinePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
