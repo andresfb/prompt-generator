@@ -29,8 +29,8 @@ Schedule::job(app(CreateMovieMashupJob::class))->everySixHours(20);
 // Runs 4 times a day at 25 past the hour
 Schedule::job(app(NewsArticleExtractorJob::class))->everySixHours(25);
 
-// Twice a day at 3 AM and 3 PM
-Schedule::job(app(GenerateMovieMashupPromptJob::class))->twiceDaily(3, 15);
+// Three times a day at 3:30 AM, 11:30 AM, and 7:30 PM
+Schedule::job(app(GenerateMovieMashupPromptJob::class))->cron('30 3,11,19 * * *');
 
 // Twice a day at 4 AM and 4 PM
 Schedule::job(app(MediaStudioStarterJob::class))->twiceDaily(4, 16);
