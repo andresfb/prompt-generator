@@ -71,7 +71,7 @@
                 <div id="trailers" class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center w-full mt-10">
                 @foreach($prompt->trailers as $trailer)
                     <div class="grow">
-                        <x-youtube-embeded-trailer :prompt="$prompt" :trailer="$trailer" />
+                        <x-youtube-embeded-trailer :prompt="$prompt" :trailer="$trailer" :width="560" :height="315" />
                     </div>
                 @endforeach
                 </div>

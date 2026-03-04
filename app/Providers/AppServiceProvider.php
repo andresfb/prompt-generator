@@ -148,9 +148,9 @@ final class AppServiceProvider extends ServiceProvider
                 'value' => KindlepreneurPromptService::class,
             ]); // Done
             $prompters->push([
-                'key' => 'mv',
+                'key' => 'mc',
                 'value' => MovieCollectionItemsPromptService::class,
-            ]);  // Done
+            ]); // Done
             $prompters->push([
                 'key' => 'pa',
                 'value' => PulpAdventurePromptService::class,
@@ -174,7 +174,7 @@ final class AppServiceProvider extends ServiceProvider
             $prompters->push([
                 'key' => 'ms',
                 'value' => MediaStudioPromptService::class,
-            ]);
+            ]); // Done
             $prompters->push([
                 'key' => 'mm',
                 'value' => MovieMashupPromptService::class,

@@ -1,6 +1,8 @@
 @props([
     'prompt',
     'trailer',
+    'width' => 840,
+    'height' => 472,
 ])
 
 <div>
@@ -12,8 +14,8 @@
          
     @else
         <iframe
-            width="560"
-            height="315"
+            width="{{ $width }}"
+            height="{{ $height }}"
             src="{{ $embeddedUrl }}"
             title="YouTube video player"
             frameborder="0"

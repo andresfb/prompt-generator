@@ -13,14 +13,17 @@ use function Laravel\Prompts\error;
 
 final class GetPromptCommand extends Command
 {
-    protected $signature = 'get:prompt {--f|format= : Output data in JSON, HTML, or Markdown (MD) format}';
+    protected $signature = 'get:prompt
+                            {--p|prompter= : Request a specific Prompter}
+                            {--f|format= : Output data in JSON, HTML, or Markdown (MD) format}';
 
     protected $description = 'Selects a random Prompt using one of all the available Datasets';
 
     public function handle(): void
     {
         try {
-            $prompter = PrompterFactory::getPrompter();
+            $ptr = $this->option('prompter') ?? '';
+            $prompter = PrompterFactory::getPrompter($ptr);
             $item = $prompter->execute();
             if (! $item instanceof PromptItemInterface) {
                 error('No prompter found');

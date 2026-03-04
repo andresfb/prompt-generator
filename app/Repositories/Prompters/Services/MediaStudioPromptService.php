@@ -18,8 +18,6 @@ final class MediaStudioPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -60,7 +58,6 @@ final class MediaStudioPromptService implements PrompterServiceInterface
             image: $item->image,
             sectionTrailer: blank($item->trailer) ? null : 'Trailers',
             trailer: $item->trailer,
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifiers(),
         );
     }

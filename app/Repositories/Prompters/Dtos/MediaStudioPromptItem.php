@@ -23,11 +23,10 @@ final class MediaStudioPromptItem extends BasePromptItem
         public ?string $image = null,
         public ?string $sectionTrailer = null,
         public ?string $trailer = null,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'media-studio-prompt-view',
             MediaStudioItem::class,
         );
     }
