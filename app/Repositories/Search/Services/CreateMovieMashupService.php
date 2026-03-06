@@ -18,7 +18,6 @@ use Throwable;
 
 final class CreateMovieMashupService
 {
-    use ImageExtractor;
     use Screenable;
 
     private int $maxMovies;
@@ -88,15 +87,13 @@ final class CreateMovieMashupService
             }
 
             try {
-                DB::transaction(function () use ($hash, $movies, &$promptId) {
+                DB::transaction(static function () use ($hash, $movies, &$promptId) {
                     $prompt = MovieMashupPrompt::create([
                         'hash' => $hash,
                     ]);
 
                     $promptId = $prompt->id;
                     foreach ($movies as $movie) {
-                        [$image, $imageType] = $this->getImage($movie['content']);
-
                         MovieMashupItem::create([
                             'movie_mashup_prompt_id' => $promptId,
                             'movie_info_id' => $movie['id'],
@@ -105,13 +102,8 @@ final class CreateMovieMashupService
                             'year' => $movie['content']['ProductionYear'] ?? null,
                             'overview' => $movie['content']['Overview'] ?? null,
                             'genres' => $movie['content']['Genres'] ?? null,
-                            'image_type' => $imageType,
-                            'image_tag' => $image ?: null,
+                            'images' => $movie['content']['ImageTags'] ?? null,
                         ]);
-
-                        if (blank($image)) {
-                            continue;
-                        }
 
                         MovieInfo::where('movie_id', $movie['id'])
                             ->increment('usages');

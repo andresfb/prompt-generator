@@ -20,11 +20,10 @@ final class MovieMashupPromptItem extends BasePromptItem
         public string $content,
         public string $provider,
         public Collection $movies,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'movie-mashup-prompt-view',
             MovieMashupPrompt::class
         );
     }

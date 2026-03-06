@@ -20,6 +20,9 @@ Artisan::command('inspire', function () {
 // Once a day at 10:15 pm
 Schedule::job(app(RedditPromptsStarterJob::class))->dailyAt('22:15');
 
+// Once a day at 4:10 PM
+Schedule::job(app(MediaStudioStarterJob::class))->dailyAt('16:10');
+
 // Runs 4 times a day at 15 past the hour
 Schedule::job(app(GeneratePromptJob::class))->everySixHours(15);
 
@@ -31,9 +34,6 @@ Schedule::job(app(NewsArticleExtractorJob::class))->everySixHours(25);
 
 // Three times a day at 3:30 AM, 11:30 AM, and 7:30 PM
 Schedule::job(app(GenerateMovieMashupPromptJob::class))->cron('30 3,11,19 * * *');
-
-// Twice a day at 4 AM and 4 PM
-Schedule::job(app(MediaStudioStarterJob::class))->twiceDaily(4, 16);
 
 // Twice a day at 5 AM and 5 PM
 Schedule::job(app(GenerateShortStoryOutlineJob::class))->twiceDaily(5, 17);

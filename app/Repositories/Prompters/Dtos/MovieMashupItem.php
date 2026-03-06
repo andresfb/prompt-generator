@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
+use Illuminate\Support\Facades\Config;
 
 final class MovieMashupItem extends BasePromptItem
 {
     public function __construct(
         public string $id,
+        public string $movie_id,
         public string $title,
         public string $year,
-        public string $image_type,
-        public string $image_tag,
         public string $overview,
         public string $url,
-        public string $image,
         public ?array $genres = null,
+        public ?array $images = null,
         public ?string $used_for = null,
     ) {
         parent::__construct();
@@ -36,8 +36,14 @@ final class MovieMashupItem extends BasePromptItem
         if (! blank($this->used_for)) {
             $usedFor = $usedFor->append('**Used For**')
                 ->append(PHP_EOL)
-                ->append($this->used_for)
-                ->append(PHP_EOL);
+                ->append($this->used_for);
+        }
+
+        $images = str('');
+        [$type, $image] = $this->getImage();
+        if (! blank($type)) {
+            $type = $type ?: 'image';
+            $images = $images->append("![$type]({$this->getImageUrl($type, $image)}");
         }
 
         return str("**[$this->title ($this->year)]($this->url)**")
@@ -50,10 +56,50 @@ final class MovieMashupItem extends BasePromptItem
             ->append($genres->trim()->toString())
             ->trim()
             ->append(PHP_EOL.PHP_EOL)
-            ->append("![$this->image_type]($this->image)")
-            ->append(PHP_EOL)
+            ->append($images->trim()->toString())
+            ->trim()
+            ->append(PHP_EOL.PHP_EOL)
             ->append('***')
             ->append(PHP_EOL)
             ->toString();
+    }
+
+    public function getImage(string $type = 'Primary'): array
+    {
+        $noImage = Config::string('constants.missing_cover_image');
+
+        if (blank($this->images)) {
+            return ['', $noImage];
+        }
+
+        if (! array_key_exists($type, $this->images)) {
+            return ['', $noImage];
+        }
+
+        return [$type, $this->images[$type]];
+    }
+
+    public function getThumbnail(): string
+    {
+        [$type, $image] = $this->getImage('Thumb');
+        if (blank($type)) {
+            [$type, $image] = $this->getImage();
+        }
+
+        if (blank($image)) {
+            return Config::string('constants.missing_cover_image');
+        }
+
+        return $this->getImageUrl($type, $image);
+    }
+
+    private function getImageUrl(string $type, string $image): string
+    {
+        return sprintf(
+            Config::string('emby.image_url'),
+            $this->movie_id,
+            $type,
+            $image
+        );
     }
 }

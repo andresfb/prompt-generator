@@ -24,4 +24,6 @@ return [
 
     'youtube_embed_url' => env('YOUTUBE_EMBED_URL', 'https://www.youtube.com/embed/%s?si=%s'),
 
+    'missing_cover_image' => sprintf('%s/images/missing_cover.png', env('APP_URL', '')),
+
 ];

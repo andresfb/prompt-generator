@@ -10,10 +10,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Override;
 
 /**
+ * @property int $id
  * @property int $movie_mashup_prompt_id
  * @property string $movie_id
+ * @property string $title
  * @property ?string $year
  * @property ?string $overview
+ * @property ?array $images
  * @property ?array $genres
  * @property ?string $used_for
  */
@@ -50,6 +53,7 @@ final class MovieMashupItem extends Model
     {
         return [
             'genres' => 'json',
+            'images' => 'json',
         ];
     }
 }

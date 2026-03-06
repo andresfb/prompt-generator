@@ -178,7 +178,7 @@ final class AppServiceProvider extends ServiceProvider
             $prompters->push([
                 'key' => 'mm',
                 'value' => MovieMashupPromptService::class,
-            ]);
+            ]); // Done
             $prompters->push([
                 'key' => 'na',
                 'value' => NewsArticlePromptService::class,

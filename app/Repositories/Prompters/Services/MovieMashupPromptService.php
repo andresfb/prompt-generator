@@ -20,8 +20,6 @@ final class MovieMashupPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -45,7 +43,6 @@ final class MovieMashupPromptService implements PrompterServiceInterface
             content: $mashup->content,
             provider: $mashup->provider,
             movies: $this->getMovieItem($mashup),
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifiers(),
         );
     }
@@ -59,13 +56,6 @@ final class MovieMashupPromptService implements PrompterServiceInterface
         $items->each(function (MovieMashupItemModel $item) use ($movies) {
             $data = $item->toArray();
             $data['url'] = sprintf(Config::string('emby.item_url'), $item->movie_id);
-            $data['image'] = sprintf(
-                Config::string('emby.image_url'),
-                $item->movie_id,
-                $item->image_type,
-                $item->image_tag
-            );
-
             $movies->push(MovieMashupItem::from($data));
         });
 
