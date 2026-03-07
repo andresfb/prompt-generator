@@ -4,25 +4,27 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
-use App\Models\Prompter\NovelStarterItem;
+use App\Models\Prompter\NovelStarterPrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class NovelStarterPromptItem extends BasePromptItem
 {
     public function __construct(
-        public array $modelIds,
+        public int $modelId,
         public string $title,
-        public string $header,
+        public string $sectionGenre,
+        public string $genre,
         public string $sectionHero,
         public string $hero,
-        public string $sectionFlaws,
-        public string $flaws,
-        public string $view = '',
+        public string $sectionFlaw,
+        public string $flaw,
+        public string $sectionPrompt,
+        public string $prompt,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
-            NovelStarterItem::class,
+            'novel-starter-prompt-view',
+            NovelStarterPrompt::class,
         );
     }
 
@@ -30,13 +32,18 @@ final class NovelStarterPromptItem extends BasePromptItem
     {
         return str("# $this->title")
             ->append(PHP_EOL.PHP_EOL)
-            ->append("## $this->header")
+            ->append("**$this->sectionGenre:** ")
+            ->append($this->genre)
             ->append(PHP_EOL.PHP_EOL)
             ->append("**$this->sectionHero:** ")
             ->append($this->hero)
+            ->append(PHP_EOL.PHP_EOL)
+            ->append("**$this->sectionFlaw:** ")
+            ->append($this->flaw)
+            ->append(PHP_EOL.PHP_EOL)
+            ->append("### $this->sectionPrompt:")
             ->append(PHP_EOL)
-            ->append("**$this->sectionFlaws:** ")
-            ->append($this->flaws)
+            ->append($this->prompt)
             ->append(PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()

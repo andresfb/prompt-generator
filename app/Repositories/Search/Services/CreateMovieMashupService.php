@@ -8,7 +8,6 @@ use App\Jobs\CreateMovieMashupJob;
 use App\Models\Prompter\MovieInfo;
 use App\Models\Prompter\MovieMashupItem;
 use App\Models\Prompter\MovieMashupPrompt;
-use App\Traits\ImageExtractor;
 use App\Traits\Screenable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;

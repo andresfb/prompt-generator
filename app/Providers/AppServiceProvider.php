@@ -13,6 +13,7 @@ use App\Repositories\AI\Clients\OpenAiClient;
 use App\Repositories\AI\Clients\OpenRouterClient;
 use App\Repositories\Import\Services\BookOfMatchesImportService;
 use App\Repositories\Import\Services\ElegantLiteraturePromptImportService;
+use App\Repositories\Import\Services\GenreImportService;
 use App\Repositories\Import\Services\HuggingFaceImportService;
 use App\Repositories\Import\Services\KindlepreneurImportService;
 use App\Repositories\Import\Services\MediaStudioImportService;
@@ -123,6 +124,7 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('ke', KindlepreneurImportService::class);
             $services->insert('sp', SelfPublishingSchoolImportService::class);
             $services->insert('el', ElegantLiteraturePromptImportService::class);
+            $services->insert('gn', GenreImportService::class);
         });
 
         $this->app->bind('prompters', fn ($app): Collection => collect());
@@ -199,10 +201,10 @@ final class AppServiceProvider extends ServiceProvider
                 'key' => 'wd',
                 'value' => WritersDigestPromptService::class,
             ]); // Done
-//            $prompters->push([
-//                'key' => 'ns',
-//                'value' => NovelStarterPromptService::class, // TODO: pending AI generation
-//            ]);
+            $prompters->push([
+                'key' => 'ns',
+                'value' => NovelStarterPromptService::class,
+            ]); // Done
 //            $prompters->push([
 //                'key' => 'pm',
 //                'value' => PlotMachinePromptService::class, // TODO: pending AI generation
