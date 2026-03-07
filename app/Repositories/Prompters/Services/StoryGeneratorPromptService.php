@@ -33,7 +33,7 @@ final class StoryGeneratorPromptService implements PrompterServiceInterface
 
         return new StoryGeneratorPromptItem(
             modelIds: $this->usedIds,
-            title: 'Story Machine Prompts',
+            title: 'Story Generator Prompts',
             header: 'Prompt',
             sectionSituation: 'Situation',
             situation: $data['situation'],
