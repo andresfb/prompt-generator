@@ -148,12 +148,28 @@ final class AppServiceProvider extends ServiceProvider
                 'value' => KindlepreneurPromptService::class,
             ]); // Done
             $prompters->push([
+                'key' => 'ms',
+                'value' => MediaStudioPromptService::class,
+            ]); // Done
+            $prompters->push([
                 'key' => 'mc',
                 'value' => MovieCollectionItemsPromptService::class,
             ]); // Done
             $prompters->push([
+                'key' => 'mm',
+                'value' => MovieMashupPromptService::class,
+            ]); // Done
+            $prompters->push([
+                'key' => 'na',
+                'value' => NewsArticlePromptService::class,
+            ]); // Done
+            $prompters->push([
                 'key' => 'pa',
                 'value' => PulpAdventurePromptService::class,
+            ]); // Done
+            $prompters->push([
+                'key' => 'rw',
+                'value' => RedditWritingPromptService::class,
             ]); // Done
             $prompters->push([
                 'key' => 'sp',
@@ -168,28 +184,12 @@ final class AppServiceProvider extends ServiceProvider
                 'value' => StoryGeneratorPromptService::class,
             ]); // Done
             $prompters->push([
-                'key' => 'sm',
-                'value' => StoryMachinePromptService::class,
-            ]); // Done
-            $prompters->push([
-                'key' => 'ms',
-                'value' => MediaStudioPromptService::class,
-            ]); // Done
-            $prompters->push([
-                'key' => 'mm',
-                'value' => MovieMashupPromptService::class,
-            ]); // Done
-            $prompters->push([
-                'key' => 'na',
-                'value' => NewsArticlePromptService::class,
-            ]); // Done
-            $prompters->push([
-                'key' => 'rw',
-                'value' => RedditWritingPromptService::class,
-            ]); // Done
-            $prompters->push([
                 'key' => 'si',
                 'value' => StoryIdeaPromptService::class,
+            ]); // Done
+            $prompters->push([
+                'key' => 'sm',
+                'value' => StoryMachinePromptService::class,
             ]); // Done
             $prompters->push([
                 'key' => 'tl',
