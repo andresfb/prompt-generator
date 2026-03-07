@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Prism\Prism\Exceptions\PrismProviderOverloadedException;
 
 final class GenerateShortStoryOutlineJob implements ShouldQueue
 {
@@ -24,7 +25,6 @@ final class GenerateShortStoryOutlineJob implements ShouldQueue
     public function __construct()
     {
         $this->queue = 'ai-generator';
-        $this->delay = now()->addSeconds(5);
     }
 
     /**
@@ -39,7 +39,12 @@ final class GenerateShortStoryOutlineJob implements ShouldQueue
         } catch (Exception $e) {
             Log::error($e->getMessage());
 
-            throw $e;
+            if ($e instanceof PrismProviderOverloadedException) {
+                self::dispatch()
+                    ->delay(now()->addMinutes(5));
+            } else {
+                throw $e;
+            }
         }
     }
 }
