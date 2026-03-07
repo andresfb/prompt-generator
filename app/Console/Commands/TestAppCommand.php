@@ -27,6 +27,15 @@ final class TestAppCommand extends Command
             intro('Running tests');
             Log::notice('Running tests');
 
+            $collitions = [];
+            for ($i = 0; $i < 100000; $i++) {
+                $hash = hexdec(substr(hash('xxh128', str()->random()), 0, 8));
+                if (in_array($hash, $collitions, true)) {
+                    $this->line("$hash colided");
+                    continue;
+                }
+                $collitions[] = $hash;
+            }
         } catch (Exception $e) {
             warning($e->getTraceAsString());
             error($e->getMessage());
