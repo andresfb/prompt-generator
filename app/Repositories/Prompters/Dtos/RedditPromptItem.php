@@ -14,11 +14,10 @@ final class RedditPromptItem extends BasePromptItem
         public string $header,
         public string $title,
         public string $permalink,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'reddit-prompt-view',
             RedditWritingPrompt::class,
         );
     }
@@ -34,6 +33,14 @@ final class RedditPromptItem extends BasePromptItem
             ->append($this->modifiers?->toMarkdown())
             ->trim()
             ->append(PHP_EOL)
+            ->toString();
+    }
+
+    public function getHtmlTitle(): string
+    {
+        return str($this->title)
+            ->replace('**[', '<span class="font-medium">')
+            ->replace(']**', '</span> ')
             ->toString();
     }
 }

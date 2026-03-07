@@ -18,11 +18,11 @@ final class NewsArticlePromptItem extends BasePromptItem
         public string $title,
         public string $permalink,
         public string $content,
-        public string $view = '',
+        public string $thumbnail,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'news-article-prompt-view',
             NewsArticlePrompt::class,
         );
     }
@@ -40,6 +40,8 @@ final class NewsArticlePromptItem extends BasePromptItem
             ->append($this->title)
             ->append(PHP_EOL)
             ->append("[Perma Link]($this->permalink)")
+            ->append(PHP_EOL.PHP_EOL)
+            ->append("![Thumbnail]($this->thumbnail)")
             ->append(PHP_EOL.PHP_EOL)
             ->append($this->content)
             ->append(PHP_EOL)

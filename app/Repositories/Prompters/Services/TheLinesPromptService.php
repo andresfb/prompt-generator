@@ -16,8 +16,6 @@ final class TheLinesPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -38,7 +36,6 @@ final class TheLinesPromptService implements PrompterServiceInterface
             subHeader: 'Prompt',
             title: $prompt->title,
             text: $prompt->text,
-            view: self::VIEW_NAME,
             model: TheLinesPrompt::class,
             modifiers: $this->library->getModifiers(),
         );

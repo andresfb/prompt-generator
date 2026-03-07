@@ -16,8 +16,6 @@ final class StoryIdeaPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -43,7 +41,6 @@ final class StoryIdeaPromptService implements PrompterServiceInterface
             idea: preg_replace('/^\s*(\d+[.)]|-)\s+/', '', $prompt->idea),
             sectionSubGenre: blank($prompt->sub_genre) ? null : 'Sub Genre',
             subGenre: $prompt->sub_genre,
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifiers(),
         );
     }

@@ -16,8 +16,6 @@ final class NewsArticlePromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -41,7 +39,7 @@ final class NewsArticlePromptService implements PrompterServiceInterface
             title: $prompt->title,
             permalink: $prompt->permalink,
             content: $prompt->content,
-            view: self::VIEW_NAME,
+            thumbnail: $prompt->thumbnail,
             modifiers: $this->library->getModifiers(),
         );
     }

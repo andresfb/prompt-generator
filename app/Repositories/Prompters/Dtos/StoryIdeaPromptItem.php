@@ -21,11 +21,10 @@ final class StoryIdeaPromptItem extends BasePromptItem
         public string $idea,
         public ?string $sectionSubGenre = null,
         public ?string $subGenre = null,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'story-idea-prompt-view',
             StoryIdea::class,
         );
     }

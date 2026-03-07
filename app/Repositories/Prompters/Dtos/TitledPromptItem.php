@@ -14,12 +14,11 @@ final class TitledPromptItem extends BasePromptItem
         public string $subHeader = '',
         public string $title = '',
         public string $text = '',
-        public string $view = '',
         public string $model = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'titled-prompt-view',
             $this->model,
         );
     }

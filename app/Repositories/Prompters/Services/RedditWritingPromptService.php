@@ -17,8 +17,6 @@ final class RedditWritingPromptService implements PrompterServiceInterface
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -43,7 +41,6 @@ final class RedditWritingPromptService implements PrompterServiceInterface
             header: "Reddit $parent->title",
             title: $prompt->title,
             permalink: $prompt->permalink,
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifiers(),
         );
     }

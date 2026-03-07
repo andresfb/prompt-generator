@@ -182,31 +182,31 @@ final class AppServiceProvider extends ServiceProvider
             $prompters->push([
                 'key' => 'na',
                 'value' => NewsArticlePromptService::class,
-            ]);
-            $prompters->push([
-                'key' => 'ns',
-                'value' => NovelStarterPromptService::class,
-            ]);
-            $prompters->push([
-                'key' => 'pm',
-                'value' => PlotMachinePromptService::class,
-            ]);
+            ]); // Done
             $prompters->push([
                 'key' => 'rw',
                 'value' => RedditWritingPromptService::class,
-            ]);
+            ]); // Done
             $prompters->push([
                 'key' => 'si',
                 'value' => StoryIdeaPromptService::class,
-            ]);
+            ]); // Done
             $prompters->push([
                 'key' => 'tl',
                 'value' => TheLinesPromptService::class,
-            ]);
+            ]); // Done
             $prompters->push([
                 'key' => 'wd',
                 'value' => WritersDigestPromptService::class,
-            ]);
+            ]); // Done
+//            $prompters->push([
+//                'key' => 'ns',
+//                'value' => NovelStarterPromptService::class, // TODO: pending AI generation
+//            ]);
+//            $prompters->push([
+//                'key' => 'pm',
+//                'value' => PlotMachinePromptService::class, // TODO: pending AI generation
+//            ]);
         });
     }
 

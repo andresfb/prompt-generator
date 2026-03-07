@@ -14,6 +14,12 @@ use App\Traits\Screenable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Config;
 
+// TODO: Change this prompter to ask the AI to generate a prompt based on the two sections (Hero, Flaw)
+//  add a new model NovelStarterPrompt to hold the generated prompts
+
+// TODO: Add a Genre Model. For the genres use the list from here:
+//  https://en.wikipedia.org/wiki/List_of_writing_genres
+
 final class NovelStarterPromptService implements PrompterServiceInterface
 {
     use Screenable;
