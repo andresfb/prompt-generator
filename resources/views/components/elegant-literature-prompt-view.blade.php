@@ -16,8 +16,8 @@
             </div>
 
         @if(! blank($prompt->responsive))
-            <div class="flex flex-col text-center w-full mb-8">
-                <img src="" srcset="{{ $prompt->responsive }}" alt="Prompt Image">
+            <div class="flex flex-col items-center justify-center w-full mb-8">
+                <img class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="" srcset="{{ $prompt->responsive }}" alt="Prompt Image">
             </div>
         @elseif(! blank($prompt->image))
             <div class="flex flex-col text-center w-full mb-8">
