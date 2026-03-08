@@ -32,7 +32,8 @@ final class GenreImportService extends BaseImporterService
             $name = str($datum)
                 ->trim()
                 ->lower()
-                ->title();
+                ->title()
+                ->toString();
 
             if (in_array($name, $found, true)) {
                 $this->character('x');

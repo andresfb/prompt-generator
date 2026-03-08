@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Override;
 
 /**
- * @property-read $id
+ * @property-read int $id
  * @property string $hash
  * @property string $setting
  * @property string $act_of_villan
