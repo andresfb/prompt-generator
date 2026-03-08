@@ -127,6 +127,16 @@ final class AppServiceProvider extends ServiceProvider
             $services->insert('gn', GenreImportService::class);
         });
 
+        $this->app->bind('excluded-prompters', fn ($app): Collection => collect());
+        $this->app->resolving('excluded-prompters', function (Collection $prompters): void {
+            $prompters->push(
+                'ms' // MediaStudioPromptService: might have content not permitted by AI models
+            );
+            $prompters->push(
+                'ss' // ShortStoryOutlinePromptService: It's an Outline already.
+            );
+        });
+
         $this->app->bind('prompters', fn ($app): Collection => collect());
         $this->app->resolving('prompters', function (Collection $prompters): void {
             $prompters->push([
