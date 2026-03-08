@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\Prompter\MovieInfo;
@@ -12,7 +14,7 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class UpdateMovieMashupItemImagesCommand extends Command
+final class UpdateMovieMashupItemImagesCommand extends Command
 {
     protected $signature = 'update:mashup-images';
 

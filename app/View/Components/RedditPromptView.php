@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components;
 
 use App\Repositories\Prompters\Dtos\RedditPromptItem;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class RedditPromptView extends Component
+final class RedditPromptView extends Component
 {
     public function __construct(
         public RedditPromptItem $prompt,

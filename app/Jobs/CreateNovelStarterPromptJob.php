@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Repositories\Search\Services\CreateNovelStarterPromptService;
@@ -12,7 +14,7 @@ use Illuminate\Queue\MaxAttemptsExceededException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class CreateNovelStarterPromptJob implements ShouldQueue
+final class CreateNovelStarterPromptJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

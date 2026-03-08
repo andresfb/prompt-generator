@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Import\Services;
 
 use App\Models\Boogie\Genre as BoogieGenre;
@@ -8,7 +10,7 @@ use App\Repositories\Import\Services\Base\BaseImporterService;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class GenreImportService extends BaseImporterService
+final class GenreImportService extends BaseImporterService
 {
     public function getName(): string
     {
@@ -70,6 +72,7 @@ class GenreImportService extends BaseImporterService
 
                 if (Genre::where('hash', $hash)->exists()) {
                     $this->character('-');
+
                     return;
                 }
 

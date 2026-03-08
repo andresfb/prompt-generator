@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Repositories\Search\Services\CreateNovelStarterPromptService;
@@ -11,7 +13,7 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class CreateNovelStarterPromptCommand extends Command
+final class CreateNovelStarterPromptCommand extends Command
 {
     protected $signature = 'create:starter-prompt';
 

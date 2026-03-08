@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Services;
 
 use App\Models\Prompter\PlotMachinePrompt;
@@ -7,7 +9,7 @@ use App\Repositories\AI\Factories\AiClientFactory;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class GeneratePlotMachinePromptService
+final class GeneratePlotMachinePromptService
 {
     use Screenable;
 
@@ -25,7 +27,7 @@ class GeneratePlotMachinePromptService
                 ->firstOrFail();
 
             $this->warning(sprintf(
-                "Generating a prompt for Genre: %s, Setting: %s, Act of Villan: %s, Motive: %s, Complicater: %s, Twists: %s",
+                'Generating a prompt for Genre: %s, Setting: %s, Act of Villan: %s, Motive: %s, Complicater: %s, Twists: %s',
                 $plotMachine->genre,
                 $plotMachine->setting,
                 $plotMachine->act_of_villan,

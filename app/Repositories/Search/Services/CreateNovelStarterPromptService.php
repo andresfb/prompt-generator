@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Search\Services;
 
 use App\Models\Prompter\NovelStarterItem;
@@ -8,7 +10,7 @@ use App\Models\Prompter\NovelStarterSection;
 use App\Repositories\Search\Services\Base\BaseCreatePromptService;
 use Illuminate\Support\Facades\Config;
 
-class CreateNovelStarterPromptService extends BaseCreatePromptService
+final class CreateNovelStarterPromptService extends BaseCreatePromptService
 {
     protected function getMaxRun(): int
     {

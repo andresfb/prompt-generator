@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Prompter;
 
-use Override;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
 /**
  * @property-read int $id
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property bool $active
  */
-class Genre extends Model
+final class Genre extends Model
 {
     public $timestamps = false;
 

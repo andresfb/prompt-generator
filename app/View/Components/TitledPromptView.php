@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components;
 
 use App\Repositories\Prompters\Dtos\TitledPromptItem;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class TitledPromptView extends Component
+final class TitledPromptView extends Component
 {
     public function __construct(
         public TitledPromptItem $prompt,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\AI\Services;
 
 use App\Models\Prompter\NovelStarterPrompt;
@@ -7,7 +9,7 @@ use App\Repositories\AI\Factories\AiClientFactory;
 use App\Traits\Screenable;
 use Illuminate\Support\Facades\Config;
 
-class GenerateNovelStarterPromptService
+final class GenerateNovelStarterPromptService
 {
     use Screenable;
 
@@ -25,7 +27,7 @@ class GenerateNovelStarterPromptService
                 ->firstOrFail();
 
             $this->warning(sprintf(
-                "Generating a prompt for Genre: %s, Hero: %s, Flaw: %s",
+                'Generating a prompt for Genre: %s, Hero: %s, Flaw: %s',
                 $novelStarter->genre,
                 $novelStarter->hero,
                 $novelStarter->flaw

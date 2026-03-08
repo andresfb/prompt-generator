@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Repositories\Search\Services\CreatePlotMachinePromptService;
@@ -11,7 +13,7 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\intro;
 use function Laravel\Prompts\outro;
 
-class CreatePlotMachinePromptCommand extends Command
+final class CreatePlotMachinePromptCommand extends Command
 {
     protected $signature = 'create:plot-prompt';
 

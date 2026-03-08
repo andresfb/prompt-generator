@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Search\Services;
 
 use App\Models\Prompter\PlotMachineItem;
@@ -8,7 +10,7 @@ use App\Models\Prompter\PlotMachineSection;
 use App\Repositories\Search\Services\Base\BaseCreatePromptService;
 use Illuminate\Support\Facades\Config;
 
-class CreatePlotMachinePromptService extends BaseCreatePromptService
+final class CreatePlotMachinePromptService extends BaseCreatePromptService
 {
     protected function getMaxRun(): int
     {
