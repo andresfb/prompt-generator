@@ -36,7 +36,11 @@ abstract class BaseCreatePromptService
 
         $created = 0;
         for ($i = 0; $i < $this->maxRun; $i++) {
-            $genre = $this->getGenre();
+            $genre = Genre::query()
+                ->where('active', true)
+                ->inRandomOrder()
+                ->firstOrFail()
+                ->name;
             $hashText = str($genre);
             $data = [];
 
@@ -76,14 +80,5 @@ abstract class BaseCreatePromptService
 
         $this->line();
         $this->info("Done. $created Prompts created");
-    }
-
-    private function getGenre(): string
-    {
-        return Genre::query()
-            ->where('active', true)
-            ->inRandomOrder()
-            ->firstOrFail()
-            ->name;
     }
 }

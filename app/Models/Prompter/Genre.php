@@ -2,6 +2,7 @@
 
 namespace App\Models\Prompter;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,7 @@ class Genre extends Model
 
     protected $guarded = ['id'];
 
+    #[Override]
     protected function casts(): array
     {
         return [
