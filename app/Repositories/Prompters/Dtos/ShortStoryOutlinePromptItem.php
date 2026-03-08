@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
-use Parsedown;
 
 final class ShortStoryOutlinePromptItem extends BasePromptItem
 {
@@ -41,14 +40,6 @@ final class ShortStoryOutlinePromptItem extends BasePromptItem
 
     public function getOutlineHtml(): string
     {
-        $html = str((new Parsedown())->text(nl2br($this->outline)));
-
-        return $html->replace('<h1>', '<h1 class="sm:text-2xl text-xl font-semibold title-font mb-4">')
-            ->replace('<h2>', '<h2 class="sm:text-xl text-lg font-medium title-font mb-3">')
-            ->replace('<h3>', '<h3 class="sm:text-lg text-base font-medium title-font mb-3">')
-            ->replace('<ul>', '<ul class="list-disc list-inside mb-4">')
-            ->replace('<li>', '<li class="mb-2 py-1">')
-            ->trim()
-            ->toString();
+        return $this->getHtml($this->outline);
     }
 }

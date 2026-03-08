@@ -46,6 +46,12 @@ final class GetPromptCommand extends Command
                 return;
             }
 
+            if ($format === 'mcp') {
+                echo $item->toMcp();
+
+                return;
+            }
+
             echo str($item->toMarkdown())
                 ->replace('###', '#')
                 ->replace('##', '#')

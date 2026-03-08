@@ -18,6 +18,8 @@ interface PromptItemInterface
 
     public function toJson($options = 0): string;
 
+    public function toMcp($options = 0): string;
+
     public function toMarkdown(): string;
 
     public function toHtml(): string;

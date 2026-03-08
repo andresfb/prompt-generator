@@ -21,7 +21,7 @@ final class RandomPromptRequest extends FormRequest
             'format' => [
                 'nullable',
                 'string',
-                Rule::in(['json', 'markdown', 'md', 'html']),
+                Rule::in(['json', 'markdown', 'md', 'html', 'mcp']),
             ],
         ];
     }

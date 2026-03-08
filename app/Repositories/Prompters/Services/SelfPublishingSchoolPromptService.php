@@ -17,8 +17,6 @@ final class SelfPublishingSchoolPromptService implements PrompterServiceInterfac
 {
     use Screenable;
 
-    private const string VIEW_NAME = '';
-
     public function __construct(private readonly ModifiersLibrary $library) {}
 
     public function execute(): ?PromptItemInterface
@@ -47,7 +45,6 @@ final class SelfPublishingSchoolPromptService implements PrompterServiceInterfac
             sectionHint: 'Hint',
             hint: $category->hint,
             text: $prompt->text,
-            view: self::VIEW_NAME,
             modifiers: $this->library->getModifiers(),
         );
     }

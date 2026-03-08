@@ -132,83 +132,103 @@ final class AppServiceProvider extends ServiceProvider
             $prompters->push([
                 'key' => 'bm',
                 'value' => BookOfMatchesPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'el',
                 'value' => ElegantLiteraturePromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'gp',
                 'value' => GeneratedPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'hf',
                 'value' => HuggingFacePromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'kp',
                 'value' => KindlepreneurPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'ms',
                 'value' => MediaStudioPromptService::class,
-            ]); // Done
+                'restricted' => true,
+            ]);
             $prompters->push([
                 'key' => 'mc',
                 'value' => MovieCollectionItemsPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'mm',
                 'value' => MovieMashupPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'na',
                 'value' => NewsArticlePromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'pa',
                 'value' => PulpAdventurePromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'rw',
                 'value' => RedditWritingPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'sp',
                 'value' => SelfPublishingSchoolPromptService::class,
+                'restricted' => false,
             ]);
             $prompters->push([
                 'key' => 'ss',
                 'value' => ShortStoryOutlinePromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'sg',
                 'value' => StoryGeneratorPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'si',
                 'value' => StoryIdeaPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'sm',
                 'value' => StoryMachinePromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'tl',
                 'value' => TheLinesPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'wd',
                 'value' => WritersDigestPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'ns',
                 'value' => NovelStarterPromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
             $prompters->push([
                 'key' => 'pm',
                 'value' => PlotMachinePromptService::class,
-            ]); // Done
+                'restricted' => false,
+            ]);
         });
     }
 

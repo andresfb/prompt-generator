@@ -36,6 +36,16 @@ final class RandomPromptController extends Controller
             ]);
         }
 
+        if ($format === 'mcp') {
+            return response()->json([
+                'data' => [
+                    'format' => $format,
+                    'hash' => $prompt->hash(),
+                    'prompt' => $prompt->toMcp(),
+                ],
+            ]);
+        }
+
         return response()->json([
             'data' => [
                 'format' => $format,

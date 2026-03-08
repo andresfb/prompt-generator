@@ -19,11 +19,10 @@ final class SelfPublishingSchoolPromptItem extends BasePromptItem
         public string $sectionHint,
         public string $hint,
         public string $text,
-        public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
+            'self-publishing-school-prompt-view',
             SelfPublishingSchoolItem::class,
         );
     }
@@ -52,5 +51,10 @@ final class SelfPublishingSchoolPromptItem extends BasePromptItem
             ->trim()
             ->append(PHP_EOL)
             ->toString();
+    }
+
+    public function getHintHtml(): string
+    {
+        return $this->getHtml($this->hint);
     }
 }
