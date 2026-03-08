@@ -24,7 +24,7 @@ final class RandomPromptController extends Controller
         $content = match ($format) {
             'mcp' => $prompt->toMcp(),
             'md', 'markdown' => $prompt->toMarkdown(),
-            'html'=> $prompt->toHtml(),
+            'html' => $prompt->toHtml(),
             default => $prompt->toJson(),
         };
 

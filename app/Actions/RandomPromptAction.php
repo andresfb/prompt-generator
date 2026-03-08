@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Repositories\Prompters\Factories\PrompterFactory;
+use App\Repositories\Prompters\Interfaces\PrompterServiceInterface;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use Illuminate\Support\Facades\Cache;
 use RuntimeException;
@@ -22,7 +23,7 @@ final readonly class RandomPromptAction
                 ? PrompterFactory::getPrompterExcluded()
                 : PrompterFactory::getPrompter($prompterKey);
 
-            if ($prompter === null) {
+            if (! $prompter instanceof PrompterServiceInterface) {
                 continue;
             }
 

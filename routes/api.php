@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\API\V1\MarkPromptUsedController;
 use App\Http\Controllers\API\V1\RandomPromptController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,4 +13,6 @@ Route::middleware('auth:sanctum')
         Route::get('/prompt', RandomPromptController::class)
             ->name('prompt');
 
+        Route::post('/mark-used', MarkPromptUsedController::class)
+            ->name('mark-used');
     });

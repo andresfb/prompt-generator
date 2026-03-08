@@ -50,7 +50,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
             $data['file'] = [
                 'type' => 'markdown',
                 'data' => base64_encode($this->toMarkdown()),
-                'mimeType' => 'text/plain',
+                'mimeType' => 'text/markdown',
             ];
 
             return json_encode($data, JSON_THROW_ON_ERROR | $options);
