@@ -46,9 +46,9 @@ final class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    public static function notification(string $message, string $client): void
+    public static function notification(string $caller, string $aiClient, int $tokens, string $message): void
     {
-        $notification = new AiUsedNotification($message, $client);
+        $notification = new AiUsedNotification($caller, $aiClient, $tokens, $message);
         $notification->onQueue('notifications');
 
         if (auth()->check()) {

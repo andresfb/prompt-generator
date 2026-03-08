@@ -13,8 +13,10 @@ final class AiUsedNotification extends Notification implements ShouldQueue
     use Queueable;
 
     public function __construct(
+        public readonly string $caller,
+        private readonly string $aiClient,
+        private readonly int $tokens,
         private readonly string $message,
-        public readonly string $client,
     ) {}
 
     public function via(string $notifiable): array
@@ -25,7 +27,9 @@ final class AiUsedNotification extends Notification implements ShouldQueue
     public function toDatabase(string $notifiable): array
     {
         return [
-            'client' => $this->client,
+            'caller' => $this->caller,
+            'ai-client' => $this->aiClient,
+            'tokens' => $this->tokens,
             'message' => $this->message,
         ];
     }
@@ -33,7 +37,9 @@ final class AiUsedNotification extends Notification implements ShouldQueue
     public function toArray(string $notifiable): array
     {
         return [
-            'client' => $this->client,
+            'caller' => $this->caller,
+            'ai-client' => $this->aiClient,
+            'tokens' => $this->tokens,
             'message' => $this->message,
         ];
     }

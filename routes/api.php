@@ -11,8 +11,8 @@ Route::middleware('auth:sanctum')
     ->group(function () {
 
         Route::get('/prompt', RandomPromptController::class)
-            ->name('prompt');
+            ->name('api-prompt');
 
         Route::post('/mark-used', MarkPromptUsedController::class)
-            ->name('mark-used');
+            ->name('api-mark-used');
     });

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
-use App\Libraries\PushoverLibrary;
 use App\Models\User;
 use Prism\Prism\Text\Response;
 
@@ -31,7 +30,6 @@ trait AiNotifiable
             $cost,
         );
 
-        User::notification($message, $service);
-        PushoverLibrary::notify($message);
+        User::notification($service, $client, $totalTokens, $message);
     }
 }

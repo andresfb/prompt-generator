@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Jobs\AiNotificationSummaryJob;
 use App\Jobs\CreateMovieMashupJob;
 use App\Jobs\CreateNovelStarterPromptJob;
 use App\Jobs\CreatePlotMachinePromptJob;
@@ -48,11 +49,14 @@ Schedule::job(app(GenerateMovieMashupPromptJob::class))->cron('30 3,11,19 * * *'
 // Twice a day at 5 AM and 5 PM
 Schedule::job(app(GenerateShortStoryOutlineJob::class))->twiceDaily(5, 17);
 
+// Once a day at 4:10 PM
+Schedule::job(app(MediaStudioStarterJob::class))->dailyAt('16:18');
+
 // Once a day at 10:15 pm
 Schedule::job(app(RedditPromptsStarterJob::class))->dailyAt('22:15');
 
-// Once a day at 4:10 PM
-Schedule::job(app(MediaStudioStarterJob::class))->dailyAt('16:18');
+// Once a day at 11:50 pm
+Schedule::job(app(AiNotificationSummaryJob::class))->dailyAt('23:50');
 
 // Weekly
 Schedule::job(app(ImportMovieCollectionItemsJob::class))->weekly();

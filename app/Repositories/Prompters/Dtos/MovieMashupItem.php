@@ -29,13 +29,13 @@ final class MovieMashupItem extends BasePromptItem
         if (! blank($this->genres)) {
             $genres = str(collect($this->genres)->implode(', '))
                 ->trim()
-                ->append(PHP_EOL);
+                ->newLine();
         }
 
         $usedFor = str('');
         if (! blank($this->used_for)) {
             $usedFor = $usedFor->append('**Used For**')
-                ->append(PHP_EOL)
+                ->newLine()
                 ->append($this->used_for);
         }
 
@@ -47,20 +47,20 @@ final class MovieMashupItem extends BasePromptItem
         }
 
         return str("**[$this->title ($this->year)]($this->url)**")
-            ->append(PHP_EOL.PHP_EOL)
+            ->newLine(2)
             ->append($usedFor->trim()->toString())
             ->trim()
-            ->append(PHP_EOL.PHP_EOL)
+            ->newLine(2)
             ->append($this->overview)
-            ->append(PHP_EOL.PHP_EOL)
+            ->newLine(2)
             ->append($genres->trim()->toString())
             ->trim()
-            ->append(PHP_EOL.PHP_EOL)
+            ->newLine(2)
             ->append($images->trim()->toString())
             ->trim()
-            ->append(PHP_EOL.PHP_EOL)
+            ->newLine(2)
             ->append('***')
-            ->append(PHP_EOL)
+            ->newLine()
             ->toString();
     }
 
