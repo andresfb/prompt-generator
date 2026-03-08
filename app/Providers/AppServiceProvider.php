@@ -176,7 +176,7 @@ final class AppServiceProvider extends ServiceProvider
             $prompters->push([
                 'key' => 'sp',
                 'value' => SelfPublishingSchoolPromptService::class,
-            ]); // Done
+            ]);
             $prompters->push([
                 'key' => 'ss',
                 'value' => ShortStoryOutlinePromptService::class,
@@ -205,10 +205,10 @@ final class AppServiceProvider extends ServiceProvider
                 'key' => 'ns',
                 'value' => NovelStarterPromptService::class,
             ]); // Done
-//            $prompters->push([
-//                'key' => 'pm',
-//                'value' => PlotMachinePromptService::class, // TODO: pending AI generation
-//            ]);
+            $prompters->push([
+                'key' => 'pm',
+                'value' => PlotMachinePromptService::class,
+            ]); // Done
         });
     }
 

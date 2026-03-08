@@ -2,81 +2,30 @@
 
 namespace App\Repositories\Search\Services;
 
-use App\Models\Prompter\Genre;
 use App\Models\Prompter\NovelStarterItem;
 use App\Models\Prompter\NovelStarterPrompt;
 use App\Models\Prompter\NovelStarterSection;
-use App\Traits\Screenable;
+use App\Repositories\Search\Services\Base\BaseCreatePromptService;
 use Illuminate\Support\Facades\Config;
 
-class CreateNovelStarterPromptService
+class CreateNovelStarterPromptService extends BaseCreatePromptService
 {
-    use Screenable;
-
-    private int $maxRun;
-
-    private array $matrix = [];
-
-    public function __construct()
+    protected function getMaxRun(): int
     {
-        $this->maxRun = Config::integer('novel-starter.max_run');
+        return Config::integer('novel-starter.max_run');
     }
 
-    public function execute(): void
+    protected function modelExists(string $hash): bool
     {
-        $this->info('Starting creating Novel Starter Prompts');
-
-        $this->loadMatrix();
-
-        $created = 0;
-        for ($i = 0; $i < $this->maxRun; $i++) {
-            $genre = $this->getGenre();
-            $hashText = str($genre);
-            $data = [];
-
-            foreach ($this->matrix as $key => $sectionId) {
-                $starterItem = trim($this->getStarterItem($sectionId));
-
-                $hashText = $hashText->append('-')
-                    ->append($starterItem);
-
-                $data[$key] = ucwords($starterItem);
-            }
-
-            $hash = $hashText->lower()
-                ->trim()
-                ->hash('md5')
-                ->toString();
-
-            if (NovelStarterPrompt::where('hash', $hash)->exists()) {
-                $this->character('x');
-
-                continue;
-            }
-
-            $data['hash'] = $hash;
-            $data['genre'] = $genre;
-
-            NovelStarterPrompt::create($data);
-            $created++;
-
-            $this->character('.');
-        }
-
-        $this->line();
-        $this->info("Done. $created Prompts created");
+        return NovelStarterPrompt::where('hash', $hash)->exists();
     }
 
-    private function getGenre(): string
+    protected function saveModel(array $data): void
     {
-        return Genre::query()
-            ->where('active', true)
-            ->inRandomOrder()
-            ->firstOrFail()
-            ->name;
+        NovelStarterPrompt::create($data);
     }
 
-    private function getStarterItem(int $sectionId): string
+    protected function getItem(int $sectionId): string
     {
         return NovelStarterItem::query()
             ->where('novel_starter_section_id', $sectionId)
@@ -86,7 +35,7 @@ class CreateNovelStarterPromptService
             ->text;
     }
 
-    private function loadMatrix(): void
+    protected function loadMatrix(): void
     {
         NovelStarterSection::query()
             ->orderBy('order')

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 use App\Jobs\CreateMovieMashupJob;
 use App\Jobs\CreateNovelStarterPromptJob;
+use App\Jobs\CreatePlotMachinePromptJob;
 use App\Jobs\GenerateMovieMashupPromptJob;
 use App\Jobs\GenerateNovelStarterPromptJob;
+use App\Jobs\GeneratePlotMachinePromptJob;
 use App\Jobs\GeneratePromptJob;
 use App\Jobs\GenerateShortStoryOutlineJob;
 use App\Jobs\ImportMovieCollectionItemsJob;
@@ -20,12 +22,18 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 // Runs every two hours at 5 past the hour
-Schedule::job(app(CreateNovelStarterPromptJob::class))->everyTwoHours(5);
+Schedule::job(app(CreateNovelStarterPromptJob::class))->everyTwoHours(2);
 
-// Runs 4 times a day at 10 past the hour
+// Runs every two hours at 5 past the hour
+Schedule::job(app(CreatePlotMachinePromptJob::class))->everyTwoHours(5);
+
+// Runs 4 times a day at 8 past the hour
 Schedule::job(app(GeneratePromptJob::class))->everySixHours(8);
 
-// Runs 4 times a day at 15 past the hour
+// Runs 4 times a day at 12 past the hour
+Schedule::job(app(GeneratePlotMachinePromptJob::class))->everySixHours(12);
+
+// Runs 4 times a day at 16 past the hour
 Schedule::job(app(GenerateNovelStarterPromptJob::class))->everySixHours(16);
 
 // Runs 4 times a day at 20 past the hour

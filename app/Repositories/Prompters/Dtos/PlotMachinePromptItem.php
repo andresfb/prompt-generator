@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
-use App\Models\Prompter\PlotMachineItem;
+use App\Models\Prompter\PlotMachinePrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
 final class PlotMachinePromptItem extends BasePromptItem
 {
     public function __construct(
-        public array $modelIds,
+        public int $modelId,
         public string $title,
-        public string $header,
+        public string $sectionGenre,
+        public string $genre,
         public string $sectionSetting,
         public string $setting,
         public string $sectionActOfVillan,
@@ -21,14 +22,15 @@ final class PlotMachinePromptItem extends BasePromptItem
         public string $motive,
         public string $sectionComplicater,
         public string $complicater,
-        public string $sectionTwists,
-        public string $twists,
-        public string $view = '',
+        public string $sectionTwist,
+        public string $twist,
+        public string $sectionPrompt,
+        public string $prompt,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->view,
-            PlotMachineItem::class,
+            'plot-machine-prompt-view',
+            PlotMachinePrompt::class,
         );
     }
 
@@ -36,8 +38,9 @@ final class PlotMachinePromptItem extends BasePromptItem
     {
         return str("# $this->title")
             ->append(PHP_EOL.PHP_EOL)
-            ->append("## $this->header")
-            ->append(PHP_EOL.PHP_EOL)
+            ->append("**$this->sectionGenre:** ")
+            ->append($this->genre)
+            ->append(PHP_EOL)
             ->append("**$this->sectionSetting:** ")
             ->append($this->setting)
             ->append(PHP_EOL)
@@ -50,8 +53,12 @@ final class PlotMachinePromptItem extends BasePromptItem
             ->append("**$this->sectionComplicater:** ")
             ->append($this->complicater)
             ->append(PHP_EOL)
-            ->append("**$this->sectionTwists:** ")
-            ->append($this->twists)
+            ->append("**$this->sectionTwist:** ")
+            ->append($this->twist)
+            ->append(PHP_EOL.PHP_EOL)
+            ->append("### $this->sectionPrompt:")
+            ->append(PHP_EOL)
+            ->append($this->prompt)
             ->append(PHP_EOL)
             ->append($this->modifiers?->toMarkdown())
             ->trim()
