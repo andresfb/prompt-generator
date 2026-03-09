@@ -20,9 +20,12 @@ interface PromptItemInterface
 
     public function toMcp($options = 0): string;
 
+    public function getFile($options = 0): string;
+
     public function toMarkdown(): string;
 
     public function toHtml(): string;
+
 
     public function hash(): string;
 }

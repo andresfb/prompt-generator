@@ -28,12 +28,18 @@ final class RandomPromptController extends Controller
             default => $prompt->toJson(),
         };
 
+        $data = [
+            'format' => $format,
+            'hash' => $prompt->hash(),
+            'prompt' => $content,
+        ];
+
+        if ($format === 'mcp') {
+            $data['file'] = $prompt->getFile();
+        }
+
         return response()->json([
-            'data' => [
-                'format' => $format,
-                'hash' => $prompt->hash(),
-                'prompt' => $content,
-            ],
+            'data' => $data,
         ]);
     }
 }

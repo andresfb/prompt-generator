@@ -42,16 +42,34 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
         return (new Parsedown())->text(nl2br($this->toMarkdown()));
     }
 
+    final public function getFile($options = 0): string
+    {
+        try {
+            return json_encode(
+                [
+                    'type' => 'markdown',
+                    'base64' => base64_encode($this->toMarkdown()),
+                    'mimeType' => 'text/markdown',
+                ],
+                JSON_THROW_ON_ERROR | $options
+            );
+        } catch (Throwable) {
+            return '';
+        }
+    }
+
     final public function toMcp($options = 0): string
     {
         try {
             $data = $this->getCleanData();
 
-            $data['file'] = [
-                'type' => 'markdown',
-                'data' => base64_encode($this->toMarkdown()),
-                'mimeType' => 'text/markdown',
-            ];
+            if (isset($data['responsive'])) {
+                unset($data['responsive']);
+            }
+
+            if (isset($data['provider'])) {
+                unset($data['provider']);
+            }
 
             return json_encode($data, JSON_THROW_ON_ERROR | $options);
         } catch (Throwable) {
