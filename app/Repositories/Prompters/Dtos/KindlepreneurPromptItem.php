@@ -24,6 +24,7 @@ final class KindlepreneurPromptItem extends BasePromptItem
             $this->caller,
             'kindlepreneur-prompt-view',
             KindlepreneurItem::class,
+            $this->modifiers,
         );
     }
 

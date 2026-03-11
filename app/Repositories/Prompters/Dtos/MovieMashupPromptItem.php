@@ -27,7 +27,8 @@ final class MovieMashupPromptItem extends BasePromptItem
         parent::__construct(
             $this->caller,
             'movie-mashup-prompt-view',
-            MovieMashupPrompt::class
+            MovieMashupPrompt::class,
+            $this->modifiers,
         );
     }
 

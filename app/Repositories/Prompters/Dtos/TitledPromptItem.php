@@ -22,6 +22,7 @@ final class TitledPromptItem extends BasePromptItem
             $this->caller,
             'titled-prompt-view',
             $this->model,
+            $this->modifiers,
         );
     }
 

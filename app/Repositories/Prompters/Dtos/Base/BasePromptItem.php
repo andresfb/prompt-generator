@@ -20,6 +20,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
         public string $caller,
         public string $view = '',
         public string $model = '',
+        public ?ModifierPromptItem $modifiers = null,
     ) {}
 
     abstract public function toMarkdown(): string;

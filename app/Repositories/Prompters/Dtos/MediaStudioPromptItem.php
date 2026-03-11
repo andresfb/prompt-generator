@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use Override;
 use App\Models\Prompter\MediaStudioItem;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
@@ -30,6 +31,7 @@ final class MediaStudioPromptItem extends BasePromptItem
             $this->caller,
             'media-studio-prompt-view',
             MediaStudioItem::class,
+            $this->modifiers,
         );
     }
 
@@ -88,6 +90,7 @@ final class MediaStudioPromptItem extends BasePromptItem
             ->toString();
     }
 
+    #[Override]
     public function toMcp($options = 0): string
     {
         $this->sectionImage = null;

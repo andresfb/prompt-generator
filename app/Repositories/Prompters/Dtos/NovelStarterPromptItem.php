@@ -27,6 +27,7 @@ final class NovelStarterPromptItem extends BasePromptItem
             $this->caller,
             'novel-starter-prompt-view',
             NovelStarterPrompt::class,
+            $this->modifiers,
         );
     }
 

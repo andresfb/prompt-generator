@@ -56,8 +56,9 @@ final class PulpAdventurePromptItem extends BasePromptItem
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
-            $this->caller,
-            'pulp-adventure-prompt-view',
+            caller: $this->caller,
+            view: 'pulp-adventure-prompt-view',
+            modifiers: $this->modifiers,
         );
     }
 

@@ -26,6 +26,7 @@ final class StoryGeneratorPromptItem extends BasePromptItem
             $this->caller,
             'story-generator-prompt-view',
             StoryGeneratorItem::class,
+            $this->modifiers,
         );
     }
 

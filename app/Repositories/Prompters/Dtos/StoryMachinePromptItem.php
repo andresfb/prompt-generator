@@ -34,6 +34,7 @@ final class StoryMachinePromptItem extends BasePromptItem
             $this->caller,
             'story-machine-prompt-view',
             StoryMachineItem::class,
+            $this->modifiers,
         );
     }
 

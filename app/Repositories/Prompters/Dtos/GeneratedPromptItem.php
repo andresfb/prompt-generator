@@ -38,6 +38,7 @@ final class GeneratedPromptItem extends BasePromptItem
             $this->caller,
             'generated-prompt-view',
             GeneratedPrompt::class,
+            $this->modifiers,
         );
     }
 

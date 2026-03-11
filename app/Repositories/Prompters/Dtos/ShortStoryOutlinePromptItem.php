@@ -23,6 +23,7 @@ final class ShortStoryOutlinePromptItem extends BasePromptItem
             $this->caller,
             'short-story-outline-prompt-view',
             $this->model,
+            $this->modifiers,
         );
     }
 

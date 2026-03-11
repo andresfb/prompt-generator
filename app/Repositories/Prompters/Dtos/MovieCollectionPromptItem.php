@@ -35,6 +35,7 @@ final class MovieCollectionPromptItem extends BasePromptItem
             $this->caller,
             'movie-collection-prompt-view',
             MovieCollectionItem::class,
+            $this->modifiers,
         );
     }
 

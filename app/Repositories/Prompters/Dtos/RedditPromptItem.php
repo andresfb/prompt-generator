@@ -22,6 +22,7 @@ final class RedditPromptItem extends BasePromptItem
             $this->caller,
             'reddit-prompt-view',
             RedditWritingPrompt::class,
+            $this->modifiers,
         );
     }
 

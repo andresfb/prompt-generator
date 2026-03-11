@@ -28,6 +28,7 @@ final class StoryIdeaPromptItem extends BasePromptItem
             $this->caller,
             'story-idea-prompt-view',
             StoryIdea::class,
+            $this->modifiers,
         );
     }
 

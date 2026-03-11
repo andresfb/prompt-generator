@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
+use Override;
 use App\Models\Prompter\NewsArticlePrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 
@@ -26,6 +27,7 @@ final class NewsArticlePromptItem extends BasePromptItem
             $this->caller,
             'news-article-prompt-view',
             NewsArticlePrompt::class,
+            $this->modifiers,
         );
     }
 
@@ -53,6 +55,7 @@ final class NewsArticlePromptItem extends BasePromptItem
             ->toString();
     }
 
+    #[Override]
     public function toMcp($options = 0): string
     {
         $this->permalink = '';

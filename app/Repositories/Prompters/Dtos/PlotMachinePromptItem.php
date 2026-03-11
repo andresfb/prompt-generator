@@ -33,6 +33,7 @@ final class PlotMachinePromptItem extends BasePromptItem
             $this->caller,
             'plot-machine-prompt-view',
             PlotMachinePrompt::class,
+            $this->modifiers,
         );
     }
 

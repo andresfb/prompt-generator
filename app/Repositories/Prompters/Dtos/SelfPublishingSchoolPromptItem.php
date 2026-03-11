@@ -26,6 +26,7 @@ final class SelfPublishingSchoolPromptItem extends BasePromptItem
             $this->caller,
             'self-publishing-school-prompt-view',
             SelfPublishingSchoolItem::class,
+            $this->modifiers,
         );
     }
 
