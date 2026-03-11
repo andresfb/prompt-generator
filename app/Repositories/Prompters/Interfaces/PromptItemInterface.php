@@ -28,6 +28,5 @@ interface PromptItemInterface
 
     public function toHtml(): string;
 
-
     public function hash(): string;
 }

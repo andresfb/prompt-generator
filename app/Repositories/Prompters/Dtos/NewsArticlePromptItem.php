@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos;
 
-use Override;
 use App\Models\Prompter\NewsArticlePrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
+use Override;
 
 final class NewsArticlePromptItem extends BasePromptItem
 {
