@@ -14,12 +14,14 @@ final class SimplePromptItem extends BasePromptItem
         public string $subHeader,
         public string $text,
         public string $model,
+        public string $caller,
         public string $image = '',
         public string $responsive = '',
         public string $view = '',
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             $this->view ?: 'simple-prompt-view',
             $this->model,
         );
@@ -46,5 +48,12 @@ final class SimplePromptItem extends BasePromptItem
             ->trim()
             ->append(PHP_EOL)
             ->toString();
+    }
+
+    public function toMcp($options = 0): string
+    {
+        $this->image = '';
+
+        return parent::toMcp($options);
     }
 }

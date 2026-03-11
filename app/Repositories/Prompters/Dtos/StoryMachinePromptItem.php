@@ -27,9 +27,11 @@ final class StoryMachinePromptItem extends BasePromptItem
         public string $mustFeature,
         public string $sectionMustAlsoFeature,
         public string $mustAlsoFeature,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'story-machine-prompt-view',
             StoryMachineItem::class,
         );

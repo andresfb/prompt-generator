@@ -36,6 +36,7 @@ final class BookOfMatchesPromptService implements PrompterServiceInterface
             subHeader: 'Prompt',
             text: $prompt->text,
             model: BookOfMatches::class,
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

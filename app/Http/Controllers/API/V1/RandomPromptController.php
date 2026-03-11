@@ -35,6 +35,7 @@ final class RandomPromptController extends Controller
         ];
 
         if ($format === 'mcp') {
+            $data['title'] = $prompt->getTitle();
             $data['file'] = $prompt->getFile();
         }
 

@@ -32,6 +32,7 @@ final class TheLinesPromptService implements PrompterServiceInterface
 
         return new TitledPromptItem(
             modelId: $prompt->id,
+            caller: self::class,
             header: 'The Lines',
             subHeader: 'Prompt',
             title: $prompt->title,

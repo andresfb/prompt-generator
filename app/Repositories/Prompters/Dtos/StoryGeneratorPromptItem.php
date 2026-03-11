@@ -19,9 +19,11 @@ final class StoryGeneratorPromptItem extends BasePromptItem
         public string $character,
         public string $sectionAction,
         public string $action,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'story-generator-prompt-view',
             StoryGeneratorItem::class,
         );

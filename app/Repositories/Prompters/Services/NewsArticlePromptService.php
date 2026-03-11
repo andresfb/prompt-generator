@@ -40,6 +40,7 @@ final class NewsArticlePromptService implements PrompterServiceInterface
             permalink: $prompt->permalink,
             content: $prompt->content,
             thumbnail: $prompt->thumbnail,
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

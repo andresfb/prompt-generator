@@ -19,11 +19,13 @@ final class StoryIdeaPromptItem extends BasePromptItem
         public string $tone,
         public string $sectionIdea,
         public string $idea,
+        public string $caller,
         public ?string $sectionSubGenre = null,
         public ?string $subGenre = null,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'story-idea-prompt-view',
             StoryIdea::class,
         );

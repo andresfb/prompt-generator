@@ -17,9 +17,11 @@ final class KindlepreneurPromptItem extends BasePromptItem
         public string $sectionDescription,
         public string $description,
         public string $text,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'kindlepreneur-prompt-view',
             KindlepreneurItem::class,
         );

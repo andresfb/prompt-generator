@@ -45,6 +45,7 @@ final class SelfPublishingSchoolPromptService implements PrompterServiceInterfac
             sectionHint: 'Hint',
             hint: $category->hint,
             text: $prompt->text,
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

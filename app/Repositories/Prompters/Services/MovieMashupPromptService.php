@@ -42,6 +42,7 @@ final class MovieMashupPromptService implements PrompterServiceInterface
             subHeader: 'Prompt',
             content: $mashup->content,
             provider: $mashup->provider,
+            caller: self::class,
             movies: $this->getMovieItem($mashup),
             modifiers: $this->library->getModifiers(),
         );
@@ -56,6 +57,7 @@ final class MovieMashupPromptService implements PrompterServiceInterface
         $items->each(function (MovieMashupItemModel $item) use ($movies) {
             $data = $item->toArray();
             $data['url'] = sprintf(Config::string('emby.item_url'), $item->movie_id);
+            $data['caller'] = self::class;
             $movies->push(MovieMashupItem::from($data));
         });
 

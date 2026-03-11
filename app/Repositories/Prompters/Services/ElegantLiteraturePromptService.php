@@ -50,6 +50,7 @@ final class ElegantLiteraturePromptService implements PrompterServiceInterface
             subHeader: $prompt->title,
             text: $prompt->text,
             model: ElegantLiteraturePrompt::class,
+            caller: self::class,
             image: $image,
             responsive: $responsive,
             view: 'elegant-literature-prompt-view',

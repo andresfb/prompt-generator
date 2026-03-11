@@ -22,6 +22,7 @@ final class MovieCollectionPromptItem extends BasePromptItem
         public string $overview,
         public string $sectionImage,
         public string $image,
+        public string $caller,
         public ?string $sectionTagLines = null,
         public ?array $tagLines = null,
         public ?string $sectionGenres = null,
@@ -31,6 +32,7 @@ final class MovieCollectionPromptItem extends BasePromptItem
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'movie-collection-prompt-view',
             MovieCollectionItem::class,
         );

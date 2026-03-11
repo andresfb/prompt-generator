@@ -19,9 +19,11 @@ final class NewsArticlePromptItem extends BasePromptItem
         public string $permalink,
         public string $content,
         public string $thumbnail,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'news-article-prompt-view',
             NewsArticlePrompt::class,
         );
@@ -49,5 +51,13 @@ final class NewsArticlePromptItem extends BasePromptItem
             ->trim()
             ->append(PHP_EOL)
             ->toString();
+    }
+
+    public function toMcp($options = 0): string
+    {
+        $this->permalink = '';
+        $this->thumbnail = '';
+
+        return parent::toMcp($options);
     }
 }

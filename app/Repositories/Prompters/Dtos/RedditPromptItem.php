@@ -6,6 +6,7 @@ namespace App\Repositories\Prompters\Dtos;
 
 use App\Models\Prompter\RedditWritingPrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
+use Override;
 
 final class RedditPromptItem extends BasePromptItem
 {
@@ -14,9 +15,11 @@ final class RedditPromptItem extends BasePromptItem
         public string $header,
         public string $title,
         public string $permalink,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'reddit-prompt-view',
             RedditWritingPrompt::class,
         );
@@ -42,5 +45,13 @@ final class RedditPromptItem extends BasePromptItem
             ->replace('**[', '<span class="font-medium">')
             ->replace(']**', '</span> ')
             ->toString();
+    }
+
+    #[Override]
+    public function toMcp($options = 0): string
+    {
+        $this->permalink = '';
+
+        return parent::toMcp($options);
     }
 }

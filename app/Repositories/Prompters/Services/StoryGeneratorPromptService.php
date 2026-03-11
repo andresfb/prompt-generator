@@ -41,6 +41,7 @@ final class StoryGeneratorPromptService implements PrompterServiceInterface
             character: $data['character'],
             sectionAction: 'Action',
             action: $data['action'],
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

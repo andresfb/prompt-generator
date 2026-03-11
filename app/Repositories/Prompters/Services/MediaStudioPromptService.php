@@ -52,6 +52,7 @@ final class MediaStudioPromptService implements PrompterServiceInterface
             title: $item->title,
             sectionDescription: 'Description',
             description: $item->description,
+            caller: self::class,
             sectionTags: $tags->count() > 0 ? 'Tags' : null,
             tags: $tags->map(fn (Tag $tag): string => $tag->name)->toArray(),
             sectionImage: blank($item->image) ? null : 'Image',

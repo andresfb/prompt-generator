@@ -31,9 +31,11 @@ final class GeneratedPromptItem extends BasePromptItem
         public string $period,
         public string $sectionEnd,
         public string $endText,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'generated-prompt-view',
             GeneratedPrompt::class,
         );

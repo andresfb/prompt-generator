@@ -32,6 +32,7 @@ final class WritersDigestPromptService implements PrompterServiceInterface
 
         return new TitledPromptItem(
             modelId: $prompt->id,
+            caller: self::class,
             header: "Writer's Digest",
             subHeader: 'Prompt',
             title: $prompt->title,

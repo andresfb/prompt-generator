@@ -17,6 +17,7 @@ final class MediaStudioPromptItem extends BasePromptItem
         public string $title,
         public string $sectionDescription,
         public string $description,
+        public string $caller,
         public ?string $sectionTags = null,
         public ?array $tags = null,
         public ?string $sectionImage = null,
@@ -26,6 +27,7 @@ final class MediaStudioPromptItem extends BasePromptItem
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'media-studio-prompt-view',
             MediaStudioItem::class,
         );
@@ -84,5 +86,16 @@ final class MediaStudioPromptItem extends BasePromptItem
             ->trim()
             ->append(PHP_EOL)
             ->toString();
+    }
+
+    public function toMcp($options = 0): string
+    {
+        $this->sectionImage = null;
+        $this->image = null;
+
+        $this->sectionTrailer = null;
+        $this->trailer = null;
+
+        return parent::toMcp($options);
     }
 }

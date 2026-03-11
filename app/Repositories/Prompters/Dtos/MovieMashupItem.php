@@ -6,6 +6,7 @@ namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 use Illuminate\Support\Facades\Config;
+use Override;
 
 final class MovieMashupItem extends BasePromptItem
 {
@@ -16,11 +17,12 @@ final class MovieMashupItem extends BasePromptItem
         public string $year,
         public string $overview,
         public string $url,
+        public string $caller,
         public ?array $genres = null,
         public ?array $images = null,
         public ?string $used_for = null,
     ) {
-        parent::__construct();
+        parent::__construct($this->caller);
     }
 
     public function toMarkdown(): string
@@ -62,6 +64,14 @@ final class MovieMashupItem extends BasePromptItem
             ->append('***')
             ->newLine()
             ->toString();
+    }
+
+    #[Override]
+    public function toMcp($options = 0): string
+    {
+        $this->images = null;
+
+        return parent::toMcp($options);
     }
 
     public function getImage(string $type = 'Primary'): array

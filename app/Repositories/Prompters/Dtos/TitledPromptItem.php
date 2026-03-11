@@ -10,6 +10,7 @@ final class TitledPromptItem extends BasePromptItem
 {
     public function __construct(
         public int $modelId,
+        public string $caller,
         public string $header = '',
         public string $subHeader = '',
         public string $title = '',
@@ -18,6 +19,7 @@ final class TitledPromptItem extends BasePromptItem
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'titled-prompt-view',
             $this->model,
         );

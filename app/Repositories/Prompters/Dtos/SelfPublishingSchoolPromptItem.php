@@ -19,9 +19,11 @@ final class SelfPublishingSchoolPromptItem extends BasePromptItem
         public string $sectionHint,
         public string $hint,
         public string $text,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'self-publishing-school-prompt-view',
             SelfPublishingSchoolItem::class,
         );

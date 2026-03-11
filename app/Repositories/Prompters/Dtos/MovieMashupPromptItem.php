@@ -7,6 +7,7 @@ namespace App\Repositories\Prompters\Dtos;
 use App\Models\Prompter\MovieMashupPrompt;
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
 use Illuminate\Support\Collection;
+use Override;
 
 final class MovieMashupPromptItem extends BasePromptItem
 {
@@ -19,10 +20,12 @@ final class MovieMashupPromptItem extends BasePromptItem
         public string $subHeader,
         public string $content,
         public string $provider,
+        public string $caller,
         public Collection $movies,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'movie-mashup-prompt-view',
             MovieMashupPrompt::class
         );
@@ -52,5 +55,13 @@ final class MovieMashupPromptItem extends BasePromptItem
             ->trim()
             ->append(PHP_EOL)
             ->toString();
+    }
+
+    #[Override]
+    public function toMcp($options = 0): string
+    {
+        $this->movies = collect();
+
+        return parent::toMcp($options);
     }
 }

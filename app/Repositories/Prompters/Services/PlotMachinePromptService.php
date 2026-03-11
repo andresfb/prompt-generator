@@ -48,6 +48,7 @@ final class PlotMachinePromptService implements PrompterServiceInterface
             twist: $prompt->twist,
             sectionPrompt: 'Prompt',
             prompt: $prompt->content,
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

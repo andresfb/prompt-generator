@@ -42,6 +42,7 @@ final class NovelStarterPromptService implements PrompterServiceInterface
             flaw: $prompt->flaw,
             sectionPrompt: 'Prompt',
             prompt: $prompt->content,
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

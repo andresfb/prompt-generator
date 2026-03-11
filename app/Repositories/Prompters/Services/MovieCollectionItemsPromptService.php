@@ -56,6 +56,7 @@ final class MovieCollectionItemsPromptService implements PrompterServiceInterfac
                 $item->image_type,
                 $item->image_tag
             ),
+            caller: self::class,
             sectionTagLines: blank($item->tag_lines) ? null : 'Tag Line',
             tagLines: $item->tag_lines,
             sectionGenres: blank($item->genres) ? null : 'Genres',

@@ -52,6 +52,7 @@ final class StoryMachinePromptService implements PrompterServiceInterface
             mustFeature: $data['must_feature'],
             sectionMustAlsoFeature: 'Must Also Feature',
             mustAlsoFeature: $data['must_also_feature'],
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

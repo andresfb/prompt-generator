@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Prompters\Dtos\Base;
 
+use App\Repositories\Prompters\Dtos\ModifierPromptItem;
 use App\Repositories\Prompters\Interfaces\PromptItemInterface;
 use Exception;
 use Override;
@@ -13,36 +14,50 @@ use Throwable;
 
 abstract class BasePromptItem extends Data implements PromptItemInterface
 {
-    protected array $skipProperties = ['view', 'modelIds', 'modelId', 'model'];
+    protected array $skipProperties = ['view', 'modelIds', 'modelId', 'model', 'caller'];
 
     public function __construct(
+        public string $caller,
         public string $view = '',
         public string $model = '',
     ) {}
 
     abstract public function toMarkdown(): string;
 
-    final public function getView(): string
+    public function getView(): string
     {
         return $this->view;
     }
 
-    final public function getModel(): string
+    public function getModel(): string
     {
         return $this->model;
     }
 
-    final public function hash(): string
+    public function hash(): string
     {
         return hash('md5', print_r($this->toArray(), true));
     }
 
-    final public function toHtml(): string
+    public function toHtml(): string
     {
         return (new Parsedown())->text(nl2br($this->toMarkdown()));
     }
 
-    final public function getFile($options = 0): string
+    public function getTitle(): string
+    {
+        return str($this->caller)
+            ->classBasename()
+            ->kebab()
+            ->replace(['service', 'prompt'], '')
+            ->replace(['item', 'items'], '')
+            ->replace('-', ' ')
+            ->title()
+            ->trim()
+            ->toString();
+    }
+
+    public function getFile($options = 0): string
     {
         try {
             return json_encode(
@@ -58,10 +73,14 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
         }
     }
 
-    final public function toMcp($options = 0): string
+    public function toMcp($options = 0): string
     {
         try {
             $data = $this->getCleanData();
+
+            if (property_exists(static::class, 'modifiers') && $this->modifiers instanceof ModifierPromptItem) {
+                $data['modifiers'] = $this->modifiers->getCleanData();
+            }
 
             if (isset($data['responsive'])) {
                 unset($data['responsive']);
@@ -69,6 +88,26 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
 
             if (isset($data['provider'])) {
                 unset($data['provider']);
+            }
+
+            foreach ($data as $key => $datum) {
+                if (! blank($datum)) {
+                    continue;
+                }
+
+                if (is_array($datum)) {
+                    foreach ($datum as $item) {
+                        if (! blank($item)) {
+                            continue;
+                        }
+
+                        unset($datum[$key]);
+                    }
+
+                    continue;
+                }
+
+                unset($data[$key]);
             }
 
             return json_encode($data, JSON_THROW_ON_ERROR | $options);
@@ -82,6 +121,10 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
     {
         try {
             $data = $this->getCleanData();
+
+            if (property_exists(static::class, 'modifiers') && $this->modifiers instanceof ModifierPromptItem) {
+                $data['modifiers'] = $this->modifiers->getCleanData();
+            }
 
             return json_encode($data, JSON_THROW_ON_ERROR | $options);
         } catch (Throwable) {
@@ -105,7 +148,7 @@ abstract class BasePromptItem extends Data implements PromptItemInterface
     /**
      * @throws Exception
      */
-    private function getCleanData(): array
+    protected function getCleanData(): array
     {
         $cleaned = [];
         $data = $this->transform();

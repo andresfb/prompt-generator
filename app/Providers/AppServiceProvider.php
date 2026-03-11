@@ -135,6 +135,9 @@ final class AppServiceProvider extends ServiceProvider
             $prompters->push(
                 'ss' // ShortStoryOutlinePromptService: It's an Outline already.
             );
+            $prompters->push(
+                'pa' // PulpAdventurePromptService: It's an Outline already.
+            );
         });
 
         $this->app->bind('prompters', fn ($app): Collection => collect());

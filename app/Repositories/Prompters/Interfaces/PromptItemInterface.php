@@ -22,6 +22,8 @@ interface PromptItemInterface
 
     public function getFile($options = 0): string;
 
+    public function getTitle(): string;
+
     public function toMarkdown(): string;
 
     public function toHtml(): string;

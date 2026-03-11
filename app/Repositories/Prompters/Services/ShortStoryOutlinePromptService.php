@@ -36,6 +36,7 @@ final class ShortStoryOutlinePromptService implements PrompterServiceInterface
             outline: $prompt->outline,
             provider: $prompt->provider,
             model: ShortStoryOutline::class,
+            caller: self::class,
             modifiers: $this->library->getModifiers(),
         );
     }

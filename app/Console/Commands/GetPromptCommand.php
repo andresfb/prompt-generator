@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Prompters\Factories\PrompterFactory;
-use App\Repositories\Prompters\Interfaces\PromptItemInterface;
+use App\Actions\RandomPromptAction;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -19,20 +18,17 @@ final class GetPromptCommand extends Command
 
     protected $description = 'Selects a random Prompt using one of all the available Datasets';
 
-    public function handle(): void
+    public function handle(RandomPromptAction $action): void
     {
         try {
             $ptr = $this->option('prompter') ?? '';
-            $prompter = PrompterFactory::getPrompter($ptr);
-            $item = $prompter->execute();
-            if (! $item instanceof PromptItemInterface) {
-                error('No prompter found');
-
-                return;
-            }
-
             $format = $this->option('format') ?? 'json';
             $format = mb_strtolower(trim($format));
+
+            $item = $action->handle(
+                prompterKey: $ptr,
+                forMcp: $format === 'mcp'
+            );
 
             if ($format === 'json') {
                 echo $item->toJson();
@@ -47,7 +43,11 @@ final class GetPromptCommand extends Command
             }
 
             if ($format === 'mcp') {
-                echo $item->toMcp();
+                $data = json_decode($item->toMcp(), true, 512, JSON_THROW_ON_ERROR);
+                $data['title'] = $item->getTitle();
+                $data['file'] = json_decode($item->getFile(), true, 512, JSON_THROW_ON_ERROR);
+
+                echo json_encode($data, JSON_THROW_ON_ERROR);
 
                 return;
             }

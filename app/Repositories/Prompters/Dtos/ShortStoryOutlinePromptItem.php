@@ -16,9 +16,11 @@ final class ShortStoryOutlinePromptItem extends BasePromptItem
         public string $outline,
         public string $provider,
         public string $model,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'short-story-outline-prompt-view',
             $this->model,
         );

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Repositories\Prompters\Dtos;
 
 use App\Repositories\Prompters\Dtos\Base\BasePromptItem;
+use Override;
 
 final class ModifierPromptItem extends BasePromptItem
 {
     public function __construct(
+        public string $caller,
         public string $title = '',
         public string $sectionAge = '',
         public string $age = '',
@@ -23,7 +25,7 @@ final class ModifierPromptItem extends BasePromptItem
         public bool $anachronise = false,
         public string $anachroniseText = 'USE ANACHRONISTIC LANGUAGE',
     ) {
-        parent::__construct();
+        parent::__construct($this->caller);
     }
 
     public function toMarkdown(): string
@@ -52,5 +54,17 @@ final class ModifierPromptItem extends BasePromptItem
             ->append($anachronistic)
             ->trim()
             ->toString();
+    }
+
+    #[Override]
+    protected function getCleanData(): array
+    {
+        $data = parent::getCleanData();
+
+        if (! $this->anachronise) {
+            unset($data['anachronise'], $data['anachroniseText']);
+        }
+
+        return $data;
     }
 }

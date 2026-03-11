@@ -52,9 +52,13 @@ final class PulpAdventurePromptItem extends BasePromptItem
         public Collection $act3ActionSequences,
         public string $act3PlotTwistTitle,
         public PlotTwistItem $act3PlotTwist,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
-        parent::__construct('pulp-adventure-prompt-view');
+        parent::__construct(
+            $this->caller,
+            'pulp-adventure-prompt-view',
+        );
     }
 
     #[Override]

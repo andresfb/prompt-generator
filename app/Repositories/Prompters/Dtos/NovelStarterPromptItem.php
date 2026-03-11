@@ -20,9 +20,11 @@ final class NovelStarterPromptItem extends BasePromptItem
         public string $flaw,
         public string $sectionPrompt,
         public string $prompt,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'novel-starter-prompt-view',
             NovelStarterPrompt::class,
         );

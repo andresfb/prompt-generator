@@ -26,9 +26,11 @@ final class PlotMachinePromptItem extends BasePromptItem
         public string $twist,
         public string $sectionPrompt,
         public string $prompt,
+        public string $caller,
         public ?ModifierPromptItem $modifiers = null,
     ) {
         parent::__construct(
+            $this->caller,
             'plot-machine-prompt-view',
             PlotMachinePrompt::class,
         );
