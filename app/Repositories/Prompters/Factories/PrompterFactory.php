@@ -44,7 +44,7 @@ final class PrompterFactory
 
         $excludedPrompters = app('excluded-prompters');
 
-        $prompterClass = $prompters->whereNotIn('code', $excludedPrompters)->random();
+        $prompterClass = $prompters->whereNotIn('key', $excludedPrompters)->random();
         if (blank($prompterClass)) {
             return null;
         }

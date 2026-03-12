@@ -61,6 +61,8 @@ final class ModifierPromptItem extends BasePromptItem
     {
         $data = parent::getCleanData();
 
+        unset($data['modifiers']);
+
         if (! $this->anachronise) {
             unset($data['anachronise'], $data['anachroniseText']);
         }
