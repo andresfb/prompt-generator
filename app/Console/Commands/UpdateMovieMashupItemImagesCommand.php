@@ -27,6 +27,7 @@ final class UpdateMovieMashupItemImagesCommand extends Command
             intro('Updating Images');
 
             MovieMashupItem::query()
+                ->whereNull('images')
                 ->get()
                 ->each(function (MovieMashupItem $item) {
                     echo "Updating $item->title ";

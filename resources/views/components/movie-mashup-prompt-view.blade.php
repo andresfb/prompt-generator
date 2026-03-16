@@ -30,9 +30,8 @@
             @foreach($prompt->movies as $movie)
                 <div class="grow">
                     <div class="w-full sm:mb-0 mb-6">
-                        <div class="rounded-lg h-80 overflow-hidden mb-4">
-                            {{-- TODO: ask the AI the change this image tag and allow fiting a vertical image in the horizontal space --}}
-                            <img alt="cover" class="w-full h-auto object-cover object-center rounded" src="{{ $movie->getThumbnail() }}">
+                        <div class="rounded-lg h-80 mb-4 flex items-center justify-center">
+                            <img id="cover" alt="cover" class="max-w-full max-h-full object-contain rounded" src="{{ $movie->getThumbnail() }}">
                         </div>
 
                         <h1 class="text-gray-900 md:text-2xl text-xl title-font font-medium mb-9">

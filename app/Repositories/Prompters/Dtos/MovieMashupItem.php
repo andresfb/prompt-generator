@@ -76,27 +76,25 @@ final class MovieMashupItem extends BasePromptItem
 
     public function getImage(string $type = 'Primary'): array
     {
-        $noImage = Config::string('constants.missing_cover_image');
-
         if (blank($this->images)) {
-            return ['', $noImage];
+            return [false, '', ''];
         }
 
         if (! array_key_exists($type, $this->images)) {
-            return ['', $noImage];
+            return [false, '', ''];
         }
 
-        return [$type, $this->images[$type]];
+        return [true, $type, $this->images[$type]];
     }
 
     public function getThumbnail(): string
     {
-        [$type, $image] = $this->getImage('Thumb');
-        if (blank($type)) {
-            [$type, $image] = $this->getImage();
+        [$found, $type, $image] = $this->getImage('Thumb');
+        if (! $found) {
+            [$found, $type, $image] = $this->getImage();
         }
 
-        if (blank($image)) {
+        if (! $found) {
             return Config::string('constants.missing_cover_image');
         }
 
